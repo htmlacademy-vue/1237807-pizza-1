@@ -8,7 +8,7 @@
             <h2 class="title title--small sheet__title">Выберите тесто</h2>
             <div class="sheet__content dough">
               <SelectorItem
-                v-for="doughType in dough"
+                v-for="doughType in data.dough"
                 :key="doughType.id"
                 :class="`dough__input dough__input--${doughType.value}`"
                 :selector="doughType"
@@ -21,7 +21,7 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
             <div class="sheet__content diameter">
               <SelectorItem
-                v-for="size in sizes"
+                v-for="size in data.sizes"
                 :key="size.id"
                 :class="`diameter__input diameter__input--${size.value}`"
                 :selector="size"
@@ -38,7 +38,7 @@
               <div class="ingredients__sauce">
                 <p>Основной соус:</p>
                 <SelectorItem
-                  v-for="sauce in sauces"
+                  v-for="sauce in data.sauces"
                   :key="sauce.id"
                   class="radio ingredients__input"
                   :selector="sauce"
@@ -48,7 +48,7 @@
                 <p>Начинка:</p>
                 <ul class="ingredients__list">
                   <li
-                    v-for="ingredient in ingredients"
+                    v-for="ingredient in data.ingredients"
                     :key="ingredient.id"
                     class="ingredients__item"
                   >
@@ -81,7 +81,7 @@
             </div>
           </div>
           <div class="content__result">
-            <p>Итого: 0 ₽</p>
+            <p>Итого: {{ sum }} ₽</p>
             <button type="button" class="button" disabled>Готовьте!</button>
           </div>
         </div>
@@ -93,27 +93,23 @@
 <script>
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
-import pizza from "@/static/pizza.json";
-import { normalizeData } from "@/common/helpers";
-import {
-  doughTypes,
-  pizzaSizes,
-  sauceTypes,
-  ingredientsTypes,
-} from "@/common/constants";
 
 export default {
   name: "Index",
   components: { SelectorItem, ItemCounter },
-  data() {
-    return {
-      dough: pizza.dough.map((dough) => normalizeData(dough, doughTypes)),
-      sizes: pizza.sizes.map((size) => normalizeData(size, pizzaSizes)),
-      sauces: pizza.sauces.map((sauce) => normalizeData(sauce, sauceTypes)),
-      ingredients: pizza.ingredients.map((ingredient) =>
-        normalizeData(ingredient, ingredientsTypes)
-      ),
-    };
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+    order: {
+      type: Object,
+      required: true,
+    },
+    sum: {
+      type: Number,
+      required: true,
+    },
   },
 };
 </script>
