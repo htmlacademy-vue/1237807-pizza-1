@@ -76,27 +76,7 @@
                       <span :class="`filling filling--${ingredient.value}`">
                         {{ ingredient.name }}
                       </span>
-                      <div class="counter counter--orange ingredients__counter">
-                        <button
-                          type="button"
-                          class="counter__button counter__button--minus"
-                          disabled
-                        >
-                          <span class="visually-hidden">Меньше</span>
-                        </button>
-                        <input
-                          type="text"
-                          name="counter"
-                          class="counter__input"
-                          value="0"
-                        />
-                        <button
-                          type="button"
-                          class="counter__button counter__button--plus"
-                        >
-                          <span class="visually-hidden">Больше</span>
-                        </button>
-                      </div>
+                      <ItemCounter value="3" />
                     </li>
                   </ul>
                 </div>
@@ -134,6 +114,7 @@
 
 <script>
 import SelectorItem from "@/common/components/SelectorItem";
+import ItemCounter from "@/common/components/ItemCounter";
 import pizza from "@/static/pizza.json";
 import { normalizeData } from "@/common/helpers";
 import {
@@ -145,7 +126,7 @@ import {
 
 export default {
   name: "Index",
-  components: { SelectorItem },
+  components: { SelectorItem, ItemCounter },
   data() {
     return {
       dough: pizza.dough.map((dough) => normalizeData(dough, doughTypes)),
