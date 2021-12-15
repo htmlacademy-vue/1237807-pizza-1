@@ -1,30 +1,28 @@
 <template>
-  <label>
-    <input
-      type="radio"
-      :name="name"
-      :value="radioData.value"
-      class="visually-hidden"
-      :checked="radioData.checked"
-      v-on="$listeners"
-    />
-    <b v-if="radioData.description">{{ radioData.name }}</b>
-    <span v-if="radioData.description">{{ radioData.description }}</span>
-    <span v-else>{{ radioData.name }}</span>
-  </label>
+  <input
+    type="radio"
+    :name="name"
+    :value="value"
+    class="visually-hidden"
+    :checked="isChecked"
+    v-on="$listeners"
+  />
 </template>
 
 <script>
 export default {
   name: "RadioButton",
   props: {
-    radioData: {
-      type: Object,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
+    },
+    value: {
+      type: String,
+      required: true,
+    },
+    isChecked: {
+      type: Boolean,
     },
   },
 };

@@ -28,12 +28,11 @@
             <div class="sheet">
               <h2 class="title title--small sheet__title">Выберите тесто</h2>
               <div class="sheet__content dough">
-                <RadioButton
+                <SelectorItem
                   v-for="doughType in dough"
                   :key="doughType.id"
                   :class="`dough__input dough__input--${doughType.value}`"
-                  :radioData="doughType"
-                  name="dough"
+                  :selector="doughType"
                 />
               </div>
             </div>
@@ -42,12 +41,11 @@
             <div class="sheet">
               <h2 class="title title--small sheet__title">Выберите размер</h2>
               <div class="sheet__content diameter">
-                <RadioButton
+                <SelectorItem
                   v-for="size in sizes"
                   :key="size.id"
                   :class="`diameter__input diameter__input--${size.value}`"
-                  :radioData="size"
-                  name="diameter"
+                  :selector="size"
                 />
               </div>
             </div>
@@ -60,12 +58,11 @@
               <div class="sheet__content ingredients">
                 <div class="ingredients__sauce">
                   <p>Основной соус:</p>
-                  <RadioButton
+                  <SelectorItem
                     v-for="sauce in sauces"
                     :key="sauce.id"
                     class="radio ingredients__input"
-                    :radioData="sauce"
-                    name="sauce"
+                    :selector="sauce"
                   />
                 </div>
                 <div class="ingredients__filling">
@@ -136,7 +133,7 @@
 </template>
 
 <script>
-import RadioButton from "@/common/components/RadioButton";
+import SelectorItem from "@/common/components/SelectorItem";
 import pizza from "@/static/pizza.json";
 import { normalizeData } from "@/common/helpers";
 import {
@@ -148,7 +145,7 @@ import {
 
 export default {
   name: "Index",
-  components: { RadioButton },
+  components: { SelectorItem },
   data() {
     return {
       dough: pizza.dough.map((dough) => normalizeData(dough, doughTypes)),

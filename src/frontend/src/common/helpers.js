@@ -3,6 +3,7 @@ export const normalizeData = (data, items) => {
 
   return {
     ...data,
+    type: requiredItem.type,
     value: requiredItem.value,
     checked: requiredItem.checked ? true : false,
   };
