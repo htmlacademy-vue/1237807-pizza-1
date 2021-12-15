@@ -5,7 +5,9 @@
     :value="value"
     class="visually-hidden"
     :checked="isChecked"
-    v-on="$listeners"
+    @change="
+      $emit('updatePizzaOrder', { payload: $event.target.value, action: name })
+    "
   />
 </template>
 

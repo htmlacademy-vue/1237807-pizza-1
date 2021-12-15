@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <AppLayoutHeader :total="result" />
-    <Index :data="pizzaData" :order="pizzaOrder" :sum="result" />
+    <Index
+      :data="pizzaData"
+      :order="pizzaOrder"
+      :sum="result"
+      @updatePizzaOrder="updatePizzaOrder"
+    />
   </div>
 </template>
 
@@ -54,11 +59,11 @@ export default {
         }
       });
 
-      return (doughCost + sauceCost + ingredientsTotalCost) * sizeCost;
+      return (doughCost + sauceCost + ingredientsTotalCost) * sizeCost || 0;
     },
   },
   methods: {
-    updatePizzaOrder(payload, action) {
+    updatePizzaOrder({ payload, action }) {
       switch (action) {
         case "dough":
           this.pizzaOrder.dough = payload;

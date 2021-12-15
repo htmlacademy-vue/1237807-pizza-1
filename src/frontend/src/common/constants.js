@@ -3,7 +3,6 @@ export const doughTypes = [
     type: "dough",
     name: "Тонкое",
     value: "light",
-    checked: true,
   },
   {
     type: "dough",

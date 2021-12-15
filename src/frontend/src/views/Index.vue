@@ -3,19 +3,11 @@
     <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
-        <div class="content__dough">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите тесто</h2>
-            <div class="sheet__content dough">
-              <SelectorItem
-                v-for="doughType in data.dough"
-                :key="doughType.id"
-                :class="`dough__input dough__input--${doughType.value}`"
-                :selector="doughType"
-              />
-            </div>
-          </div>
-        </div>
+        <BuilderDoughSelector
+          :dough="data.dough"
+          :checked="order.dough"
+          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+        />
         <div class="content__diameter">
           <div class="sheet">
             <h2 class="title title--small sheet__title">Выберите размер</h2>
@@ -91,12 +83,13 @@
 </template>
 
 <script>
+import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 
 export default {
   name: "Index",
-  components: { SelectorItem, ItemCounter },
+  components: { BuilderDoughSelector, SelectorItem, ItemCounter },
   props: {
     data: {
       type: Object,
@@ -113,5 +106,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

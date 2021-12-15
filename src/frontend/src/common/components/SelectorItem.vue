@@ -3,7 +3,8 @@
     <RadioButton
       :name="selector.type"
       :value="selector.value"
-      :isChecked="selector.checked"
+      :isChecked="selector.value === checked"
+      @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
     />
     <b v-if="selector.description">{{ selector.name }}</b>
     <span v-if="selector.description">{{ selector.description }}</span>
@@ -21,6 +22,9 @@ export default {
     selector: {
       type: Object,
       required: true,
+    },
+    checked: {
+      type: String,
     },
   },
 };
