@@ -19,6 +19,7 @@
           :sauceChecked="order.sauce"
           :ingredientsChecked="order.ingredients"
           @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+          @updateIngredient="updateIngredient"
         />
         <div class="content__pizza">
           <BuilderPizzaTitle
@@ -29,6 +30,7 @@
             :dough="order.dough"
             :ingredients="order.ingredients"
             :sauce="order.sauce"
+            @updateIngredient="updateIngredient"
           />
           <BuilderPriceCounter
             :sum="sum"
@@ -70,6 +72,20 @@ export default {
     sum: {
       type: Number,
       required: true,
+    },
+  },
+  methods: {
+    updateIngredient(value, type, isAddition) {
+      let data = {
+        payload: { ingredient: value },
+        action: type,
+      };
+
+      if (isAddition) {
+        data.payload.addition = isAddition;
+      }
+
+      this.$emit("updatePizzaOrder", data);
     },
   },
 };

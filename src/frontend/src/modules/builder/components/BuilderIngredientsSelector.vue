@@ -22,16 +22,30 @@
               :key="ingredient.id"
               class="ingredients__item"
             >
-              <span :class="`filling filling--${ingredient.value}`">
+              <span
+                :class="`filling filling--${ingredient.value}`"
+                :draggable="
+                  !ingredientsCount[ingredient.value] ||
+                  ingredientsCount[ingredient.value] < MAX_INGREDIENTS
+                "
+                @dragstart.self="onDrag($event, ingredient)"
+                @dragover.prevent
+                @dragenter.prevent
+              >
                 {{ ingredient.name }}
               </span>
               <ItemCounter
                 :value="ingredientsCount[ingredient.value] || 0"
                 @removeIngredient="
-                  updateIngredient(ingredient.value, ingredient.type)
+                  $emit('updateIngredient', ingredient.value, ingredient.type)
                 "
                 @addIngredient="
-                  updateIngredient(ingredient.value, ingredient.type, true)
+                  $emit(
+                    'updateIngredient',
+                    ingredient.value,
+                    ingredient.type,
+                    true
+                  )
                 "
               />
             </li>
@@ -46,6 +60,11 @@
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import { countItemsInArray } from "@/common/helpers";
+import {
+  DATA_TRANSFER_PAYLOAD,
+  MOVE,
+  MAX_INGREDIENTS,
+} from "@/common/constants";
 
 export default {
   name: "BuilderIngredientsSelector",
@@ -66,23 +85,21 @@ export default {
       type: Array,
     },
   },
+  data() {
+    return {
+      MAX_INGREDIENTS,
+    };
+  },
   computed: {
     ingredientsCount() {
       return countItemsInArray(this.ingredientsChecked);
     },
   },
   methods: {
-    updateIngredient(value, type, isAddition) {
-      let data = {
-        payload: { ingredient: value },
-        action: type,
-      };
-
-      if (isAddition) {
-        data.payload.addition = isAddition;
-      }
-
-      this.$emit("updatePizzaOrder", data);
+    onDrag({ dataTransfer }, data) {
+      dataTransfer.effectAllowed = MOVE;
+      dataTransfer.dropEffect = MOVE;
+      dataTransfer.setData(DATA_TRANSFER_PAYLOAD, JSON.stringify(data));
     },
   },
 };

@@ -65,7 +65,6 @@ export default {
   },
   methods: {
     updatePizzaOrder({ payload, action }) {
-      console.log(payload);
       switch (action) {
         case "title":
           this.pizzaOrder.title = payload;
