@@ -8,19 +8,11 @@
           :checked="order.dough"
           @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
         />
-        <div class="content__diameter">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите размер</h2>
-            <div class="sheet__content diameter">
-              <SelectorItem
-                v-for="size in data.sizes"
-                :key="size.id"
-                :class="`diameter__input diameter__input--${size.value}`"
-                :selector="size"
-              />
-            </div>
-          </div>
-        </div>
+        <BuilderSizeSelector
+          :sizes="data.sizes"
+          :checked="order.diameter"
+          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+        />
         <div class="content__ingredients">
           <div class="sheet">
             <h2 class="title title--small sheet__title">
@@ -84,12 +76,18 @@
 
 <script>
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 
 export default {
   name: "Index",
-  components: { BuilderDoughSelector, SelectorItem, ItemCounter },
+  components: {
+    BuilderDoughSelector,
+    BuilderSizeSelector,
+    SelectorItem,
+    ItemCounter,
+  },
   props: {
     data: {
       type: Object,

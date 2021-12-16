@@ -21,7 +21,6 @@ export const pizzaSizes = [
     type: "diameter",
     name: "32 см",
     value: "normal",
-    checked: true,
   },
   {
     type: "diameter",
@@ -35,7 +34,6 @@ export const sauceTypes = [
     type: "sauce",
     name: "Томатный",
     value: "tomato",
-    checked: true,
   },
   {
     type: "sauce",

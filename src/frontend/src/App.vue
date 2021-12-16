@@ -40,7 +40,7 @@ export default {
       },
       pizzaOrder: {
         dough: "light",
-        size: "normal",
+        diameter: "normal",
         sauce: "tomato",
         ingredients: ["ananas", "bacon", "cheddar"],
       },
@@ -49,7 +49,7 @@ export default {
   computed: {
     result() {
       const doughCost = getPrice(this.pizzaData.dough, this.pizzaOrder.dough);
-      const sizeCost = getPrice(this.pizzaData.sizes, this.pizzaOrder.size);
+      const sizeCost = getPrice(this.pizzaData.sizes, this.pizzaOrder.diameter);
       const sauceCost = getPrice(this.pizzaData.sauces, this.pizzaOrder.sauce);
       const ingredientsCount = countItemsInArray(this.pizzaOrder.ingredients);
       let ingredientsTotalCost = 0;
@@ -68,8 +68,8 @@ export default {
         case "dough":
           this.pizzaOrder.dough = payload;
           break;
-        case "size":
-          this.pizzaOrder.size = payload;
+        case "diameter":
+          this.pizzaOrder.diameter = payload;
           break;
         case "sauce":
           this.pizzaOrder.sauce = payload;
