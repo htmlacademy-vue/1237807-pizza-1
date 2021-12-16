@@ -13,39 +13,13 @@
           :checked="order.diameter"
           @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
         />
-        <div class="content__ingredients">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">
-              Выберите ингредиенты
-            </h2>
-            <div class="sheet__content ingredients">
-              <div class="ingredients__sauce">
-                <p>Основной соус:</p>
-                <SelectorItem
-                  v-for="sauce in data.sauces"
-                  :key="sauce.id"
-                  class="radio ingredients__input"
-                  :selector="sauce"
-                />
-              </div>
-              <div class="ingredients__filling">
-                <p>Начинка:</p>
-                <ul class="ingredients__list">
-                  <li
-                    v-for="ingredient in data.ingredients"
-                    :key="ingredient.id"
-                    class="ingredients__item"
-                  >
-                    <span :class="`filling filling--${ingredient.value}`">
-                      {{ ingredient.name }}
-                    </span>
-                    <ItemCounter value="3" />
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <BuilderIngredientsSelector
+          :sauces="data.sauces"
+          :ingredients="data.ingredients"
+          :sauceChecked="order.sauce"
+          :ingredientsChecked="order.ingredients"
+          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+        />
         <div class="content__pizza">
           <label class="input">
             <span class="visually-hidden">Название пиццы</span>
@@ -77,16 +51,14 @@
 <script>
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
-import SelectorItem from "@/common/components/SelectorItem";
-import ItemCounter from "@/common/components/ItemCounter";
+import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
 
 export default {
   name: "Index",
   components: {
     BuilderDoughSelector,
     BuilderSizeSelector,
-    SelectorItem,
-    ItemCounter,
+    BuilderIngredientsSelector,
   },
   props: {
     data: {

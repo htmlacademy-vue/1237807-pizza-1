@@ -64,6 +64,7 @@ export default {
   },
   methods: {
     updatePizzaOrder({ payload, action }) {
+      console.log(payload);
       switch (action) {
         case "dough":
           this.pizzaOrder.dough = payload;
@@ -75,7 +76,16 @@ export default {
           this.pizzaOrder.sauce = payload;
           break;
         case "ingredients":
-          this.pizzaOrder.ingredients.push(payload);
+          if (payload.addition) {
+            this.pizzaOrder.ingredients.push(payload.ingredient);
+          } else {
+            const index = this.pizzaOrder.ingredients.indexOf(
+              payload.ingredient
+            );
+            if (index > -1) {
+              this.pizzaOrder.ingredients.splice(index, 1);
+            }
+          }
           break;
       }
     },
