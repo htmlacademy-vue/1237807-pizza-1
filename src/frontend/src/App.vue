@@ -39,6 +39,7 @@ export default {
         ),
       },
       pizzaOrder: {
+        title: "",
         dough: "light",
         diameter: "normal",
         sauce: "tomato",
@@ -66,6 +67,9 @@ export default {
     updatePizzaOrder({ payload, action }) {
       console.log(payload);
       switch (action) {
+        case "title":
+          this.pizzaOrder.title = payload;
+          break;
         case "dough":
           this.pizzaOrder.dough = payload;
           break;

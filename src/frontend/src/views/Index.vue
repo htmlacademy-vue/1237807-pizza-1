@@ -21,27 +21,19 @@
           @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
         />
         <div class="content__pizza">
-          <label class="input">
-            <span class="visually-hidden">Название пиццы</span>
-            <input
-              type="text"
-              name="pizza_name"
-              placeholder="Введите название пиццы"
-            />
-          </label>
-          <div class="content__constructor">
-            <div class="pizza pizza--foundation--big-tomato">
-              <div class="pizza__wrapper">
-                <div class="pizza__filling pizza__filling--ananas"></div>
-                <div class="pizza__filling pizza__filling--bacon"></div>
-                <div class="pizza__filling pizza__filling--cheddar"></div>
-              </div>
-            </div>
-          </div>
-          <div class="content__result">
-            <p>Итого: {{ sum }} ₽</p>
-            <button type="button" class="button" disabled>Готовьте!</button>
-          </div>
+          <BuilderPizzaTitle
+            :title="order.title"
+            @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+          />
+          <BuilderPizzaView
+            :dough="order.dough"
+            :ingredients="order.ingredients"
+            :sauce="order.sauce"
+          />
+          <BuilderPriceCounter
+            :sum="sum"
+            :disabled="order.ingredients.length === 0 || order.title === ''"
+          />
         </div>
       </div>
     </form>
@@ -52,6 +44,9 @@
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import BuilderPizzaTitle from "@/modules/builder/components/BuilderPizzaTitle";
+import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 
 export default {
   name: "Index",
@@ -59,6 +54,9 @@ export default {
     BuilderDoughSelector,
     BuilderSizeSelector,
     BuilderIngredientsSelector,
+    BuilderPizzaTitle,
+    BuilderPizzaView,
+    BuilderPriceCounter,
   },
   props: {
     data: {
