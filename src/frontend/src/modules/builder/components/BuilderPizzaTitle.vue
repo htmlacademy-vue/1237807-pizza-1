@@ -7,12 +7,7 @@
       placeholder="Введите название пиццы"
       required
       :value="title"
-      @change="
-        $emit('updatePizzaOrder', {
-          payload: $event.target.value,
-          action: 'title',
-        })
-      "
+      @change="$emit('updatePizzaTitle', $event.target.value)"
     />
   </label>
 </template>

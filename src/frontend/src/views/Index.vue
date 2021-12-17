@@ -6,25 +6,33 @@
         <BuilderDoughSelector
           :dough="data.dough"
           :checked="order.dough"
-          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+          @updatePizzaDough="
+            $emit('updatePizzaOrder', { payload: $event, action: 'dough' })
+          "
         />
         <BuilderSizeSelector
           :sizes="data.sizes"
           :checked="order.diameter"
-          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+          @updatePizzaSize="
+            $emit('updatePizzaOrder', { payload: $event, action: 'diameter' })
+          "
         />
         <BuilderIngredientsSelector
           :sauces="data.sauces"
           :ingredients="data.ingredients"
           :sauceChecked="order.sauce"
           :ingredientsChecked="order.ingredients"
-          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+          @updatePizzaSauce="
+            $emit('updatePizzaOrder', { payload: $event, action: 'sauce' })
+          "
           @updateIngredient="updateIngredient"
         />
         <div class="content__pizza">
           <BuilderPizzaTitle
             :title="order.title"
-            @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+            @updatePizzaTitle="
+              $emit('updatePizzaOrder', { payload: $event, action: 'title' })
+            "
           />
           <BuilderPizzaView
             :dough="order.dough"

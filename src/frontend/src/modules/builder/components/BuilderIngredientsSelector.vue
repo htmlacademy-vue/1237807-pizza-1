@@ -11,7 +11,7 @@
             class="radio ingredients__input"
             :selector="sauce"
             :checked="sauceChecked"
-            @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+            @updatePizzaOrder="$emit('updatePizzaSauce', $event)"
           />
         </div>
         <div class="ingredients__filling">
@@ -24,10 +24,7 @@
             >
               <span
                 :class="`filling filling--${ingredient.value}`"
-                :draggable="
-                  !ingredientsCount[ingredient.value] ||
-                  ingredientsCount[ingredient.value] < MAX_INGREDIENTS
-                "
+                :draggable="isDraggable(ingredient.value)"
                 @dragstart.self="onDrag($event, ingredient)"
                 @dragover.prevent
                 @dragenter.prevent
@@ -96,6 +93,12 @@ export default {
     },
   },
   methods: {
+    isDraggable(ingredient) {
+      return (
+        !this.ingredientsCount[ingredient] ||
+        this.ingredientsCount[ingredient] < this.MAX_INGREDIENTS
+      );
+    },
     onDrag({ dataTransfer }, data) {
       dataTransfer.effectAllowed = MOVE;
       dataTransfer.dropEffect = MOVE;

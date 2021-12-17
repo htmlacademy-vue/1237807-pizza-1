@@ -14,13 +14,9 @@
         <div
           v-for="(ingredient, index) in ingredients"
           :key="index"
-          :class="`pizza__filling pizza__filling--${ingredient} ${
-            ingredientsIndex[ingredientsCount[ingredient]]
-              ? `pizza__filling--${
-                  ingredientsIndex[ingredientsCount[ingredient]]
-                }`
-              : ''
-          }`"
+          :class="`pizza__filling pizza__filling--${ingredient} pizza__filling--${getIngredientCountClassName(
+            ingredient
+          )}`"
         ></div>
       </div>
     </div>
@@ -61,6 +57,13 @@ export default {
     },
   },
   methods: {
+    getIngredientCountClassName(ingredient) {
+      if (this.ingredientsIndex[this.ingredientsCount[ingredient]]) {
+        return this.ingredientsIndex[this.ingredientsCount[ingredient]];
+      } else {
+        return "";
+      }
+    },
     onDrop({ dataTransfer }) {
       if (!dataTransfer) {
         return;

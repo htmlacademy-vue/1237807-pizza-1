@@ -9,7 +9,7 @@
           :class="`diameter__input diameter__input--${size.value}`"
           :selector="size"
           :checked="checked"
-          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+          @updatePizzaOrder="$emit('updatePizzaSize', $event)"
         />
       </div>
     </div>

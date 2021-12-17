@@ -9,7 +9,7 @@
           :class="`dough__input dough__input--${doughType.value}`"
           :selector="doughType"
           :checked="checked"
-          @updatePizzaOrder="$emit('updatePizzaOrder', $event)"
+          @updatePizzaOrder="$emit('updatePizzaDough', $event)"
         />
       </div>
     </div>
