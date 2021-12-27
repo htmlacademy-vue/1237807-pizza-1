@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <AppLayoutHeader :total="result" />
-    <Index
-      :data="pizzaData"
-      :order="pizzaOrder"
-      :sum="result"
-      @updatePizzaOrder="updatePizzaOrder"
-    />
+    <AppLayout :total="result">
+      <router-view
+        :data="routeProps.data"
+        :order="routeProps.order"
+        :sum="routeProps.sum"
+        @updatePizzaOrder="updatePizzaOrder"
+      />
+    </AppLayout>
   </div>
 </template>
 
 <script>
-import AppLayoutHeader from "@/layouts/AppLayoutHeader";
-import Index from "@/views/Index";
+import AppLayout from "@/layouts/AppLayout";
 import pizza from "@/static/pizza.json";
 import { normalizeData, countItemsInArray, getPrice } from "@/common/helpers";
 import {
@@ -25,8 +25,7 @@ import {
 export default {
   name: "App",
   components: {
-    AppLayoutHeader,
-    Index,
+    AppLayout,
   },
   data() {
     return {
@@ -48,6 +47,36 @@ export default {
     };
   },
   computed: {
+    routeProps() {
+      const routes = {
+        Index: {
+          data: this.pizzaData,
+          order: this.pizzaOrder,
+          sum: this.result,
+        },
+        Login: {
+          data: this.pizzaData,
+          order: this.pizzaOrder,
+          sum: this.result,
+        },
+        Cart: {
+          data: this.pizzaData,
+          order: this.pizzaOrder,
+          sum: this.result,
+        },
+        Orders: {
+          data: null,
+          order: null,
+          sum: null,
+        },
+        Profile: {
+          data: null,
+          order: null,
+          sum: null,
+        },
+      };
+      return routes[this.$route.name] || {};
+    },
     result() {
       const doughCost = getPrice(this.pizzaData.dough, this.pizzaOrder.dough);
       const sizeCost = getPrice(this.pizzaData.sizes, this.pizzaOrder.diameter);
