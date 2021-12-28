@@ -6,11 +6,12 @@
 
 <script>
 const defaultLayout = "AppLayoutDefault";
+const emptyLayout = "AppLayoutEmpty";
 
 export default {
   name: "AppLayout",
   props: {
-    total: {
+    sum: {
       type: Number,
       required: true,
     },
@@ -19,6 +20,12 @@ export default {
     layout() {
       const layout = this.$route.meta.layout || defaultLayout;
       return () => import(`@/layouts/${layout}.vue`);
+    },
+    total() {
+      if (this.$route.meta.layout === emptyLayout) {
+        return;
+      }
+      return this.sum;
     },
   },
 };

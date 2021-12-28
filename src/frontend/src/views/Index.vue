@@ -1,6 +1,5 @@
 <template>
   <main class="content">
-    <router-view />
     <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>

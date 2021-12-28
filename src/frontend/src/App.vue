@@ -1,12 +1,7 @@
 <template>
   <div id="app">
-    <AppLayout :total="result">
-      <router-view
-        :data="routeProps.data"
-        :order="routeProps.order"
-        :sum="routeProps.sum"
-        @updatePizzaOrder="updatePizzaOrder"
-      />
+    <AppLayout :sum="result">
+      <router-view v-bind="routeProps" @updatePizzaOrder="updatePizzaOrder" />
     </AppLayout>
   </div>
 </template>
@@ -55,9 +50,9 @@ export default {
           sum: this.result,
         },
         Login: {
-          data: this.pizzaData,
-          order: this.pizzaOrder,
-          sum: this.result,
+          data: null,
+          order: null,
+          sum: null,
         },
         Cart: {
           data: this.pizzaData,

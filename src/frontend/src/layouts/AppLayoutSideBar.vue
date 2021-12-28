@@ -11,14 +11,14 @@
     <router-link
       to="/orders"
       class="layout__link"
-      :class="{ 'layout__link--active': isActive('Orders') }"
+      active-class="layout__link--active"
     >
       История заказов
     </router-link>
     <router-link
       to="/profile"
       class="layout__link"
-      :class="{ 'layout__link--active': isActive('Profile') }"
+      active-class="layout__link--active"
     >
       Мои данные
     </router-link>
@@ -28,10 +28,5 @@
 <script>
 export default {
   name: "AppLayoutSidebar",
-  methods: {
-    isActive(name) {
-      return this.$route.name === name;
-    },
-  },
 };
 </script>

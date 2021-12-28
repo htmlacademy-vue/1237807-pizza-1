@@ -4,14 +4,12 @@ export default [
     name: "Index",
     component: () => import("../views/Index.vue"),
     meta: { layout: "AppLayoutDefault" },
-    children: [
-      {
-        path: "/login",
-        name: "Login",
-        component: () => import("../views/Login.vue"),
-        meta: { layout: "AppLayoutDefault" },
-      },
-    ],
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+    meta: { layout: "AppLayoutEmpty" },
   },
   {
     path: "/cart",
