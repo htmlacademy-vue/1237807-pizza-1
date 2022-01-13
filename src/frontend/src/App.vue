@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import AppLayout from "@/layouts/AppLayout";
 import pizza from "@/static/pizza.json";
 import { normalizeData, countItemsInArray, getPrice } from "@/common/helpers";
@@ -42,6 +43,10 @@ export default {
     };
   },
   computed: {
+    ...mapState("Builder", ["dough"]),
+    ...mapState("Builder", ["sizes"]),
+    ...mapState("Builder", ["sauces"]),
+    ...mapState("Builder", ["ingredients"]),
     routeProps() {
       const routes = {
         Index: {
@@ -116,6 +121,9 @@ export default {
           break;
       }
     },
+  },
+  created() {
+    this.$store.dispatch("Builder/query");
   },
 };
 </script>
