@@ -9,7 +9,7 @@
           :class="`dough__input dough__input--${doughType.value}`"
           :selector="doughType"
           :checked="checked"
-          @updatePizzaOrder="$emit('updatePizzaDough', $event)"
+          @updateData="$emit('updateData', $event)"
         />
       </div>
     </div>
@@ -17,18 +17,17 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderDoughSelector",
   components: { SelectorItem },
-  props: {
-    dough: {
-      type: Array,
-      required: true,
-    },
-    checked: {
-      type: String,
+  computed: {
+    ...mapState("Builder", ["dough"]),
+    ...mapGetters("Builder", ["getOrderItem"]),
+    checked() {
+      return this.getOrderItem("dough");
     },
   },
 };

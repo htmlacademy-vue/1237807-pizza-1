@@ -4,7 +4,7 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="value <= 0"
-      @click="$emit('removeIngredient')"
+      @click="$emit('removeItem')"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -19,7 +19,7 @@
       type="button"
       class="counter__button counter__button--plus"
       :disabled="value >= 3"
-      @click="$emit('addIngredient')"
+      @click="$emit('addItem')"
     >
       <span class="visually-hidden">Больше</span>
     </button>

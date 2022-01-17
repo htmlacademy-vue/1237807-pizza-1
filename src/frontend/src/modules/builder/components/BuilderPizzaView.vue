@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import doughLayer from "@/common/enums/doughLayer";
 import ingredientsIndex from "@/common/enums/ingredientsIndex";
 import { countItemsInArray } from "@/common/helpers";
@@ -31,20 +32,6 @@ import { DATA_TRANSFER_PAYLOAD } from "@/common/constants";
 
 export default {
   name: "BuilderPizzaView",
-  props: {
-    dough: {
-      type: String,
-      required: true,
-    },
-    sauce: {
-      type: String,
-      required: true,
-    },
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-  },
   data() {
     return {
       doughLayer,
@@ -52,6 +39,16 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("Builder", ["getOrderItem"]),
+    dough() {
+      return this.getOrderItem("dough");
+    },
+    sauce() {
+      return this.getOrderItem("sauce");
+    },
+    ingredients() {
+      return this.getOrderItem("ingredients");
+    },
     ingredientsCount() {
       return countItemsInArray(this.ingredients);
     },
@@ -74,12 +71,10 @@ export default {
           dataTransfer.getData(DATA_TRANSFER_PAYLOAD)
         );
 
-        this.$emit(
-          "updateIngredient",
-          transferData.value,
-          transferData.type,
-          true
-        );
+        this.$emit("updateIngredients", {
+          payload: transferData.value,
+          isAddition: true,
+        });
       }
     },
   },

@@ -43,6 +43,7 @@ export default {
 
       return (doughCost + sauceCost + ingredientsTotalCost) * sizeCost || 0;
     },
+    getOrderItem: (state) => (item) => state.order[item],
   },
 
   mutations: {
@@ -50,18 +51,7 @@ export default {
       state[name] = data;
     },
     [UPDATE_ORDER]({ order }, { item, payload }) {
-      if (item === "ingredients") {
-        if (payload.addition) {
-          order[item].push(payload.ingredient);
-        } else {
-          const index = order[item].indexOf(payload.ingredient);
-          if (~index) {
-            order[item].splice(index, 1);
-          }
-        }
-      } else {
-        order[item] = payload;
-      }
+      order[item] = payload;
     },
   },
 

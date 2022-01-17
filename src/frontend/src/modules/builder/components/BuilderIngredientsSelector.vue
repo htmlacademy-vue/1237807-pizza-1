@@ -11,7 +11,7 @@
             class="radio ingredients__input"
             :selector="sauce"
             :checked="sauceChecked"
-            @updatePizzaOrder="$emit('updatePizzaSauce', $event)"
+            @updateData="$emit('updateSauce', $event)"
           />
         </div>
         <div class="ingredients__filling">
@@ -33,16 +33,14 @@
               </span>
               <ItemCounter
                 :value="ingredientsCount[ingredient.value] || 0"
-                @removeIngredient="
-                  $emit('updateIngredient', ingredient.value, ingredient.type)
+                @removeItem="
+                  $emit('updateIngredients', { payload: ingredient.value })
                 "
-                @addIngredient="
-                  $emit(
-                    'updateIngredient',
-                    ingredient.value,
-                    ingredient.type,
-                    true
-                  )
+                @addItem="
+                  $emit('updateIngredients', {
+                    payload: ingredient.value,
+                    isAddition: true,
+                  })
                 "
               />
             </li>
@@ -54,6 +52,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import { countItemsInArray } from "@/common/helpers";
@@ -66,28 +65,21 @@ import {
 export default {
   name: "BuilderIngredientsSelector",
   components: { SelectorItem, ItemCounter },
-  props: {
-    sauces: {
-      type: Array,
-      required: true,
-    },
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-    sauceChecked: {
-      type: String,
-    },
-    ingredientsChecked: {
-      type: Array,
-    },
-  },
   data() {
     return {
       MAX_INGREDIENTS,
     };
   },
   computed: {
+    ...mapState("Builder", ["sauces"]),
+    ...mapState("Builder", ["ingredients"]),
+    ...mapGetters("Builder", ["getOrderItem"]),
+    sauceChecked() {
+      return this.getOrderItem("sauce");
+    },
+    ingredientsChecked() {
+      return this.getOrderItem("ingredients");
+    },
     ingredientsCount() {
       return countItemsInArray(this.ingredientsChecked);
     },

@@ -9,7 +9,7 @@
           :class="`diameter__input diameter__input--${size.value}`"
           :selector="size"
           :checked="checked"
-          @updatePizzaOrder="$emit('updatePizzaSize', $event)"
+          @updateData="$emit('updateData', $event)"
         />
       </div>
     </div>
@@ -17,18 +17,17 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderSizeSelector",
   components: { SelectorItem },
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
-    },
-    checked: {
-      type: String,
+  computed: {
+    ...mapState("Builder", ["sizes"]),
+    ...mapGetters("Builder", ["getOrderItem"]),
+    checked() {
+      return this.getOrderItem("diameter");
     },
   },
 };

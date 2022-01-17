@@ -1,21 +1,22 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ sum }} ₽</p>
+    <p>Итого: {{ orderSum }} ₽</p>
     <button type="button" class="button" :disabled="disabled">Готовьте!</button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BuilderPriceCounter",
   props: {
-    sum: {
-      type: Number,
-      required: true,
-    },
     disabled: {
       type: Boolean,
     },
+  },
+  computed: {
+    ...mapGetters("Builder", ["orderSum"]),
   },
 };
 </script>

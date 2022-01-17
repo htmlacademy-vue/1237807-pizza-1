@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppLayoutHeader :total="total" />
+    <AppLayoutHeader />
     <main class="layout">
       <AppLayoutSideBar />
       <slot />
@@ -17,12 +17,6 @@ export default {
   components: {
     AppLayoutHeader,
     AppLayoutSideBar,
-  },
-  props: {
-    total: {
-      type: Number,
-      required: true,
-    },
   },
 };
 </script>

@@ -4,45 +4,24 @@
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
         <BuilderDoughSelector
-          :dough="data.dough"
-          :checked="order.dough"
-          @updatePizzaDough="
-            $emit('updatePizzaOrder', { payload: $event, action: 'dough' })
-          "
+          @updateData="updateCurrentOrder('dough', $event)"
         />
         <BuilderSizeSelector
-          :sizes="data.sizes"
-          :checked="order.diameter"
-          @updatePizzaSize="
-            $emit('updatePizzaOrder', { payload: $event, action: 'diameter' })
-          "
+          @updateData="updateCurrentOrder('diameter', $event)"
         />
         <BuilderIngredientsSelector
-          :sauces="data.sauces"
-          :ingredients="data.ingredients"
-          :sauceChecked="order.sauce"
-          :ingredientsChecked="order.ingredients"
-          @updatePizzaSauce="
-            $emit('updatePizzaOrder', { payload: $event, action: 'sauce' })
-          "
-          @updateIngredient="updateIngredient"
+          @updateSauce="updateCurrentOrder('sauce', $event)"
+          @updateIngredients="updateCurrentOrder('ingredients', $event)"
         />
         <div class="content__pizza">
           <BuilderPizzaTitle
-            :title="order.title"
-            @updatePizzaTitle="
-              $emit('updatePizzaOrder', { payload: $event, action: 'title' })
-            "
+            @updateData="updateCurrentOrder('title', $event)"
           />
           <BuilderPizzaView
-            :dough="order.dough"
-            :ingredients="order.ingredients"
-            :sauce="order.sauce"
-            @updateIngredient="updateIngredient"
+            @updateIngredients="updateCurrentOrder('ingredients', $event)"
           />
           <BuilderPriceCounter
-            :sum="sum"
-            :disabled="order.ingredients.length === 0 || order.title === ''"
+            :disabled="ingredients.length === 0 || title === ''"
           />
         </div>
       </div>
@@ -51,6 +30,8 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
+import { UPDATE_ORDER } from "@/store/mutations-types";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
@@ -68,32 +49,39 @@ export default {
     BuilderPizzaView,
     BuilderPriceCounter,
   },
-  props: {
-    data: {
-      type: Object,
-      required: true,
+  computed: {
+    ...mapGetters("Builder", ["getOrderItem"]),
+    ingredients() {
+      return this.getOrderItem("ingredients");
     },
-    order: {
-      type: Object,
-      required: true,
-    },
-    sum: {
-      type: Number,
-      required: true,
+    title() {
+      return this.getOrderItem("title");
     },
   },
   methods: {
-    updateIngredient(value, type, isAddition) {
-      let data = {
-        payload: { ingredient: value },
-        action: type,
-      };
+    ...mapMutations("Builder", {
+      updateOrder: UPDATE_ORDER,
+    }),
+    updateCurrentOrder(name, data) {
+      let newData;
 
-      if (isAddition) {
-        data.payload.addition = isAddition;
+      if (name === "ingredients") {
+        const { payload, isAddition } = data;
+        newData = [...this.ingredients];
+
+        if (isAddition) {
+          newData.push(payload);
+        } else {
+          const index = newData.indexOf(payload);
+          if (~index) {
+            newData.splice(index, 1);
+          }
+        }
+      } else {
+        newData = data;
       }
 
-      this.$emit("updatePizzaOrder", data);
+      this.updateOrder({ item: name, payload: newData });
     },
   },
 };
