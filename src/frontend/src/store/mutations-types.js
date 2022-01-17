@@ -1,2 +1,9 @@
-export const SET_DATA = "SET_DATA";
-export const UPDATE_ORDER = "UPDATE_ORDER";
+export const SET_ENTITY = "SET_ENTITY";
+export const ADD_ENTITY = "ADD_ENTITY";
+export const UPDATE_ENTITY = "UPDATE_ENTITY";
+export const DELETE_ENTITY = "DELETE_ENTITY";
+export const SET_CURRENT_PIZZA = "SET_CURRENT_PIZZA";
+export const UPDATE_CURRENT_PIZZA = "UPDATE_CURRENT_PIZZA";
+export const RESET_CURRENT_PIZZA = "RESET_CURRENT_PIZZA";
+export const SET_CART = "SET_CART";
+export const UPDATE_CART = "UPDATE_CART";

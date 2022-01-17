@@ -17,17 +17,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderDoughSelector",
   components: { SelectorItem },
   computed: {
-    ...mapState("Builder", ["dough"]),
-    ...mapGetters("Builder", ["getOrderItem"]),
+    ...mapGetters("Builder", ["getBuilderItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
+    dough() {
+      return this.getBuilderItem("dough");
+    },
     checked() {
-      return this.getOrderItem("dough");
+      return this.getPizzaItem("dough");
     },
   },
 };

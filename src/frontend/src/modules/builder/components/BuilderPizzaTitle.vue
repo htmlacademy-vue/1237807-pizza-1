@@ -18,9 +18,9 @@ import { mapGetters } from "vuex";
 export default {
   name: "BuilderPizzaTitle",
   computed: {
-    ...mapGetters("Builder", ["getOrderItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
     title() {
-      return this.getOrderItem("title");
+      return this.getPizzaItem("title");
     },
   },
 };

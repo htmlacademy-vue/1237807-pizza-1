@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import { countItemsInArray } from "@/common/helpers";
@@ -71,14 +71,19 @@ export default {
     };
   },
   computed: {
-    ...mapState("Builder", ["sauces"]),
-    ...mapState("Builder", ["ingredients"]),
-    ...mapGetters("Builder", ["getOrderItem"]),
+    ...mapGetters("Builder", ["getBuilderItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
+    sauces() {
+      return this.getBuilderItem("sauces");
+    },
+    ingredients() {
+      return this.getBuilderItem("ingredients");
+    },
     sauceChecked() {
-      return this.getOrderItem("sauce");
+      return this.getPizzaItem("sauce");
     },
     ingredientsChecked() {
-      return this.getOrderItem("ingredients");
+      return this.getPizzaItem("ingredients");
     },
     ingredientsCount() {
       return countItemsInArray(this.ingredientsChecked);

@@ -1,6 +1,6 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ orderSum }} ₽</p>
+    <p>Итого: {{ pizzaCost }} ₽</p>
     <button type="button" class="button" :disabled="disabled">Готовьте!</button>
   </div>
 </template>
@@ -16,7 +16,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("Builder", ["orderSum"]),
+    ...mapGetters("Builder", ["getPizzaCost"]),
+    pizzaCost() {
+      return this.getPizzaCost;
+    },
   },
 };
 </script>

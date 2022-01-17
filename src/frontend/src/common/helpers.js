@@ -8,6 +8,9 @@ export const normalizeData = (data, items) => {
   };
 };
 
+export const capitalize = (string) =>
+  `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+
 export const countItemsInArray = (arr) => {
   const count = arr.reduce((acc, item) => {
     acc[item] = (acc[item] || 0) + 1;

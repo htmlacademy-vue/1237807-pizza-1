@@ -1,6 +1,11 @@
-import { SET_DATA, UPDATE_ORDER } from "@/store/mutations-types";
+import {
+  SET_ENTITY,
+  UPDATE_CURRENT_PIZZA,
+  SET_CURRENT_PIZZA,
+  RESET_CURRENT_PIZZA,
+} from "@/store/mutations-types";
 import { countItemsInArray, getPrice } from "@/common/helpers";
-import { normalizeData } from "@/common/helpers";
+import { normalizeData, capitalize } from "@/common/helpers";
 import pizza from "@/static/pizza.json";
 import {
   doughTypes,
@@ -9,33 +14,39 @@ import {
   ingredientsTypes,
 } from "@/common/constants";
 
-const defaultOrder = {
+const entity = "builder";
+const module = capitalize(entity);
+const namespace = { entity, module };
+
+const setupDefaultPizza = () => ({
   title: "",
   dough: "light",
   diameter: "normal",
   sauce: "tomato",
   ingredients: ["ananas", "bacon", "cheddar"],
-};
+});
 
 export default {
   namespaced: true,
   state: {
-    dough: [],
-    sizes: [],
-    sauces: [],
-    ingredients: [],
-    order: defaultOrder,
+    builder: {
+      dough: [],
+      sizes: [],
+      sauces: [],
+      ingredients: [],
+    },
+    pizza: setupDefaultPizza(),
   },
 
   getters: {
-    orderSum({ dough, sizes, sauces, ingredients, order }) {
-      const doughCost = getPrice(dough, order.dough);
-      const sizeCost = getPrice(sizes, order.diameter);
-      const sauceCost = getPrice(sauces, order.sauce);
+    getPizzaCost({ builder, pizza }) {
+      const doughCost = getPrice(builder.dough, pizza.dough);
+      const sizeCost = getPrice(builder.sizes, pizza.diameter);
+      const sauceCost = getPrice(builder.sauces, pizza.sauce);
 
-      const ingredientsCount = countItemsInArray(order.ingredients);
+      const ingredientsCount = countItemsInArray(pizza.ingredients);
       let ingredientsTotalCost = 0;
-      ingredients.map((item) => {
+      builder.ingredients.map((item) => {
         if (ingredientsCount[item.value]) {
           ingredientsTotalCost += item.price * ingredientsCount[item.value];
         }
@@ -43,46 +54,41 @@ export default {
 
       return (doughCost + sauceCost + ingredientsTotalCost) * sizeCost || 0;
     },
-    getOrderItem: (state) => (item) => state.order[item],
+    getBuilderItem: (state) => (item) => state.builder[item],
+    getPizzaItem: (state) => (item) => state.pizza[item],
   },
 
   mutations: {
-    [SET_DATA](state, { name, data }) {
-      state[name] = data;
+    [UPDATE_CURRENT_PIZZA]({ pizza }, { item, payload }) {
+      pizza[item] = payload;
     },
-    [UPDATE_ORDER]({ order }, { item, payload }) {
-      order[item] = payload;
+    [SET_CURRENT_PIZZA](state, payload) {
+      state.pizza = payload;
+    },
+    [RESET_CURRENT_PIZZA](state) {
+      state.pizza = setupDefaultPizza();
     },
   },
 
   actions: {
     async query({ commit }) {
-      const pizzaData = [
-        {
-          name: "dough",
-          data: pizza.dough.map((dough) => normalizeData(dough, doughTypes)),
-        },
-        {
-          name: "sizes",
-          data: pizza.sizes.map((size) => normalizeData(size, pizzaSizes)),
-        },
-        {
-          name: "sauces",
-          data: pizza.sauces.map((sauce) => normalizeData(sauce, sauceTypes)),
-        },
-        {
-          name: "ingredients",
-          data: pizza.ingredients.map((ingredient) =>
-            normalizeData(ingredient, ingredientsTypes)
-          ),
-        },
-      ];
+      const pizzaData = {
+        dough: pizza.dough.map((dough) => normalizeData(dough, doughTypes)),
+        sizes: pizza.sizes.map((size) => normalizeData(size, pizzaSizes)),
+        sauces: pizza.sauces.map((sauce) => normalizeData(sauce, sauceTypes)),
+        ingredients: pizza.ingredients.map((ingredient) =>
+          normalizeData(ingredient, ingredientsTypes)
+        ),
+      };
 
-      Promise.all(pizzaData).then((data) => {
-        data.map((item) => {
-          commit(SET_DATA, { name: item.name, data: item.data });
-        });
-      });
+      commit(
+        SET_ENTITY,
+        {
+          ...namespace,
+          value: pizzaData,
+        },
+        { root: true }
+      );
     },
   },
 };

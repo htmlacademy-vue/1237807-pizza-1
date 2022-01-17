@@ -27,7 +27,10 @@ import { mapGetters } from "vuex";
 export default {
   name: "AppLayoutHeader",
   computed: {
-    ...mapGetters("Builder", ["orderSum"]),
+    ...mapGetters("Builder", ["getPizzaCost"]),
+    orderSum() {
+      return this.getPizzaCost;
+    },
   },
 };
 </script>

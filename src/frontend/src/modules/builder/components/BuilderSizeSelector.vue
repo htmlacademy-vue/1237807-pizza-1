@@ -17,17 +17,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderSizeSelector",
   components: { SelectorItem },
   computed: {
-    ...mapState("Builder", ["sizes"]),
-    ...mapGetters("Builder", ["getOrderItem"]),
+    ...mapGetters("Builder", ["getBuilderItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
+    sizes() {
+      return this.getBuilderItem("sizes");
+    },
     checked() {
-      return this.getOrderItem("diameter");
+      return this.getPizzaItem("diameter");
     },
   },
 };

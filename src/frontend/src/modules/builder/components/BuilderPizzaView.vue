@@ -39,15 +39,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("Builder", ["getOrderItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
     dough() {
-      return this.getOrderItem("dough");
+      return this.getPizzaItem("dough");
     },
     sauce() {
-      return this.getOrderItem("sauce");
+      return this.getPizzaItem("sauce");
     },
     ingredients() {
-      return this.getOrderItem("ingredients");
+      return this.getPizzaItem("ingredients");
     },
     ingredientsCount() {
       return countItemsInArray(this.ingredients);
