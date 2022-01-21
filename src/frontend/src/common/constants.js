@@ -3,11 +3,13 @@ export const doughTypes = [
     type: "dough",
     name: "Тонкое",
     value: "light",
+    label: "тонком",
   },
   {
     type: "dough",
     name: "Толстое",
     value: "large",
+    label: "толстом",
   },
 ];
 
@@ -117,6 +119,24 @@ export const ingredientsTypes = [
     type: "ingredients",
     name: "Блю чиз",
     value: "blue_cheese",
+  },
+];
+
+export const miscTypes = [
+  {
+    type: "misc",
+    name: "Cola-Cola 0,5 литра",
+    value: "cola",
+  },
+  {
+    type: "misc",
+    name: "Острый соус",
+    value: "sauce",
+  },
+  {
+    type: "misc",
+    name: "Картошка из печи",
+    value: "potato",
   },
 ];
 

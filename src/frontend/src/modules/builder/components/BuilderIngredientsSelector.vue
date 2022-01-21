@@ -11,7 +11,7 @@
             class="radio ingredients__input"
             :selector="sauce"
             :checked="sauceChecked"
-            @updateData="$emit('updateSauce', $event)"
+            @updateData="updatePizza({ item: 'sauce', payload: $event })"
           />
         </div>
         <div class="ingredients__filling">
@@ -32,12 +32,18 @@
                 {{ ingredient.name }}
               </span>
               <ItemCounter
+                :class="`ingredients__counter`"
                 :value="ingredientsCount[ingredient.value] || 0"
+                :maxCount="MAX_INGREDIENTS"
                 @removeItem="
-                  $emit('updateIngredients', { payload: ingredient.value })
+                  updatePizza({
+                    item: 'ingredients',
+                    payload: ingredient.value,
+                  })
                 "
                 @addItem="
-                  $emit('updateIngredients', {
+                  updatePizza({
+                    item: 'ingredients',
                     payload: ingredient.value,
                     isAddition: true,
                   })
@@ -52,7 +58,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import { countItemsInArray } from "@/common/helpers";
@@ -71,8 +78,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("Builder", ["getBuilderItem"]),
-    ...mapGetters("Builder", ["getPizzaItem"]),
+    ...mapGetters("Builder", ["getBuilderItem", "getPizzaItem"]),
     sauces() {
       return this.getBuilderItem("sauces");
     },
@@ -90,6 +96,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("Builder", {
+      updatePizza: UPDATE_CURRENT_PIZZA,
+    }),
     isDraggable(ingredient) {
       return (
         !this.ingredientsCount[ingredient] ||

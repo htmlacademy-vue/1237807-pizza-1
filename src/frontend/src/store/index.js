@@ -13,6 +13,7 @@ Vue.use(Vuex);
 const actions = {
   async init({ dispatch }) {
     dispatch("Builder/query");
+    dispatch("Cart/query");
   },
 };
 

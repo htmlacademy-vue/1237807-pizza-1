@@ -24,6 +24,7 @@ const setupDefaultPizza = () => ({
   diameter: "normal",
   sauce: "tomato",
   ingredients: ["ananas", "bacon", "cheddar"],
+  count: 1,
 });
 
 export default {
@@ -56,11 +57,25 @@ export default {
     },
     getBuilderItem: (state) => (item) => state.builder[item],
     getPizzaItem: (state) => (item) => state.pizza[item],
+    isPizzaReady({ pizza }) {
+      return pizza.ingredients.length !== 0 && pizza.title !== "";
+    },
   },
 
   mutations: {
-    [UPDATE_CURRENT_PIZZA]({ pizza }, { item, payload }) {
-      pizza[item] = payload;
+    [UPDATE_CURRENT_PIZZA]({ pizza }, { item, payload, isAddition }) {
+      if (item === "ingredients") {
+        if (isAddition) {
+          pizza[item].push(payload);
+        } else {
+          const index = pizza[item].indexOf(payload);
+          if (~index) {
+            pizza[item].splice(index, 1);
+          }
+        }
+      } else {
+        pizza[item] = payload;
+      }
     },
     [SET_CURRENT_PIZZA](state, payload) {
       state.pizza = payload;
@@ -72,7 +87,7 @@ export default {
 
   actions: {
     async query({ commit }) {
-      const pizzaData = {
+      const builderData = {
         dough: pizza.dough.map((dough) => normalizeData(dough, doughTypes)),
         sizes: pizza.sizes.map((size) => normalizeData(size, pizzaSizes)),
         sauces: pizza.sauces.map((sauce) => normalizeData(sauce, sauceTypes)),
@@ -85,7 +100,7 @@ export default {
         SET_ENTITY,
         {
           ...namespace,
-          value: pizzaData,
+          value: builderData,
         },
         { root: true }
       );

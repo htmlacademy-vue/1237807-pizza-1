@@ -11,7 +11,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">{{ orderSum }} ₽</router-link>
+      <router-link to="/cart">{{ orderTotalCost }} ₽</router-link>
     </div>
     <div class="header__user">
       <router-link class="header__login" to="/login">
@@ -27,10 +27,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "AppLayoutHeader",
   computed: {
-    ...mapGetters("Builder", ["getPizzaCost"]),
-    orderSum() {
-      return this.getPizzaCost;
-    },
+    ...mapGetters("Cart", ["orderTotalCost"]),
   },
 };
 </script>

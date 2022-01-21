@@ -24,7 +24,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
+import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
 import doughLayer from "@/common/enums/doughLayer";
 import ingredientsIndex from "@/common/enums/ingredientsIndex";
 import { countItemsInArray } from "@/common/helpers";
@@ -54,6 +55,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("Builder", {
+      updatePizza: UPDATE_CURRENT_PIZZA,
+    }),
     getIngredientCountClassName(ingredient) {
       if (this.ingredientsIndex[this.ingredientsCount[ingredient]]) {
         return this.ingredientsIndex[this.ingredientsCount[ingredient]];
@@ -71,7 +75,8 @@ export default {
           dataTransfer.getData(DATA_TRANSFER_PAYLOAD)
         );
 
-        this.$emit("updateIngredients", {
+        this.updatePizza({
+          item: "ingredients",
           payload: transferData.value,
           isAddition: true,
         });
