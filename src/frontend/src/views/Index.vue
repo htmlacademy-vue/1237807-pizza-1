@@ -3,47 +3,13 @@
     <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
-        <BuilderDoughSelector
-          :dough="data.dough"
-          :checked="order.dough"
-          @updatePizzaDough="
-            $emit('updatePizzaOrder', { payload: $event, action: 'dough' })
-          "
-        />
-        <BuilderSizeSelector
-          :sizes="data.sizes"
-          :checked="order.diameter"
-          @updatePizzaSize="
-            $emit('updatePizzaOrder', { payload: $event, action: 'diameter' })
-          "
-        />
-        <BuilderIngredientsSelector
-          :sauces="data.sauces"
-          :ingredients="data.ingredients"
-          :sauceChecked="order.sauce"
-          :ingredientsChecked="order.ingredients"
-          @updatePizzaSauce="
-            $emit('updatePizzaOrder', { payload: $event, action: 'sauce' })
-          "
-          @updateIngredient="updateIngredient"
-        />
+        <BuilderDoughSelector />
+        <BuilderSizeSelector />
+        <BuilderIngredientsSelector />
         <div class="content__pizza">
-          <BuilderPizzaTitle
-            :title="order.title"
-            @updatePizzaTitle="
-              $emit('updatePizzaOrder', { payload: $event, action: 'title' })
-            "
-          />
-          <BuilderPizzaView
-            :dough="order.dough"
-            :ingredients="order.ingredients"
-            :sauce="order.sauce"
-            @updateIngredient="updateIngredient"
-          />
-          <BuilderPriceCounter
-            :sum="sum"
-            :disabled="order.ingredients.length === 0 || order.title === ''"
-          />
+          <BuilderPizzaTitle />
+          <BuilderPizzaView />
+          <BuilderPriceCounter />
         </div>
       </div>
     </form>
@@ -67,34 +33,6 @@ export default {
     BuilderPizzaTitle,
     BuilderPizzaView,
     BuilderPriceCounter,
-  },
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
-    order: {
-      type: Object,
-      required: true,
-    },
-    sum: {
-      type: Number,
-      required: true,
-    },
-  },
-  methods: {
-    updateIngredient(value, type, isAddition) {
-      let data = {
-        payload: { ingredient: value },
-        action: type,
-      };
-
-      if (isAddition) {
-        data.payload.addition = isAddition;
-      }
-
-      this.$emit("updatePizzaOrder", data);
-    },
   },
 };
 </script>

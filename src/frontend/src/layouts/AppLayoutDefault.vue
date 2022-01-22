@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout-default">
-    <AppLayoutHeader :total="total" />
+    <AppLayoutHeader />
     <slot />
   </div>
 </template>
@@ -11,12 +11,6 @@ export default {
   name: "AppLayoutDefault",
   components: {
     AppLayoutHeader,
-  },
-  props: {
-    total: {
-      type: Number,
-      required: true,
-    },
   },
 };
 </script>

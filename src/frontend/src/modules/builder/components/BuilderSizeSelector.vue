@@ -9,7 +9,7 @@
           :class="`diameter__input diameter__input--${size.value}`"
           :selector="size"
           :checked="checked"
-          @updatePizzaOrder="$emit('updatePizzaSize', $event)"
+          @updateData="updatePizza({ item: 'diameter', payload: $event })"
         />
       </div>
     </div>
@@ -17,19 +17,26 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
 import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderSizeSelector",
   components: { SelectorItem },
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
+  computed: {
+    ...mapGetters("Builder", ["getBuilderItem", "getPizzaItem"]),
+    sizes() {
+      return this.getBuilderItem("sizes");
     },
-    checked: {
-      type: String,
+    checked() {
+      return this.getPizzaItem("diameter");
     },
+  },
+  methods: {
+    ...mapMutations("Builder", {
+      updatePizza: UPDATE_CURRENT_PIZZA,
+    }),
   },
 };
 </script>

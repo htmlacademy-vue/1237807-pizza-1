@@ -5,7 +5,7 @@
     :value="value"
     class="visually-hidden"
     :checked="isChecked"
-    @change="$emit('updatePizzaOrder', $event.target.value)"
+    @change="$emit('updateData', $event.target.value)"
   />
 </template>
 

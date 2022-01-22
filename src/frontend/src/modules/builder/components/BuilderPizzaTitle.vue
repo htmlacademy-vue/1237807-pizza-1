@@ -7,19 +7,27 @@
       placeholder="Введите название пиццы"
       required
       :value="title"
-      @change="$emit('updatePizzaTitle', $event.target.value)"
+      @change="updatePizza({ item: 'title', payload: $event.target.value })"
     />
   </label>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
+
 export default {
   name: "BuilderPizzaTitle",
-  props: {
-    title: {
-      type: String,
-      required: true,
+  computed: {
+    ...mapGetters("Builder", ["getPizzaItem"]),
+    title() {
+      return this.getPizzaItem("title");
     },
+  },
+  methods: {
+    ...mapMutations("Builder", {
+      updatePizza: UPDATE_CURRENT_PIZZA,
+    }),
   },
 };
 </script>

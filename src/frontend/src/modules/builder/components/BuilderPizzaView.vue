@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
+import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
 import doughLayer from "@/common/enums/doughLayer";
 import ingredientsIndex from "@/common/enums/ingredientsIndex";
 import { countItemsInArray } from "@/common/helpers";
@@ -31,20 +33,6 @@ import { DATA_TRANSFER_PAYLOAD } from "@/common/constants";
 
 export default {
   name: "BuilderPizzaView",
-  props: {
-    dough: {
-      type: String,
-      required: true,
-    },
-    sauce: {
-      type: String,
-      required: true,
-    },
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-  },
   data() {
     return {
       doughLayer,
@@ -52,11 +40,24 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("Builder", ["getPizzaItem"]),
+    dough() {
+      return this.getPizzaItem("dough");
+    },
+    sauce() {
+      return this.getPizzaItem("sauce");
+    },
+    ingredients() {
+      return this.getPizzaItem("ingredients");
+    },
     ingredientsCount() {
       return countItemsInArray(this.ingredients);
     },
   },
   methods: {
+    ...mapMutations("Builder", {
+      updatePizza: UPDATE_CURRENT_PIZZA,
+    }),
     getIngredientCountClassName(ingredient) {
       if (this.ingredientsIndex[this.ingredientsCount[ingredient]]) {
         return this.ingredientsIndex[this.ingredientsCount[ingredient]];
@@ -74,12 +75,11 @@ export default {
           dataTransfer.getData(DATA_TRANSFER_PAYLOAD)
         );
 
-        this.$emit(
-          "updateIngredient",
-          transferData.value,
-          transferData.type,
-          true
-        );
+        this.updatePizza({
+          item: "ingredients",
+          payload: transferData.value,
+          isAddition: true,
+        });
       }
     },
   },

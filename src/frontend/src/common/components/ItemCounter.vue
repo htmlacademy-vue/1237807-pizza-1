@@ -1,10 +1,10 @@
 <template>
-  <div class="counter counter--orange ingredients__counter">
+  <div class="counter">
     <button
       type="button"
       class="counter__button counter__button--minus"
       :disabled="value <= 0"
-      @click="$emit('removeIngredient')"
+      @click="$emit('removeItem')"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -18,8 +18,9 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
-      :disabled="value >= 3"
-      @click="$emit('addIngredient')"
+      :class="buttonClass"
+      :disabled="disabledPlus"
+      @click="$emit('addItem')"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -33,6 +34,20 @@ export default {
     value: {
       type: Number,
       required: true,
+    },
+    maxCount: {
+      type: Number,
+    },
+    buttonClass: {
+      type: String,
+    },
+  },
+  computed: {
+    disabledPlus() {
+      if (this.maxCount && this.value >= this.maxCount) {
+        return true;
+      }
+      return false;
     },
   },
 };

@@ -9,7 +9,7 @@
           :class="`dough__input dough__input--${doughType.value}`"
           :selector="doughType"
           :checked="checked"
-          @updatePizzaOrder="$emit('updatePizzaDough', $event)"
+          @updateData="updatePizza({ item: 'dough', payload: $event })"
         />
       </div>
     </div>
@@ -17,19 +17,26 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
 import SelectorItem from "@/common/components/SelectorItem";
 
 export default {
   name: "BuilderDoughSelector",
   components: { SelectorItem },
-  props: {
-    dough: {
-      type: Array,
-      required: true,
+  computed: {
+    ...mapGetters("Builder", ["getBuilderItem", "getPizzaItem"]),
+    dough() {
+      return this.getBuilderItem("dough");
     },
-    checked: {
-      type: String,
+    checked() {
+      return this.getPizzaItem("dough");
     },
+  },
+  methods: {
+    ...mapMutations("Builder", {
+      updatePizza: UPDATE_CURRENT_PIZZA,
+    }),
   },
 };
 </script>

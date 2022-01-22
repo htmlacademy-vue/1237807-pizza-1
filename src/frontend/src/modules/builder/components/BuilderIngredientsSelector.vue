@@ -11,7 +11,7 @@
             class="radio ingredients__input"
             :selector="sauce"
             :checked="sauceChecked"
-            @updatePizzaOrder="$emit('updatePizzaSauce', $event)"
+            @updateData="updatePizza({ item: 'sauce', payload: $event })"
           />
         </div>
         <div class="ingredients__filling">
@@ -32,17 +32,21 @@
                 {{ ingredient.name }}
               </span>
               <ItemCounter
+                :class="`ingredients__counter`"
                 :value="ingredientsCount[ingredient.value] || 0"
-                @removeIngredient="
-                  $emit('updateIngredient', ingredient.value, ingredient.type)
+                :maxCount="MAX_INGREDIENTS"
+                @removeItem="
+                  updatePizza({
+                    item: 'ingredients',
+                    payload: ingredient.value,
+                  })
                 "
-                @addIngredient="
-                  $emit(
-                    'updateIngredient',
-                    ingredient.value,
-                    ingredient.type,
-                    true
-                  )
+                @addItem="
+                  updatePizza({
+                    item: 'ingredients',
+                    payload: ingredient.value,
+                    isAddition: true,
+                  })
                 "
               />
             </li>
@@ -54,6 +58,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import { countItemsInArray } from "@/common/helpers";
@@ -66,33 +72,33 @@ import {
 export default {
   name: "BuilderIngredientsSelector",
   components: { SelectorItem, ItemCounter },
-  props: {
-    sauces: {
-      type: Array,
-      required: true,
-    },
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-    sauceChecked: {
-      type: String,
-    },
-    ingredientsChecked: {
-      type: Array,
-    },
-  },
   data() {
     return {
       MAX_INGREDIENTS,
     };
   },
   computed: {
+    ...mapGetters("Builder", ["getBuilderItem", "getPizzaItem"]),
+    sauces() {
+      return this.getBuilderItem("sauces");
+    },
+    ingredients() {
+      return this.getBuilderItem("ingredients");
+    },
+    sauceChecked() {
+      return this.getPizzaItem("sauce");
+    },
+    ingredientsChecked() {
+      return this.getPizzaItem("ingredients");
+    },
     ingredientsCount() {
       return countItemsInArray(this.ingredientsChecked);
     },
   },
   methods: {
+    ...mapMutations("Builder", {
+      updatePizza: UPDATE_CURRENT_PIZZA,
+    }),
     isDraggable(ingredient) {
       return (
         !this.ingredientsCount[ingredient] ||
