@@ -4,6 +4,8 @@ import {
   UPDATE_ENTITY,
   DELETE_ENTITY,
   UPDATE_MISC_ORDER,
+  SET_POP_UP,
+  RESET_CART,
 } from "@/store/mutations-types";
 import { capitalize, normalizeData } from "@/common/helpers";
 import misc from "@/static/misc.json";
@@ -11,7 +13,6 @@ import { miscTypes } from "@/common/constants";
 
 const entity = "cart";
 const module = capitalize(entity);
-//   const namespace = { entity, module };
 
 const setupDefaultPizzasOrder = () => [];
 const setupDefaultMiscOrder = () => ({
@@ -26,6 +27,7 @@ export default {
     misc: [],
     pizzasOrder: setupDefaultPizzasOrder(),
     miscOrder: setupDefaultMiscOrder(),
+    isPopUp: false,
   },
 
   getters: {
@@ -51,6 +53,13 @@ export default {
       } else {
         miscOrder[item] -= 1;
       }
+    },
+    [RESET_CART](state) {
+      state.pizzasOrder = setupDefaultPizzasOrder();
+      state.miscOrder = setupDefaultMiscOrder();
+    },
+    [SET_POP_UP](state, status) {
+      state.isPopUp = status;
     },
   },
 

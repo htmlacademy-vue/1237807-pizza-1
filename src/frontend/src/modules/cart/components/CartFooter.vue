@@ -12,18 +12,29 @@
       <b>Итого: {{ orderTotalCost }} ₽</b>
     </div>
     <div class="footer__submit">
-      <button type="submit" class="button">Оформить заказ</button>
+      <button type="submit" class="button" @click.prevent="openPopUp">
+        Оформить заказ
+      </button>
     </div>
   </section>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import { SET_POP_UP } from "@/store/mutations-types";
 
 export default {
   name: "CartFooter",
   computed: {
     ...mapGetters("Cart", ["orderTotalCost"]),
+  },
+  methods: {
+    ...mapMutations("Cart", {
+      setPopUp: SET_POP_UP,
+    }),
+    openPopUp() {
+      return this.setPopUp(true);
+    },
   },
 };
 </script>
