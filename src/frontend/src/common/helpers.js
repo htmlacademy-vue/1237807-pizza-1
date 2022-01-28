@@ -1,3 +1,17 @@
+import resources from "@/common/enums/resources";
+import { AuthApiService, DataApiService } from "@/services/api.service";
+
+export const createResources = () => {
+  return {
+    [resources.AUTH]: new AuthApiService(),
+    [resources.DOUGH]: new DataApiService(resources.DOUGH),
+    [resources.SIZES]: new DataApiService(resources.SIZES),
+    [resources.SAUCES]: new DataApiService(resources.SAUCES),
+    [resources.INGREDIENTS]: new DataApiService(resources.INGREDIENTS),
+    [resources.MISC]: new DataApiService(resources.MISC),
+  };
+};
+
 export const normalizeData = (data, items) => {
   const requiredItem = items.find((item) => item.name === data.name);
 
@@ -30,9 +44,9 @@ export const getRequiredValue = (arr, value) => {
 export const getPrice = (arr, value) => {
   const requiredData = getRequiredValue(arr, value);
 
-  if (requiredData.multiplier) {
-    return requiredData.multiplier;
-  } else {
-    return requiredData.price;
+  if (requiredData) {
+    return requiredData.multiplier
+      ? requiredData.multiplier
+      : requiredData.price;
   }
 };

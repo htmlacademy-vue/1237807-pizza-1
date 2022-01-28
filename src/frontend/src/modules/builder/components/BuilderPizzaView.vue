@@ -15,7 +15,7 @@
           v-for="(ingredient, index) in ingredients"
           :key="index"
           class="pizza__filling"
-          :class="`pizza__filling--${ingredient} ${getIngredientCountClassName(
+          :class="`pizza__filling--${ingredient}${getIngredientCountClassName(
             ingredient,
             index
           )}`"
@@ -63,25 +63,23 @@ export default {
     getIngredientCountClassName(ingredient, index) {
       const isMultiIngredient = this.ingredientsCount[ingredient] > 1;
 
-      if (isMultiIngredient) {
-        let currentIngredientIndex = 0;
-
-        this.ingredients.forEach((item, i) => {
-          if (item === ingredient) {
-            if (i !== index && i < index) {
-              currentIngredientIndex += 1;
-            } else {
-              return;
-            }
-          }
-        });
-
-        return this.ingredientsIndex[currentIngredientIndex]
-          ? this.ingredientsIndex[currentIngredientIndex]
-          : "";
-      } else {
+      if (!isMultiIngredient) {
         return "";
       }
+
+      let currentIngredientIndex = 0;
+
+      this.ingredients.forEach((item, i) => {
+        if (item === ingredient && i < index) {
+          currentIngredientIndex += 1;
+        } else {
+          return;
+        }
+      });
+
+      return this.ingredientsIndex[currentIngredientIndex]
+        ? this.ingredientsIndex[currentIngredientIndex]
+        : "";
     },
     onDrop({ dataTransfer }) {
       if (!dataTransfer) {

@@ -7,9 +7,7 @@ import {
   SET_POP_UP,
   RESET_CART,
 } from "@/store/mutations-types";
-import { capitalize, normalizeData } from "@/common/helpers";
-import misc from "@/static/misc.json";
-import { miscTypes } from "@/common/constants";
+import { capitalize } from "@/common/helpers";
 
 const entity = "cart";
 const module = capitalize(entity);
@@ -65,9 +63,7 @@ export default {
 
   actions: {
     async query({ commit }) {
-      const miscData = misc.map((miscItem) =>
-        normalizeData(miscItem, miscTypes)
-      );
+      const miscData = await this.$api.misc.query();
 
       commit(
         SET_ENTITY,

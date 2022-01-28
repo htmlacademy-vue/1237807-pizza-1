@@ -140,6 +140,14 @@ export const miscTypes = [
   },
 ];
 
+export const dataTypes = {
+  dough: doughTypes,
+  sizes: pizzaSizes,
+  sauces: sauceTypes,
+  ingredients: ingredientsTypes,
+  misc: miscTypes,
+};
+
 export const MAX_INGREDIENTS = 3;
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import VuexPlugins from "@/plugins/vuexPlugins";
 import modules from "@/store/modules";
 import {
   SET_ENTITY,
@@ -60,4 +61,5 @@ export default new Vuex.Store({
   mutations,
   actions,
   modules,
+  plugins: [VuexPlugins],
 });

@@ -5,14 +5,7 @@ import {
   RESET_CURRENT_PIZZA,
 } from "@/store/mutations-types";
 import { countItemsInArray, getPrice } from "@/common/helpers";
-import { normalizeData, capitalize } from "@/common/helpers";
-import pizza from "@/static/pizza.json";
-import {
-  doughTypes,
-  pizzaSizes,
-  sauceTypes,
-  ingredientsTypes,
-} from "@/common/constants";
+import { capitalize } from "@/common/helpers";
 
 const entity = "builder";
 const module = capitalize(entity);
@@ -87,14 +80,12 @@ export default {
 
   actions: {
     async query({ commit }) {
-      const builderData = {
-        dough: pizza.dough.map((dough) => normalizeData(dough, doughTypes)),
-        sizes: pizza.sizes.map((size) => normalizeData(size, pizzaSizes)),
-        sauces: pizza.sauces.map((sauce) => normalizeData(sauce, sauceTypes)),
-        ingredients: pizza.ingredients.map((ingredient) =>
-          normalizeData(ingredient, ingredientsTypes)
-        ),
-      };
+      const dough = await this.$api.dough.query();
+      const sizes = await this.$api.sizes.query();
+      const sauces = await this.$api.sauces.query();
+      const ingredients = await this.$api.ingredients.query();
+
+      const builderData = { dough, sizes, sauces, ingredients };
 
       commit(
         SET_ENTITY,
