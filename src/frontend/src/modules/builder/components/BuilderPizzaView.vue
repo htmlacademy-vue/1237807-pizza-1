@@ -14,8 +14,10 @@
         <div
           v-for="(ingredient, index) in ingredients"
           :key="index"
-          :class="`pizza__filling pizza__filling--${ingredient} pizza__filling--${getIngredientCountClassName(
-            ingredient
+          class="pizza__filling"
+          :class="`pizza__filling--${ingredient} ${getIngredientCountClassName(
+            ingredient,
+            index
           )}`"
         ></div>
       </div>
@@ -58,9 +60,25 @@ export default {
     ...mapMutations("Builder", {
       updatePizza: UPDATE_CURRENT_PIZZA,
     }),
-    getIngredientCountClassName(ingredient) {
-      if (this.ingredientsIndex[this.ingredientsCount[ingredient]]) {
-        return this.ingredientsIndex[this.ingredientsCount[ingredient]];
+    getIngredientCountClassName(ingredient, index) {
+      const isMultiIngredient = this.ingredientsCount[ingredient] > 1;
+
+      if (isMultiIngredient) {
+        let currentIngredientIndex = 0;
+
+        this.ingredients.forEach((item, i) => {
+          if (item === ingredient) {
+            if (i !== index && i < index) {
+              currentIngredientIndex += 1;
+            } else {
+              return;
+            }
+          }
+        });
+
+        return this.ingredientsIndex[currentIngredientIndex]
+          ? this.ingredientsIndex[currentIngredientIndex]
+          : "";
       } else {
         return "";
       }
