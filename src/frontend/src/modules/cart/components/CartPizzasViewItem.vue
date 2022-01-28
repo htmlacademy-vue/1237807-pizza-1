@@ -53,6 +53,7 @@ export default {
   props: {
     pizza: {
       type: Object,
+      required: true,
     },
   },
   computed: {
