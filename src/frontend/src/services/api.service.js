@@ -3,12 +3,16 @@ import axios from "@/plugins/axios";
 import { dataTypes } from "@/common/constants";
 
 class BaseApiService {
-  constructor() {}
+  constructor(error) {
+    if (!axios.$error) {
+      axios.$error = error;
+    }
+  }
 }
 
 export class AuthApiService extends BaseApiService {
-  constructor() {
-    super();
+  constructor(error) {
+    super(error);
   }
 
   setAuthHeader() {
@@ -36,8 +40,8 @@ export class AuthApiService extends BaseApiService {
 
 export class ReadOnlyApiService extends BaseApiService {
   #resource;
-  constructor(resource) {
-    super(resource);
+  constructor(resource, error) {
+    super(resource, error);
     this.#resource = resource;
   }
 
@@ -49,8 +53,8 @@ export class ReadOnlyApiService extends BaseApiService {
 
 export class CrudApiService extends ReadOnlyApiService {
   #resource;
-  constructor(resource) {
-    super(resource);
+  constructor(resource, error) {
+    super(resource, error);
     this.#resource = resource;
   }
 
@@ -72,8 +76,8 @@ export class CrudApiService extends ReadOnlyApiService {
 
 export class DataApiService extends ReadOnlyApiService {
   #resource;
-  constructor(resource) {
-    super(resource);
+  constructor(resource, error) {
+    super(resource, error);
     this.#resource = resource;
   }
 

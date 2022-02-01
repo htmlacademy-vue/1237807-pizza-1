@@ -1,16 +1,28 @@
 <template>
   <div class="app-layout-default">
-    <AppLayoutHeader />
+    <Error />
+    <AppLayoutHeader
+      :show-user="isAuthenticated"
+      :show-login="!isAuthenticated && $route.name !== 'Login'"
+    />
     <slot />
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
+
 export default {
   name: "AppLayoutDefault",
   components: {
     AppLayoutHeader,
+  },
+  computed: {
+    ...mapState(["Auth"]),
+    isAuthenticated() {
+      return this.Auth.isAuthenticated;
+    },
   },
 };
 </script>

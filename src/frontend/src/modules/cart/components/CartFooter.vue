@@ -12,7 +12,12 @@
       <b>Итого: {{ orderTotalCost }} ₽</b>
     </div>
     <div class="footer__submit">
-      <button type="submit" class="button" @click.prevent="openPopUp">
+      <button
+        type="submit"
+        class="button"
+        :disabled="disabled"
+        @click.prevent="openPopUp"
+      >
         Оформить заказ
       </button>
     </div>
@@ -27,6 +32,9 @@ export default {
   name: "CartFooter",
   computed: {
     ...mapGetters("Cart", ["orderTotalCost"]),
+    disabled() {
+      return this.orderTotalCost === 0;
+    },
   },
   methods: {
     ...mapMutations("Cart", {

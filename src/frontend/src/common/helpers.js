@@ -1,15 +1,20 @@
 import resources from "@/common/enums/resources";
 import { AuthApiService, DataApiService } from "@/services/api.service";
 
-export const createResources = () => {
+export const createResources = (error) => {
   return {
-    [resources.AUTH]: new AuthApiService(),
-    [resources.DOUGH]: new DataApiService(resources.DOUGH),
-    [resources.SIZES]: new DataApiService(resources.SIZES),
-    [resources.SAUCES]: new DataApiService(resources.SAUCES),
-    [resources.INGREDIENTS]: new DataApiService(resources.INGREDIENTS),
-    [resources.MISC]: new DataApiService(resources.MISC),
+    [resources.AUTH]: new AuthApiService(error),
+    [resources.DOUGH]: new DataApiService(resources.DOUGH, error),
+    [resources.SIZES]: new DataApiService(resources.SIZES, error),
+    [resources.SAUCES]: new DataApiService(resources.SAUCES, error),
+    [resources.INGREDIENTS]: new DataApiService(resources.INGREDIENTS, error),
+    [resources.MISC]: new DataApiService(resources.MISC, error),
   };
+};
+
+export const setAuth = (store) => {
+  store.$api.auth.setAuthHeader();
+  store.dispatch("Auth/getMe");
 };
 
 export const normalizeData = (data, items) => {

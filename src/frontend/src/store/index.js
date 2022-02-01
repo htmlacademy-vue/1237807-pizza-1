@@ -7,18 +7,35 @@ import {
   ADD_ENTITY,
   UPDATE_ENTITY,
   DELETE_ENTITY,
+  CREATE_ERROR,
+  DELETE_ERROR,
 } from "@/store/mutations-types";
+import { ERROR_LIVE_TIME } from "@/common/constants";
 
 Vue.use(Vuex);
+
+const state = () => ({
+  error: "",
+});
 
 const actions = {
   async init({ dispatch }) {
     dispatch("Builder/query");
     dispatch("Cart/query");
   },
+  async createError(store, text) {
+    store.commit(CREATE_ERROR, text);
+    setTimeout(() => store.commit(DELETE_ERROR), ERROR_LIVE_TIME);
+  },
 };
 
 const mutations = {
+  [CREATE_ERROR](state, error) {
+    state.error = error;
+  },
+  [DELETE_ERROR](state) {
+    state.error = "";
+  },
   [SET_ENTITY](state, { module, entity, value }) {
     module ? (state[module][entity] = value) : (state[entity] = value);
   },
@@ -56,8 +73,7 @@ const mutations = {
 };
 
 export default new Vuex.Store({
-  state: {},
-  getters: {},
+  state,
   mutations,
   actions,
   modules,

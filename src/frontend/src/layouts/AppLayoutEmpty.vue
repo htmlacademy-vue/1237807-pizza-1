@@ -1,5 +1,6 @@
 <template>
   <div class="app-layout-empty">
+    <Error />
     <slot />
   </div>
 </template>
