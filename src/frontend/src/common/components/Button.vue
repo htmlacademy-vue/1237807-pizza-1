@@ -1,5 +1,5 @@
 <template>
-  <button class="button" :type="type" v-on="$listeners">
+  <button class="button" :type="type" :disabled="disabled" v-on="$listeners">
     <slot />
   </button>
 </template>
@@ -11,6 +11,10 @@ export default {
     type: {
       type: String,
       default: "button",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
 };

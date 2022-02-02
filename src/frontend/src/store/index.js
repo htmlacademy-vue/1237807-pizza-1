@@ -22,6 +22,7 @@ const actions = {
   async init({ dispatch }) {
     dispatch("Builder/query");
     dispatch("Cart/query");
+    dispatch("Addresses/query");
   },
   async createError(store, text) {
     store.commit(CREATE_ERROR, text);

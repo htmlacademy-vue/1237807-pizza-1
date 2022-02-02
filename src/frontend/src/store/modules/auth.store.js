@@ -9,6 +9,8 @@ export default {
 
   getters: {
     getUserAttribute: (state) => (attr) => state.user ? state.user[attr] : "",
+    getUserAvatar: (state) =>
+      state.user ? state.user.avatar.split(".")[0] : "",
   },
 
   actions: {

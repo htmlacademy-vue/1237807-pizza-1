@@ -15,7 +15,19 @@
     </div>
     <div v-if="showUser" class="header__user">
       <router-link to="/profile">
-        <img :src="user.avatar" alt="user.name" width="32" height="32" />
+        <picture>
+          <source
+            type="image/webp"
+            :srcset="`${userAvatar}.webp 1x, ${userAvatar}@2x.webp 2x`"
+          />
+          <img
+            :src="`${userAvatar}.jpg`"
+            :srcset="`${userAvatar}@2x.jpg`"
+            alt="Василий Ложкин"
+            width="32"
+            height="32"
+          />
+        </picture>
         <span>{{ user.name }}</span>
       </router-link>
       <a class="header__logout" @click="$logout"><span>Выйти</span></a>
@@ -48,9 +60,13 @@ export default {
   },
   computed: {
     ...mapState(["Auth"]),
+    ...mapGetters("Auth", ["getUserAvatar"]),
     ...mapGetters("Cart", ["orderTotalCost"]),
     user() {
       return this.Auth.user || {};
+    },
+    userAvatar() {
+      return this.getUserAvatar;
     },
   },
 };

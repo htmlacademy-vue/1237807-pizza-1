@@ -45,8 +45,8 @@ export class ReadOnlyApiService extends BaseApiService {
     this.#resource = resource;
   }
 
-  async query(config = {}) {
-    const { data } = await axios.get(this.#resource, config);
+  async query() {
+    const { data } = await axios.get(this.#resource);
     return data;
   }
 }

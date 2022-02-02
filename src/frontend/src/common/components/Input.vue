@@ -5,6 +5,7 @@
     </span>
     <input
       ref="input"
+      v-model="value"
       :type="type"
       :name="name"
       :placeholder="placeholder"

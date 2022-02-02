@@ -1,9 +1,14 @@
 import resources from "@/common/enums/resources";
-import { AuthApiService, DataApiService } from "@/services/api.service";
+import {
+  AuthApiService,
+  CrudApiService,
+  DataApiService,
+} from "@/services/api.service";
 
 export const createResources = (error) => {
   return {
     [resources.AUTH]: new AuthApiService(error),
+    [resources.ADDRESSES]: new CrudApiService(resources.ADDRESSES, error),
     [resources.DOUGH]: new DataApiService(resources.DOUGH, error),
     [resources.SIZES]: new DataApiService(resources.SIZES, error),
     [resources.SAUCES]: new DataApiService(resources.SAUCES, error),
