@@ -15,7 +15,6 @@
           name="email"
           label="E-mail"
           placeholder="example@mail.ru"
-          :required="true"
           :error-text="validations.email.error"
         />
       </div>
@@ -27,7 +26,6 @@
           name="password"
           label="Пароль"
           placeholder="***********"
-          :required="true"
           :error-text="validations.password.error"
         />
       </div>

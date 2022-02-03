@@ -19,10 +19,22 @@ export default {
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
     };
+    this.unwatch = this.$store.watch(
+      (state) => state.Auth.isAuthenticated,
+      (newValue) => {
+        if (newValue === true) {
+          this.$store.dispatch("Addresses/query");
+        }
+      }
+    );
+
     if (this.$jwt.getToken()) {
       setAuth(this.$store);
     }
     this.$store.dispatch("init");
+  },
+  beforeDestroy() {
+    this.unwatch();
   },
 };
 </script>

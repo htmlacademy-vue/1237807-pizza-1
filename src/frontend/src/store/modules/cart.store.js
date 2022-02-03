@@ -8,6 +8,7 @@ import {
   RESET_CART,
 } from "@/store/mutations-types";
 import { capitalize } from "@/common/helpers";
+import { addressValues } from "@/common/constants";
 
 const entity = "cart";
 const module = capitalize(entity);
@@ -25,6 +26,8 @@ export default {
     misc: [],
     pizzasOrder: setupDefaultPizzasOrder(),
     miscOrder: setupDefaultMiscOrder(),
+    phone: "",
+    address: {},
     isPopUp: false,
   },
 
@@ -110,6 +113,33 @@ export default {
         },
         { root: true }
       );
+    },
+    setAddressValue({ commit, rootState }, selectedOption) {
+      if (addressValues[selectedOption]) {
+        commit(
+          SET_ENTITY,
+          {
+            module: module,
+            entity: "address",
+            value: addressValues[selectedOption],
+          },
+          { root: true }
+        );
+      } else {
+        const selectedAddress = rootState.Addresses.addresses.find(
+          ({ id }) => id === Number(selectedOption)
+        );
+
+        commit(
+          SET_ENTITY,
+          {
+            module: module,
+            entity: "address",
+            value: selectedAddress,
+          },
+          { root: true }
+        );
+      }
     },
   },
 };

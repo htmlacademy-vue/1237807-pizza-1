@@ -17,10 +17,6 @@ export default {
     addresses: [],
   },
 
-  getters: {},
-
-  mutations: {},
-
   actions: {
     async query({ commit }) {
       const addressesData = await this.$api.addresses.query();

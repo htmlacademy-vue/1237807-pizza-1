@@ -14,7 +14,6 @@
           name="name"
           label="Название адреса*"
           placeholder="Введите название адреса"
-          :required="true"
           :error-text="validations.name.error"
         />
       </div>
@@ -25,7 +24,6 @@
           name="street"
           label="Улица*"
           placeholder="Введите название улицы"
-          :required="true"
           :error-text="validations.street.error"
         />
       </div>
@@ -36,7 +34,6 @@
           name="building"
           label="Дом*"
           placeholder="Введите номер дома"
-          :required="true"
           :error-text="validations.building.error"
         />
       </div>

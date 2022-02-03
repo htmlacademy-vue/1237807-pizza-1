@@ -148,6 +148,15 @@ export const dataTypes = {
   misc: miscTypes,
 };
 
+export const addressValues = {
+  pickup: {},
+  new: {
+    street: "",
+    building: "",
+    flat: "",
+  },
+};
+
 export const ERROR_LIVE_TIME = 3000;
 export const MAX_INGREDIENTS = 3;
 export const MOVE = "move";

@@ -3,43 +3,90 @@
     <div class="cart-form">
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
-        <select name="test" class="select">
-          <option value="1">Заберу сам</option>
-          <option value="2">Новый адрес</option>
-          <option value="3">Дом</option>
+        <select
+          name="test"
+          class="select"
+          v-model="selected"
+          @change="setAddressValue($event.target.value)"
+        >
+          <option
+            v-for="option in options"
+            :key="option.value"
+            :value="option.value"
+          >
+            {{ option.label }}
+          </option>
         </select>
       </label>
-      <label class="input input--big-label">
-        <span>Контактный телефон:</span>
-        <input type="text" name="tel" placeholder="+7 999-999-99-99" />
-      </label>
-      <div class="cart-form__address">
-        <span class="cart-form__label">Новый адрес:</span>
-        <div class="cart-form__input">
-          <label class="input">
-            <span>Улица*</span>
-            <input type="text" name="street" />
-          </label>
-        </div>
-        <div class="cart-form__input cart-form__input--small">
-          <label class="input">
-            <span>Дом*</span>
-            <input type="text" name="house" />
-          </label>
-        </div>
-        <div class="cart-form__input cart-form__input--small">
-          <label class="input">
-            <span>Квартира</span>
-            <input type="text" name="apartment" />
-          </label>
-        </div>
-      </div>
+      <Input
+        class="input--big-label"
+        ref="phone"
+        v-model="Cart.phone"
+        name="phone"
+        label="Контактный телефон:"
+        placeholder="+7 999-999-99-99"
+      />
+      <CartDeliveryAddress v-if="isAddressForm" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import CartDeliveryAddress from "@/modules/cart/components/CartDeliveryAddress";
+
 export default {
   name: "CartDeliveryForm",
+  components: { CartDeliveryAddress },
+  data() {
+    return {
+      selected: "pickup",
+      validations: {
+        street: {
+          error: "",
+          rules: ["required"],
+        },
+        building: {
+          error: "",
+          rules: ["required"],
+        },
+      },
+      isFormValid: true,
+    };
+  },
+  methods: {
+    ...mapActions("Cart", ["setAddressValue"]),
+  },
+  computed: {
+    ...mapState("Auth", ["isAuthenticated"]),
+    ...mapState("Addresses", ["addresses"]),
+    ...mapState(["Cart"]),
+    options() {
+      let options = [
+        {
+          value: "pickup",
+          label: "Заберу сам",
+        },
+        {
+          value: "new",
+          label: "Новый адрес",
+        },
+      ];
+
+      if (this.isAuthenticated && this.addresses.length) {
+        this.addresses.map((address) => {
+          options.push({
+            value: address.id,
+            label: address.name,
+          });
+        });
+      }
+
+      return options;
+    },
+    isAddressForm() {
+      return this.selected !== "pickup";
+    },
+  },
 };
 </script>

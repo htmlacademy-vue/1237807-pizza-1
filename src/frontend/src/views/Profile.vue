@@ -59,15 +59,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(["Addresses"]),
-    ...mapState(["Auth"]),
+    ...mapState("Addresses", ["addresses"]),
+    ...mapState("Auth", ["user"]),
     ...mapGetters("Auth", ["getUserAvatar"]),
-    addresses() {
-      return this.Addresses.addresses || [];
-    },
-    user() {
-      return this.Auth.user || {};
-    },
     userAvatar() {
       return this.getUserAvatar;
     },

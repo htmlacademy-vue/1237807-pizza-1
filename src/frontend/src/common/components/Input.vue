@@ -5,12 +5,13 @@
     </span>
     <input
       ref="input"
-      v-model="value"
+      :value="value"
       :type="type"
       :name="name"
       :placeholder="placeholder"
       :class="{ error__input: showError }"
       :required="required"
+      :disabled="disabled"
       @input="$emit('input', $event.target.value)"
     />
     <span v-if="showError" class="error__text">
@@ -52,6 +53,10 @@ export default {
       default: "",
     },
     required: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
