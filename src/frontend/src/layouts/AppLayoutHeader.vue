@@ -60,8 +60,15 @@ export default {
   },
   computed: {
     ...mapState(["Auth"]),
+    ...mapState("Cart", ["pizzasOrder", "miscOrder"]),
     ...mapGetters("Auth", ["getUserAvatar"]),
-    ...mapGetters("Cart", ["orderTotalCost"]),
+    ...mapGetters(["getOrderCost"]),
+    orderTotalCost() {
+      return this.getOrderCost({
+        miscOrder: this.miscOrder,
+        pizzasOrder: this.pizzasOrder,
+      });
+    },
     user() {
       return this.Auth.user || {};
     },

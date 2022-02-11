@@ -1,5 +1,6 @@
 export default {
   ADDRESSES: "addresses",
+  ORDERS: "orders",
   AUTH: "auth",
   DOUGH: "dough",
   SIZES: "sizes",

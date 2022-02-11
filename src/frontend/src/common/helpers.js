@@ -3,12 +3,14 @@ import {
   AuthApiService,
   CrudApiService,
   DataApiService,
+  OrdersApiService,
 } from "@/services/api.service";
 
-export const createResources = (error) => {
+export const createResources = (error, store) => {
   return {
     [resources.AUTH]: new AuthApiService(error),
     [resources.ADDRESSES]: new CrudApiService(resources.ADDRESSES, error),
+    [resources.ORDERS]: new OrdersApiService(resources.ORDERS, error, store),
     [resources.DOUGH]: new DataApiService(resources.DOUGH, error),
     [resources.SIZES]: new DataApiService(resources.SIZES, error),
     [resources.SAUCES]: new DataApiService(resources.SAUCES, error),
@@ -20,16 +22,6 @@ export const createResources = (error) => {
 export const setAuth = (store) => {
   store.$api.auth.setAuthHeader();
   store.dispatch("Auth/getMe");
-};
-
-export const normalizeData = (data, items) => {
-  const requiredItem = items.find((item) => item.name === data.name);
-
-  return {
-    ...data,
-    type: requiredItem.type,
-    value: requiredItem.value,
-  };
 };
 
 export const capitalize = (string) =>
@@ -59,4 +51,58 @@ export const getPrice = (arr, value) => {
       ? requiredData.multiplier
       : requiredData.price;
   }
+};
+
+export const getId = (arr, value) => {
+  const requiredData = getRequiredValue(arr, value);
+
+  if (requiredData) {
+    return requiredData.id;
+  }
+};
+
+export const getValueById = (arr, id) => {
+  const requiredData = arr.filter((item) => item.id === id)[0];
+
+  if (requiredData) {
+    return requiredData.value;
+  }
+};
+
+export const getRequestDataFromObject = (obj, data, detailId) => {
+  const requestArray = Object.entries(obj).reduce((acc, [key, value]) => {
+    acc.push({
+      [detailId]: getId(data, key),
+      quantity: value,
+    });
+    return acc;
+  }, []);
+
+  return requestArray;
+};
+
+export const getObjectFromResponseData = (arr, data) => {
+  const obj = arr.reduce((acc, item) => {
+    const title = getValueById(data, item.miscId);
+    acc[title] = item.quantity;
+    return acc;
+  }, {});
+
+  return obj;
+};
+
+export const getIngredientsArray = (arr, data) => {
+  const ingredients = arr.reduce((acc, item) => {
+    const title = getValueById(data, item.ingredientId);
+    if (item.quantity > 1) {
+      const fewTitles = new Array(item.quantity).fill(title, 0);
+      acc = [...acc, ...fewTitles];
+    } else {
+      acc.push(title);
+    }
+
+    return acc;
+  }, []);
+
+  return ingredients;
 };

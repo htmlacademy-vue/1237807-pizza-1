@@ -6,8 +6,8 @@
         <select
           name="test"
           class="select"
-          v-model="selected"
-          @change="setAddressValue($event.target.value)"
+          v-model="Cart.deliveryOption"
+          @change="setAddressValue"
         >
           <option
             v-for="option in options"
@@ -38,22 +38,6 @@ import CartDeliveryAddress from "@/modules/cart/components/CartDeliveryAddress";
 export default {
   name: "CartDeliveryForm",
   components: { CartDeliveryAddress },
-  data() {
-    return {
-      selected: "pickup",
-      validations: {
-        street: {
-          error: "",
-          rules: ["required"],
-        },
-        building: {
-          error: "",
-          rules: ["required"],
-        },
-      },
-      isFormValid: true,
-    };
-  },
   methods: {
     ...mapActions("Cart", ["setAddressValue"]),
   },
@@ -85,7 +69,7 @@ export default {
       return options;
     },
     isAddressForm() {
-      return this.selected !== "pickup";
+      return this.Cart.deliveryOption !== "pickup";
     },
   },
 };

@@ -11,22 +11,80 @@ import {
   DELETE_ERROR,
 } from "@/store/mutations-types";
 import { ERROR_LIVE_TIME } from "@/common/constants";
+import { getPrice, countItemsInArray } from "@/common/helpers";
 
 Vue.use(Vuex);
 
 const state = () => ({
+  pizzaData: {
+    dough: [],
+    sizes: [],
+    sauces: [],
+    ingredients: [],
+  },
+  miscData: [],
   error: "",
 });
 
 const actions = {
   async init({ dispatch }) {
-    dispatch("Builder/query");
-    dispatch("Cart/query");
+    await dispatch("fetchPizzaData");
+    await dispatch("fetchMiscData");
+  },
+  async fetchPizzaData({ commit }) {
+    const dough = await this.$api.dough.query();
+    const sizes = await this.$api.sizes.query();
+    const sauces = await this.$api.sauces.query();
+    const ingredients = await this.$api.ingredients.query();
+
+    const data = { dough, sizes, sauces, ingredients };
+
+    commit(SET_ENTITY, { module: null, entity: "pizzaData", value: data });
+  },
+  async fetchMiscData({ commit }) {
+    const data = await this.$api.misc.query();
+
+    commit(SET_ENTITY, { module: null, entity: "miscData", value: data });
   },
   async createError(store, text) {
     store.commit(CREATE_ERROR, text);
     setTimeout(() => store.commit(DELETE_ERROR), ERROR_LIVE_TIME);
   },
+};
+
+const getters = {
+  getPizzaDataItem: (state) => (item) => state.pizzaData[item],
+  getPizzaCost:
+    ({ pizzaData }) =>
+    (pizza) => {
+      const doughCost = getPrice(pizzaData.dough, pizza.dough);
+      const sizeCost = getPrice(pizzaData.sizes, pizza.diameter);
+      const sauceCost = getPrice(pizzaData.sauces, pizza.sauce);
+
+      const ingredientsCount = countItemsInArray(pizza.ingredients);
+      let ingredientsTotalCost = 0;
+      pizzaData.ingredients.map((item) => {
+        if (ingredientsCount[item.value]) {
+          ingredientsTotalCost += item.price * ingredientsCount[item.value];
+        }
+      });
+
+      return (doughCost + sauceCost + ingredientsTotalCost) * sizeCost || 0;
+    },
+  getOrderCost:
+    ({ miscData }, getters) =>
+    ({ miscOrder, pizzasOrder }) => {
+      let total = 0;
+
+      pizzasOrder.forEach((pizza) => {
+        total += getters.getPizzaCost(pizza) * pizza.count;
+      });
+      miscData.forEach((item) => {
+        total += item.price * miscOrder[item.value];
+      });
+
+      return total;
+    },
 };
 
 const mutations = {
@@ -74,6 +132,7 @@ const mutations = {
 
 export default new Vuex.Store({
   state,
+  getters,
   mutations,
   actions,
   modules,

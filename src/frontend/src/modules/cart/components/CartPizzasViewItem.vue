@@ -1,22 +1,6 @@
 <template>
   <li class="cart-list__item">
-    <div class="product cart-list__product">
-      <img
-        src="@/assets/img/product.svg"
-        class="product__img"
-        width="56"
-        height="56"
-        :alt="pizza.title"
-      />
-      <div class="product__text">
-        <h2>{{ pizza.title }}</h2>
-        <ul>
-          <li>{{ description }}</li>
-          <li>{{ dressing }}</li>
-          <li>{{ filling }}</li>
-        </ul>
-      </div>
-    </div>
+    <PizzaItem class="cart-list__product" :pizza="pizza" />
     <ItemCounter
       :class="`cart-list__counter`"
       :value="pizza.count || 0"
@@ -36,20 +20,14 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapMutations, mapGetters } from "vuex";
+import PizzaItem from "@/common/components/PizzaItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import { SET_CURRENT_PIZZA } from "@/store/mutations-types";
-import { getRequiredValue, lowercase } from "@/common/helpers";
-import {
-  doughTypes,
-  pizzaSizes,
-  sauceTypes,
-  ingredientsTypes,
-} from "@/common/constants";
 
 export default {
   name: "CartPizzasViewItem",
-  components: { ItemCounter },
+  components: { PizzaItem, ItemCounter },
   props: {
     pizza: {
       type: Object,
@@ -57,28 +35,9 @@ export default {
     },
   },
   computed: {
-    description() {
-      const diameter = getRequiredValue(pizzaSizes, this.pizza.diameter);
-      const dough = getRequiredValue(doughTypes, this.pizza.dough);
-
-      return `${diameter.name}, на ${dough.label} тесте`;
-    },
-    dressing() {
-      const sauce = getRequiredValue(sauceTypes, this.pizza.sauce);
-
-      return `Соус: ${lowercase(sauce.name)}`;
-    },
-    filling() {
-      const allIngredients = this.pizza.ingredients.map((ingredient) => {
-        const ingredientData = getRequiredValue(ingredientsTypes, ingredient);
-        return lowercase(ingredientData.name);
-      });
-      const uniqueIngredients = Array.from(new Set(allIngredients)).join(", ");
-
-      return `Начинка: ${uniqueIngredients}`;
-    },
+    ...mapGetters(["getPizzaCost"]),
     totalCost() {
-      return this.pizza.cost * this.pizza.count;
+      return this.getPizzaCost(this.pizza) * this.pizza.count;
     },
   },
   methods: {

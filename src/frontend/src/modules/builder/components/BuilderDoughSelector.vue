@@ -25,9 +25,10 @@ export default {
   name: "BuilderDoughSelector",
   components: { SelectorItem },
   computed: {
-    ...mapGetters("Builder", ["getBuilderItem", "getPizzaItem"]),
+    ...mapGetters(["getPizzaDataItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
     dough() {
-      return this.getBuilderItem("dough");
+      return this.getPizzaDataItem("dough");
     },
     checked() {
       return this.getPizzaItem("dough");

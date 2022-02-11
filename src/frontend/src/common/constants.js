@@ -154,6 +154,16 @@ export const addressValues = {
     street: "",
     building: "",
     flat: "",
+    validations: {
+      street: {
+        error: "",
+        rules: ["required"],
+      },
+      building: {
+        error: "",
+        rules: ["required"],
+      },
+    },
   },
 };
 

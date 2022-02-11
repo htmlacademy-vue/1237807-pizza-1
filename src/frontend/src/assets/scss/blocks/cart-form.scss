@@ -7,7 +7,6 @@
 .cart-form__select {
   display: flex;
   align-items: center;
-
   margin-right: auto;
 
   span {
@@ -17,13 +16,13 @@
 
 .cart-form__label {
   @include b-s16-h19;
-
+  align-self: center;
   white-space: nowrap;
 }
 
 .cart-form__address {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   width: 100%;
   margin-top: 20px;

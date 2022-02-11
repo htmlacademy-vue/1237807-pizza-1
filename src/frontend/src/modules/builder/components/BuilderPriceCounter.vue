@@ -1,14 +1,7 @@
 <template>
   <div class="content__result">
     <p>Итого: {{ pizzaCost }} ₽</p>
-    <button
-      type="button"
-      class="button"
-      :disabled="disabled"
-      @click="finalizePizza"
-    >
-      Готовьте!
-    </button>
+    <Button :disabled="disabled" @click="finalizePizza"> Готовьте! </Button>
   </div>
 </template>
 
@@ -20,9 +13,10 @@ export default {
   name: "BuilderPriceCounter",
   computed: {
     ...mapState("Builder", ["pizza"]),
-    ...mapGetters("Builder", ["getPizzaCost", "isPizzaReady"]),
+    ...mapGetters(["getPizzaCost"]),
+    ...mapGetters("Builder", ["isPizzaReady"]),
     pizzaCost() {
-      return this.getPizzaCost;
+      return this.getPizzaCost(this.pizza);
     },
     disabled() {
       return !this.isPizzaReady;
@@ -34,12 +28,10 @@ export default {
       resetPizza: RESET_CURRENT_PIZZA,
     }),
     finalizePizza() {
-      const finalPizza = { ...this.pizza, cost: this.pizzaCost };
-
-      if (finalPizza.id) {
-        this.updatePizza(finalPizza);
+      if (this.pizza.id) {
+        this.updatePizza(this.pizza);
       } else {
-        this.addPizza(finalPizza);
+        this.addPizza(this.pizza);
       }
 
       this.resetPizza();

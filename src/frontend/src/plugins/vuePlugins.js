@@ -11,7 +11,7 @@ const plugins = {
         $jwt: () => JWTService,
         $error: () => new Error(store),
         $api() {
-          return createResources(this.$error);
+          return createResources(this.$error, store);
         },
       },
     });

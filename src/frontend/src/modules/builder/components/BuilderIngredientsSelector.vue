@@ -78,12 +78,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("Builder", ["getBuilderItem", "getPizzaItem"]),
+    ...mapGetters(["getPizzaDataItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
     sauces() {
-      return this.getBuilderItem("sauces");
+      return this.getPizzaDataItem("sauces");
     },
     ingredients() {
-      return this.getBuilderItem("ingredients");
+      return this.getPizzaDataItem("ingredients");
     },
     sauceChecked() {
       return this.getPizzaItem("sauce");
