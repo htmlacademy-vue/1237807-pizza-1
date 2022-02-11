@@ -11,9 +11,7 @@
         <Button class="button--border" @click="deleteOrder"> Удалить </Button>
       </div>
       <div class="order__button">
-        <Button class="button--border" @click="setOrderToCart">
-          Повторить
-        </Button>
+        <Button @click="setOrderToCart"> Повторить </Button>
       </div>
     </div>
     <ul class="order__list">
@@ -62,7 +60,6 @@ export default {
       return this.order.pizzasOrder;
     },
     miscOrder() {
-      console.log(this.order);
       return this.miscData.filter(
         (item) => this.order.miscOrder[item.value] > 0
       );
