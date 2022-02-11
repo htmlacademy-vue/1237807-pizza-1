@@ -15,7 +15,7 @@ export default {
   actions: {
     async query({ commit }) {
       const ordersData = await this.$api.orders.query();
-      console.log(ordersData);
+
       commit(
         SET_ENTITY,
         {
