@@ -14,7 +14,7 @@
     <div class="cart-form__input cart-form__input--small">
       <Input
         ref="building"
-        v-model="address.building"
+        v-model="building"
         name="building"
         label="Дом*"
         :disabled="disabled"
@@ -24,7 +24,7 @@
     <div class="cart-form__input cart-form__input--small">
       <Input
         ref="flat"
-        v-model="address.flat"
+        v-model="flat"
         name="flat"
         label="Квартира"
         :disabled="disabled"
