@@ -42,8 +42,6 @@ export default {
     async getMe({ commit, dispatch }) {
       try {
         const data = await this.$api.auth.getMe();
-        dispatch("Addresses/query", null, { root: true });
-        dispatch("Orders/query", null, { root: true });
 
         commit(
           SET_ENTITY,

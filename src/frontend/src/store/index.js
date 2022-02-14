@@ -46,6 +46,10 @@ const actions = {
 
     commit(SET_ENTITY, { module: null, entity: "miscData", value: data });
   },
+  async fetchAuthorizedOnlyData({ dispatch }) {
+    await dispatch("Addresses/query");
+    await dispatch("Orders/query");
+  },
   async createError(store, text) {
     store.commit(CREATE_ERROR, text);
     setTimeout(() => store.commit(DELETE_ERROR), ERROR_LIVE_TIME);

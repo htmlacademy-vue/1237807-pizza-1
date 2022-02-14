@@ -4,6 +4,9 @@ import {
   UPDATE_ENTITY,
   DELETE_ENTITY,
   UPDATE_MISC_ORDER,
+  UPDATE_DELIVERY_OPTION,
+  UPDATE_PHONE,
+  UPDATE_ADDRESS,
   SET_POP_UP,
   SET_CART,
   RESET_CART,
@@ -39,8 +42,16 @@ export default {
         miscOrder[item] -= 1;
       }
     },
+    [UPDATE_DELIVERY_OPTION](state, value) {
+      state.deliveryOption = value;
+    },
+    [UPDATE_PHONE](state, value) {
+      state.phone = value;
+    },
+    [UPDATE_ADDRESS]({ address }, { key, value }) {
+      address[key] = value;
+    },
     [SET_CART](state, { pizzasOrder, miscOrder, phone, address }) {
-      console.log(address);
       state.pizzasOrder = pizzasOrder;
       state.miscOrder = miscOrder;
       state.phone = phone;

@@ -115,20 +115,31 @@ export class OrdersApiService extends CrudApiService {
   }
 
   _normalize(order) {
-    const pizzasOrder = order.orderPizzas.map((pizza) => {
-      return {
-        id: pizza.id,
-        title: pizza.name,
-        sauce: getValueById(this.#store.state.pizzaData.sauces, pizza.sauceId),
-        dough: getValueById(this.#store.state.pizzaData.dough, pizza.doughId),
-        diameter: getValueById(this.#store.state.pizzaData.sizes, pizza.sizeId),
-        count: pizza.quantity,
-        ingredients: getIngredientsArray(
-          pizza.ingredients,
-          this.#store.state.pizzaData.ingredients
-        ),
-      };
-    });
+    const pizzasOrder = !order.orderPizzas
+      ? []
+      : order.orderPizzas.map((pizza) => {
+          return {
+            id: pizza.id,
+            title: pizza.name,
+            sauce: getValueById(
+              this.#store.state.pizzaData.sauces,
+              pizza.sauceId
+            ),
+            dough: getValueById(
+              this.#store.state.pizzaData.dough,
+              pizza.doughId
+            ),
+            diameter: getValueById(
+              this.#store.state.pizzaData.sizes,
+              pizza.sizeId
+            ),
+            count: pizza.quantity,
+            ingredients: getIngredientsArray(
+              pizza.ingredients,
+              this.#store.state.pizzaData.ingredients
+            ),
+          };
+        });
 
     const miscOrder = getObjectFromResponseData(
       order.orderMisc,

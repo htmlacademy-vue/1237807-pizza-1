@@ -23,6 +23,7 @@ export default {
     this.$store.dispatch("init").then(() => {
       if (this.$jwt.getToken()) {
         setAuth(this.$store);
+        this.$store.dispatch("fetchAuthorizedOnlyData");
       }
     });
   },

@@ -21,7 +21,11 @@
 
 <script>
 import { mapMutations, mapState, mapActions, mapGetters } from "vuex";
-import { SET_POP_UP } from "@/store/mutations-types";
+import {
+  SET_POP_UP,
+  RESET_CART,
+  RESET_CURRENT_PIZZA,
+} from "@/store/mutations-types";
 import validator from "@/common/mixins/validator";
 
 export default {
@@ -59,6 +63,10 @@ export default {
   methods: {
     ...mapMutations("Cart", {
       setPopUp: SET_POP_UP,
+      resetCart: RESET_CART,
+    }),
+    ...mapMutations("Builder", {
+      resetBuilder: RESET_CURRENT_PIZZA,
     }),
     ...mapActions("Orders", {
       orderPost: "post",
@@ -81,6 +89,8 @@ export default {
         await this.orderPost(this.finalOrder);
       }
 
+      this.resetCart();
+      this.resetBuilder();
       this.openPopUp();
     },
   },

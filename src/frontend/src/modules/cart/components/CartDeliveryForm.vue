@@ -6,7 +6,7 @@
         <select
           name="test"
           class="select"
-          v-model="Cart.deliveryOption"
+          v-model="deliveryMethod"
           @change="setAddressValue"
         >
           <option
@@ -21,7 +21,7 @@
       <Input
         class="input--big-label"
         ref="phone"
-        v-model="Cart.phone"
+        v-model="phoneNumber"
         name="phone"
         label="Контактный телефон:"
         placeholder="+7 999-999-99-99"
@@ -32,19 +32,24 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import CartDeliveryAddress from "@/modules/cart/components/CartDeliveryAddress";
+import { UPDATE_DELIVERY_OPTION, UPDATE_PHONE } from "@/store/mutations-types";
 
 export default {
   name: "CartDeliveryForm",
   components: { CartDeliveryAddress },
   methods: {
     ...mapActions("Cart", ["setAddressValue"]),
+    ...mapMutations("Cart", {
+      updateDeliveryMethod: UPDATE_DELIVERY_OPTION,
+      updatePhoneNumber: UPDATE_PHONE,
+    }),
   },
   computed: {
     ...mapState("Auth", ["isAuthenticated"]),
     ...mapState("Addresses", ["addresses"]),
-    ...mapState(["Cart"]),
+    ...mapState("Cart", ["deliveryOption", "phone"]),
     options() {
       let options = [
         {
@@ -69,7 +74,23 @@ export default {
       return options;
     },
     isAddressForm() {
-      return this.Cart.deliveryOption !== "pickup";
+      return this.deliveryOption !== "pickup";
+    },
+    deliveryMethod: {
+      get() {
+        return this.deliveryOption;
+      },
+      set(value) {
+        this.updateDeliveryMethod(value);
+      },
+    },
+    phoneNumber: {
+      get() {
+        return this.phone;
+      },
+      set(value) {
+        this.updatePhoneNumber(value);
+      },
     },
   },
 };

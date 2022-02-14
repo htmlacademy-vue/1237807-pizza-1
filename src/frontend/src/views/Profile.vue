@@ -12,17 +12,17 @@
         <img
           :src="`${userAvatar}@2x.jpg`"
           :srcset="`${userAvatar}@4x.jpg`"
-          :alt="user.name"
+          :alt="userName"
           width="72"
           height="72"
         />
       </picture>
       <div class="user__name">
-        <span>{{ user.name }}</span>
+        <span>{{ userName }}</span>
       </div>
       <p class="user__phone">
         Контактный телефон:
-        <span>{{ user.phone }}</span>
+        <span>{{ userPhone }}</span>
       </p>
     </div>
     <div v-if="!addresses.length" class="layout__address">
@@ -64,6 +64,12 @@ export default {
     ...mapGetters("Auth", ["getUserAvatar"]),
     userAvatar() {
       return this.getUserAvatar;
+    },
+    userName() {
+      return this.user.name;
+    },
+    userPhone() {
+      return this.user.phone;
     },
   },
   methods: {

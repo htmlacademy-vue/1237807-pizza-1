@@ -124,6 +124,9 @@ export default {
   created() {
     if (this.addressToEdit) {
       this.address = cloneDeep(this.addressToEdit);
+      if (!this.address.comment) {
+        this.address.comment = "";
+      }
     }
   },
   methods: {

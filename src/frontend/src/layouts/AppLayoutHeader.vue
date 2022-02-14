@@ -33,7 +33,7 @@
       <a class="header__logout" @click="$logout"><span>Выйти</span></a>
     </div>
 
-    <div v-if="showLogin" class="header__user">
+    <div v-else class="header__user">
       <router-link class="header__login" to="/login">
         <span>Войти</span>
       </router-link>
@@ -48,16 +48,6 @@ import { logout } from "@/common/mixins";
 export default {
   name: "AppLayoutHeader",
   mixins: [logout],
-  props: {
-    showUser: {
-      type: Boolean,
-      default: true,
-    },
-    showLogin: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
     ...mapState(["Auth"]),
     ...mapState("Cart", ["pizzasOrder", "miscOrder"]),
@@ -70,10 +60,13 @@ export default {
       });
     },
     user() {
-      return this.Auth.user || {};
+      return this.Auth.user;
     },
     userAvatar() {
       return this.getUserAvatar;
+    },
+    showUser() {
+      return this.Auth.isAuthenticated;
     },
   },
 };

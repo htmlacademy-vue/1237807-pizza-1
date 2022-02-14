@@ -4,7 +4,7 @@
     <div class="cart-form__input">
       <Input
         ref="street"
-        v-model="address.street"
+        v-model="street"
         name="street"
         label="Улица*"
         :disabled="disabled"
@@ -34,28 +34,49 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import validator from "@/common/mixins/validator";
+import { UPDATE_ADDRESS } from "@/store/mutations-types";
 
 export default {
   name: "CartDeliveryAddress",
   mixins: [validator],
+  methods: {
+    ...mapMutations("Cart", {
+      updateAddress: UPDATE_ADDRESS,
+    }),
+  },
   computed: {
-    ...mapState(["Cart"]),
+    ...mapState("Cart", ["address"]),
     validations() {
-      return this.Cart.address.validations || {};
+      return this.address.validations || {};
     },
     disabled() {
       return !!this.address.id;
     },
-    address() {
-      return this.Cart.address;
+    street: {
+      get() {
+        return this.address.street;
+      },
+      set(value) {
+        this.updateAddress({ key: "street", value });
+      },
     },
-    street() {
-      return this.address.street;
+    building: {
+      get() {
+        return this.address.building;
+      },
+      set(value) {
+        this.updateAddress({ key: "building", value });
+      },
     },
-    building() {
-      return this.address.building;
+    flat: {
+      get() {
+        return this.address.flat;
+      },
+      set(value) {
+        this.updateAddress({ key: "flat", value });
+      },
     },
   },
   watch: {
