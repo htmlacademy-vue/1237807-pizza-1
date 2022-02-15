@@ -8,6 +8,7 @@
 
 <script>
 import AppLayout from "@/layouts/AppLayout";
+import { setAuth } from "@/common/helpers";
 
 export default {
   name: "App",
@@ -15,7 +16,16 @@ export default {
     AppLayout,
   },
   created() {
-    this.$store.dispatch("init");
+    window.onerror = function (msg, url, line, col, error) {
+      console.error(error);
+    };
+
+    this.$store.dispatch("init").then(() => {
+      if (this.$jwt.getToken()) {
+        setAuth(this.$store);
+        this.$store.dispatch("fetchAuthorizedOnlyData");
+      }
+    });
   },
 };
 </script>

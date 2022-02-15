@@ -25,6 +25,7 @@ export default {
     },
     checked: {
       type: String,
+      required: true,
     },
   },
 };

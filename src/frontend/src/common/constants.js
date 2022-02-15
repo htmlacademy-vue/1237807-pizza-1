@@ -140,6 +140,37 @@ export const miscTypes = [
   },
 ];
 
+export const dataTypes = {
+  dough: doughTypes,
+  sizes: pizzaSizes,
+  sauces: sauceTypes,
+  ingredients: ingredientsTypes,
+  misc: miscTypes,
+};
+
+export const addressValues = {
+  pickup: {},
+  new: {
+    street: "",
+    building: "",
+    flat: "",
+    validations: {
+      street: {
+        error: "",
+        rules: ["required"],
+      },
+      building: {
+        error: "",
+        rules: ["required"],
+      },
+    },
+  },
+};
+
+export const ERROR_LIVE_TIME = 3000;
 export const MAX_INGREDIENTS = 3;
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
+
+/* eslint-disable */
+export const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

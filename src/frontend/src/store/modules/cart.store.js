@@ -4,17 +4,19 @@ import {
   UPDATE_ENTITY,
   DELETE_ENTITY,
   UPDATE_MISC_ORDER,
+  UPDATE_DELIVERY_OPTION,
+  UPDATE_PHONE,
+  UPDATE_ADDRESS,
   SET_POP_UP,
+  SET_CART,
   RESET_CART,
 } from "@/store/mutations-types";
-import { capitalize, normalizeData } from "@/common/helpers";
-import misc from "@/static/misc.json";
-import { miscTypes } from "@/common/constants";
+import { capitalize } from "@/common/helpers";
+import { addressValues } from "@/common/constants";
 
 const entity = "cart";
 const module = capitalize(entity);
 
-const setupDefaultPizzasOrder = () => [];
 const setupDefaultMiscOrder = () => ({
   cola: 0,
   sauce: 0,
@@ -24,26 +26,12 @@ const setupDefaultMiscOrder = () => ({
 export default {
   namespaced: true,
   state: {
-    misc: [],
-    pizzasOrder: setupDefaultPizzasOrder(),
+    pizzasOrder: [],
     miscOrder: setupDefaultMiscOrder(),
+    phone: "",
+    address: {},
+    deliveryOption: "pickup",
     isPopUp: false,
-  },
-
-  getters: {
-    orderTotalCost({ misc, miscOrder, pizzasOrder }) {
-      let total = 0;
-
-      pizzasOrder.forEach((item) => {
-        total += item.cost * item.count;
-      });
-
-      misc.forEach((item) => {
-        total += item.price * miscOrder[item.value];
-      });
-
-      return total;
-    },
   },
 
   mutations: {
@@ -54,9 +42,33 @@ export default {
         miscOrder[item] -= 1;
       }
     },
+    [UPDATE_DELIVERY_OPTION](state, value) {
+      state.deliveryOption = value;
+    },
+    [UPDATE_PHONE](state, value) {
+      state.phone = value;
+    },
+    [UPDATE_ADDRESS]({ address }, { key, value }) {
+      address[key] = value;
+    },
+    [SET_CART](state, { pizzasOrder, miscOrder, phone, address }) {
+      state.pizzasOrder = pizzasOrder;
+      state.miscOrder = miscOrder;
+      state.phone = phone;
+      state.address = address || {};
+
+      if (address && address.id) {
+        state.deliveryOption = address.id;
+      } else {
+        state.deliveryOption = "pickup";
+      }
+    },
     [RESET_CART](state) {
-      state.pizzasOrder = setupDefaultPizzasOrder();
+      state.pizzasOrder = [];
       state.miscOrder = setupDefaultMiscOrder();
+      state.phone = "";
+      state.address = {};
+      state.deliveryOption = "pickup";
     },
     [SET_POP_UP](state, status) {
       state.isPopUp = status;
@@ -64,21 +76,6 @@ export default {
   },
 
   actions: {
-    async query({ commit }) {
-      const miscData = misc.map((miscItem) =>
-        normalizeData(miscItem, miscTypes)
-      );
-
-      commit(
-        SET_ENTITY,
-        {
-          module: module,
-          entity: "misc",
-          value: miscData,
-        },
-        { root: true }
-      );
-    },
     addPizza({ state, commit }, pizza) {
       const id = state.pizzasOrder.length + 1;
       const newPizza = { ...pizza, id };
@@ -114,6 +111,34 @@ export default {
         },
         { root: true }
       );
+    },
+    setAddressValue({ state, commit, rootState }) {
+      const selectedOption = state.deliveryOption;
+      if (addressValues[selectedOption]) {
+        commit(
+          SET_ENTITY,
+          {
+            module: module,
+            entity: "address",
+            value: addressValues[selectedOption],
+          },
+          { root: true }
+        );
+      } else {
+        const selectedAddress = rootState.Addresses.addresses.find(
+          ({ id }) => id === Number(selectedOption)
+        );
+
+        commit(
+          SET_ENTITY,
+          {
+            module: module,
+            entity: "address",
+            value: selectedAddress,
+          },
+          { root: true }
+        );
+      }
     },
   },
 };

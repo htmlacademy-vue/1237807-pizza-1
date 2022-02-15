@@ -14,30 +14,27 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import {
-  SET_POP_UP,
-  RESET_CART,
-  RESET_CURRENT_PIZZA,
-} from "@/store/mutations-types";
+import { mapMutations, mapState } from "vuex";
+import { SET_POP_UP } from "@/store/mutations-types";
 
 export default {
   name: "CartPopUp",
+  computed: {
+    ...mapState("Auth", ["isAuthenticated"]),
+  },
   methods: {
     ...mapMutations("Cart", {
       setPopUp: SET_POP_UP,
     }),
-    ...mapMutations("Cart", {
-      resetCart: RESET_CART,
-    }),
-    ...mapMutations("Builder", {
-      resetBuilder: RESET_CURRENT_PIZZA,
-    }),
+
     closePopUp() {
       this.setPopUp(false);
-      this.resetCart();
-      this.resetBuilder();
-      this.$router.push("/");
+
+      if (this.isAuthenticated) {
+        this.$router.push("/orders");
+      } else {
+        this.$router.push("/");
+      }
     },
   },
 };

@@ -1,3 +1,5 @@
+import { auth, isLoggedIn } from "@/middlewares";
+
 export default [
   {
     path: "/",
@@ -9,7 +11,7 @@ export default [
     path: "/login",
     name: "Login",
     component: () => import("../views/Login.vue"),
-    meta: { layout: "AppLayoutEmpty" },
+    meta: { layout: "AppLayoutEmpty", middlewares: [isLoggedIn] },
   },
   {
     path: "/cart",
@@ -21,12 +23,12 @@ export default [
     path: "/orders",
     name: "Orders",
     component: () => import("../views/Orders.vue"),
-    meta: { layout: "AppLayoutAuthorizedUser" },
+    meta: { layout: "AppLayoutAuthorizedUser", middlewares: [auth] },
   },
   {
     path: "/profile",
     name: "Profile",
     component: () => import("../views/Profile.vue"),
-    meta: { layout: "AppLayoutAuthorizedUser" },
+    meta: { layout: "AppLayoutAuthorizedUser", middlewares: [auth] },
   },
 ];

@@ -25,9 +25,10 @@ export default {
   name: "BuilderSizeSelector",
   components: { SelectorItem },
   computed: {
-    ...mapGetters("Builder", ["getBuilderItem", "getPizzaItem"]),
+    ...mapGetters(["getPizzaDataItem"]),
+    ...mapGetters("Builder", ["getPizzaItem"]),
     sizes() {
-      return this.getBuilderItem("sizes");
+      return this.getPizzaDataItem("sizes");
     },
     checked() {
       return this.getPizzaItem("diameter");

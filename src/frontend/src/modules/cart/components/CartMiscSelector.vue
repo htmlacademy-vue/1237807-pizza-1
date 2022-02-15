@@ -2,7 +2,7 @@
   <div class="cart__additional">
     <ul class="additional-list">
       <li
-        v-for="miscItem in misc"
+        v-for="miscItem in miscData"
         :key="miscItem.id"
         class="additional-list__item sheet"
       >
@@ -50,7 +50,8 @@ export default {
   name: "CartMiscSelector",
   components: { ItemCounter },
   computed: {
-    ...mapState("Cart", ["misc", "miscOrder"]),
+    ...mapState(["miscData"]),
+    ...mapState("Cart", ["miscOrder"]),
   },
   methods: {
     ...mapMutations("Cart", {

@@ -1,4 +1,4 @@
 export default {
-  2: "second",
-  3: "third",
+  1: " pizza__filling--second",
+  2: " pizza__filling--third",
 };

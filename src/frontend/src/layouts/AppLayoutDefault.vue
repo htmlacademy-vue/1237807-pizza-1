@@ -1,5 +1,6 @@
 <template>
   <div class="app-layout-default">
+    <Error />
     <AppLayoutHeader />
     <slot />
   </div>
@@ -7,6 +8,7 @@
 
 <script>
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
+
 export default {
   name: "AppLayoutDefault",
   components: {

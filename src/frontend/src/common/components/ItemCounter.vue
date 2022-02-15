@@ -37,9 +37,11 @@ export default {
     },
     maxCount: {
       type: Number,
+      default: null,
     },
     buttonClass: {
       type: String,
+      default: "",
     },
   },
   computed: {
