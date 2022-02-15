@@ -11,15 +11,17 @@
       }-${sauce}`"
     >
       <div class="pizza__wrapper">
-        <div
-          v-for="(ingredient, index) in ingredients"
-          :key="index"
-          class="pizza__filling"
-          :class="`pizza__filling--${ingredient}${getIngredientCountClassName(
-            ingredient,
-            index
-          )}`"
-        ></div>
+        <transition-group name="ingredients">
+          <div
+            v-for="(ingredient, index) in ingredients"
+            :key="ingredient + index"
+            class="pizza__filling"
+            :class="`pizza__filling--${ingredient}${getIngredientCountClassName(
+              ingredient,
+              index
+            )}`"
+          ></div>
+        </transition-group>
       </div>
     </div>
   </div>
@@ -101,3 +103,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.ingredients-enter-active,
+.ingredients-leave-active {
+  transition: all 0.7s ease;
+}
+.ingredients-enter,
+.ingredients-leave-to {
+  transform: scale(1.7);
+  opacity: 0;
+}
+</style>
