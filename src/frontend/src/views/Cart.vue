@@ -11,7 +11,14 @@
       </div>
     </main>
     <CartFooter />
-    <CartPopUp v-if="isPopUp" />
+    <transition
+      name="popup"
+      appear
+      enter-active-class="animate__animated animate__bounceInDown"
+      leave-active-class="animate__animated animate__bounceOutDown"
+    >
+      <CartPopUp v-if="isPopUp" />
+    </transition>
   </form>
 </template>
 
