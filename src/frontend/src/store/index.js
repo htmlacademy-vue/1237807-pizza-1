@@ -15,7 +15,7 @@ import { getPrice, countItemsInArray } from "@/common/helpers";
 
 Vue.use(Vuex);
 
-const state = () => ({
+export const state = () => ({
   pizzaData: {
     dough: [],
     sizes: [],
@@ -26,7 +26,7 @@ const state = () => ({
   error: "",
 });
 
-const actions = {
+export const actions = {
   async init({ dispatch }) {
     await dispatch("fetchPizzaData");
     await dispatch("fetchMiscData");
@@ -56,7 +56,7 @@ const actions = {
   },
 };
 
-const getters = {
+export const getters = {
   getPizzaDataItem: (state) => (item) => state.pizzaData[item],
   getPizzaCost:
     ({ pizzaData }) =>
@@ -91,7 +91,7 @@ const getters = {
     },
 };
 
-const mutations = {
+export const mutations = {
   [CREATE_ERROR](state, error) {
     state.error = error;
   },

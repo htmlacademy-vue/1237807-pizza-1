@@ -13,7 +13,7 @@
     <div class="header__cart">
       <router-link to="/cart">{{ orderTotalCost }} ₽</router-link>
     </div>
-    <div v-if="showUser" class="header__user">
+    <div v-if="showUser" class="header__user" data-test="header-user">
       <router-link to="/profile">
         <picture>
           <source
@@ -30,11 +30,11 @@
         </picture>
         <span>{{ user.name }}</span>
       </router-link>
-      <a class="header__logout" @click="$logout"><span>Выйти</span></a>
+      <a class="header__logout" @click="$logout" data-test="logout-btn"><span>Выйти</span></a>
     </div>
 
     <div v-else class="header__user">
-      <router-link class="header__login" to="/login">
+      <router-link class="header__login" to="/login" data-test="login-btn">
         <span>Войти</span>
       </router-link>
     </div>
