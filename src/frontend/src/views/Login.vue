@@ -16,6 +16,7 @@
             name="email"
             label="E-mail"
             placeholder="example@mail.ru"
+            data-test="email-input"
             :error-text="validations.email.error"
           />
         </div>
@@ -27,6 +28,7 @@
             name="password"
             label="Пароль"
             placeholder="***********"
+            data-test="password-input"
             :error-text="validations.password.error"
           />
         </div>

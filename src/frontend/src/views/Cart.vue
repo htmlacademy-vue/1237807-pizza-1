@@ -5,19 +5,19 @@
         <div class="cart__title">
           <h1 class="title title--big">Корзина</h1>
         </div>
-        <CartPizzasView />
-        <CartMiscSelector />
-        <CartDeliveryForm />
+        <CartPizzasView data-test="pizza-view" />
+        <CartMiscSelector data-test="misc-selector" />
+        <CartDeliveryForm data-test="delivery-form" />
       </div>
     </main>
-    <CartFooter />
+    <CartFooter data-test="cart-footer" />
     <transition
       name="popup"
       appear
       enter-active-class="animate__animated animate__bounceInDown"
       leave-active-class="animate__animated animate__bounceOutDown"
     >
-      <CartPopUp v-if="isPopUp" />
+      <CartPopUp v-if="isPopUp" data-test="pop-up" />
     </transition>
   </form>
 </template>
