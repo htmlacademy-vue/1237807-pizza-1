@@ -30,7 +30,9 @@
         </picture>
         <span>{{ user.name }}</span>
       </router-link>
-      <a class="header__logout" @click="$logout" data-test="logout-btn"><span>Выйти</span></a>
+      <a class="header__logout" @click="$logout" data-test="logout-btn"
+        ><span>Выйти</span></a
+      >
     </div>
 
     <div v-else class="header__user">

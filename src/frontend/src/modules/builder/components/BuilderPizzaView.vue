@@ -6,6 +6,7 @@
     @dragenter.prevent
   >
     <div
+      data-test="pizza-foundation"
       :class="`pizza pizza--foundation--${
         doughLayer[dough.toUpperCase()]
       }-${sauce}`"
@@ -15,6 +16,7 @@
           <div
             v-for="(ingredient, index) in ingredients"
             :key="ingredient + index"
+            data-test="pizza-filling"
             class="pizza__filling"
             :class="`pizza__filling--${ingredient}${getIngredientCountClassName(
               ingredient,

@@ -11,6 +11,7 @@
             class="radio ingredients__input"
             :selector="sauce"
             :checked="sauceChecked"
+            data-test="sauce-selector"
             @updateData="updatePizza({ item: 'sauce', payload: $event })"
           />
         </div>
@@ -21,10 +22,12 @@
               v-for="ingredient in ingredients"
               :key="ingredient.id"
               class="ingredients__item"
+              data-test="ingredients-item"
             >
               <span
                 :class="`filling filling--${ingredient.value}`"
                 :draggable="isDraggable(ingredient.value)"
+                data-test="ingredient"
                 @dragstart.self="onDrag($event, ingredient)"
                 @dragover.prevent
                 @dragenter.prevent
@@ -35,6 +38,7 @@
                 :class="`ingredients__counter`"
                 :value="ingredientsCount[ingredient.value] || 0"
                 :maxCount="MAX_INGREDIENTS"
+                data-test="ingredients-counter"
                 @removeItem="
                   updatePizza({
                     item: 'ingredients',
@@ -107,6 +111,8 @@ export default {
       );
     },
     onDrag({ dataTransfer }, data) {
+      console.log(dataTransfer);
+      console.log(data);
       dataTransfer.effectAllowed = MOVE;
       dataTransfer.dropEffect = MOVE;
       dataTransfer.setData(DATA_TRANSFER_PAYLOAD, JSON.stringify(data));

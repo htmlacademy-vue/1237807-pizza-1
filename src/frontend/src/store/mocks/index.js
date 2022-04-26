@@ -2,18 +2,29 @@ import { cloneDeep } from "lodash";
 import { mutations, getters } from "@/store";
 import modules from "@/store/modules";
 import Vuex from "vuex";
-import pizza from "@/static/pizza";
-import misc from "@/static/misc";
 import VuexPlugins from "@/plugins/vuexPlugins";
+import pizza from '@/static/pizza';
+import misc from '@/static/misc';
+import { dataTypes } from "@/common/constants";
+
+const normalizeData = (data, types) => {
+  const requiredItem = types.find((type) => type.name === data.name);
+
+  return {
+    ...data,
+    type: requiredItem.type,
+    value: requiredItem.value,
+  };
+};
 
 const initState = () => ({
   pizzaData: {
-    dough: [],
-    sizes: [],
-    sauces: [],
-    ingredients: [],
+    dough: pizza.dough.map((item) => normalizeData(item, dataTypes.dough)),
+    sizes: pizza.sizes.map((item) => normalizeData(item, dataTypes.sizes)),
+    sauces: pizza.sauces.map((item) => normalizeData(item, dataTypes.sauces)),
+    ingredients: pizza.ingredients.map((item) => normalizeData(item, dataTypes.ingredients)),
   },
-  miscData: [],
+  miscData: misc.map((item) => normalizeData(item, dataTypes.misc)),
   error: "",
 });
 
