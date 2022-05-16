@@ -111,8 +111,6 @@ export default {
       );
     },
     onDrag({ dataTransfer }, data) {
-      console.log(dataTransfer);
-      console.log(data);
       dataTransfer.effectAllowed = MOVE;
       dataTransfer.dropEffect = MOVE;
       dataTransfer.setData(DATA_TRANSFER_PAYLOAD, JSON.stringify(data));

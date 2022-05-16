@@ -1,12 +1,15 @@
 <template>
   <div class="cart-form__address">
-    <span class="cart-form__label">{{ address.name || "Новый адрес:" }}</span>
+    <span class="cart-form__label" data-test="address-name">{{
+      address.name || "Новый адрес:"
+    }}</span>
     <div class="cart-form__input">
       <Input
         ref="street"
         v-model="street"
         name="street"
         label="Улица*"
+        data-test="street-input"
         :disabled="disabled"
         :error-text="validations.street ? validations.street.error : ''"
       />
@@ -17,6 +20,7 @@
         v-model="building"
         name="building"
         label="Дом*"
+        data-test="building-input"
         :disabled="disabled"
         :error-text="validations.building ? validations.building.error : ''"
       />
@@ -27,6 +31,7 @@
         v-model="flat"
         name="flat"
         label="Квартира"
+        data-test="flat-input"
         :disabled="disabled"
       />
     </div>

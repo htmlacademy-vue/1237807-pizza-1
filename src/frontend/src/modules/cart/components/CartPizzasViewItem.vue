@@ -5,6 +5,7 @@
       :class="`cart-list__counter`"
       :value="pizza.count || 0"
       :buttonClass="`counter__button--orange`"
+      data-test="pizza-counter"
       @removeItem="updatePizzasCount"
       @addItem="updatePizzasCount(true)"
     />
@@ -12,7 +13,12 @@
       <b>{{ totalCost }} ₽</b>
     </div>
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit" @click="changePizza">
+      <button
+        type="button"
+        class="cart-list__edit"
+        data-test="change-button"
+        @click="changePizza"
+      >
         Изменить
       </button>
     </div>

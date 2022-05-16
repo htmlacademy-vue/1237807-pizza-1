@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" @animationend="redirect">
     <div class="popup">
-      <a href="#" class="close" @click.prevent="closePopUp">
+      <a href="#" class="close" data-test="close-button" @click.prevent="closePopUp">
         <span class="visually-hidden">Закрыть попап</span>
       </a>
       <div class="popup__title">
@@ -9,7 +9,7 @@
       </div>
       <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
       <div class="popup__button">
-        <a href="#" class="button" @click.prevent="closePopUp"
+        <a href="#" class="button" data-test="confirm-button" @click.prevent="closePopUp"
           >Отлично, я жду!</a
         >
       </div>

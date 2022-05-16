@@ -7,12 +7,14 @@
           name="test"
           class="select"
           v-model="deliveryMethod"
+          data-test="delivery-select"
           @change="setAddressValue"
         >
           <option
             v-for="option in options"
             :key="option.value"
             :value="option.value"
+            data-test="delivery-option"
           >
             {{ option.label }}
           </option>
@@ -25,8 +27,9 @@
         name="phone"
         label="Контактный телефон:"
         placeholder="+7 999-999-99-99"
+        data-test="phone-input"
       />
-      <CartDeliveryAddress v-if="isAddressForm" />
+      <CartDeliveryAddress v-if="isAddressForm" data-test="address-form" />
     </div>
   </div>
 </template>

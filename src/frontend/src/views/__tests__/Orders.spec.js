@@ -5,7 +5,6 @@ import { SET_ENTITY } from "@/store/mutations-types";
 import Orders from "@/views/Orders.vue";
 
 const localVue = createLocalVue();
-
 localVue.use(Vuex);
 
 const normalizedOrders = [
@@ -99,6 +98,13 @@ describe("Orders", () => {
     expect(Array.from(ordersHtml).length).toEqual(normalizedOrders.length);
   });
 
+  it ('doesn\'t render no-orders text', async () => {
+    createOrders(store);
+    createComponent({ localVue, store });
+    const text = wrapper.findAll('[data-test="no-orders-text"]');
+    expect(text.exists()).toBeFalsy();
+  });
+
    it ('doesn\'t render orders', async () => {
     createComponent({ localVue, store });
     const ordersHtml = wrapper.findAll('[data-test="orders"]');
@@ -107,14 +113,7 @@ describe("Orders", () => {
 
   it ('renders no-orders text', async () => {
     createComponent({ localVue, store });
-    const text = wrapper.findAll('[data-test="no-orders-text"]');
+    const text = wrapper.find('[data-test="no-orders-text"]');
     expect(text.exists()).toBeTruthy();
-  });
-
-  it ('doesn\'t render no-orders text', async () => {
-    createOrders(store);
-    createComponent({ localVue, store });
-    const text = wrapper.findAll('[data-test="no-orders-text"]');
-    expect(text.exists()).toBeFalsy();
   });
 });
