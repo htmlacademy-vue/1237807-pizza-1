@@ -1,28 +1,41 @@
 <template>
   <section class="sheet order">
     <div class="order__wrapper">
-      <div class="order__number">
+      <div class="order__number" data-test="order-number">
         <b>Заказ #{{ order.id }}</b>
       </div>
-      <div class="order__sum">
+      <div class="order__sum" data-test="order-sum">
         <span>Сумма заказа: {{ orderTotalCost }} ₽</span>
       </div>
       <div class="order__button">
-        <Button class="button--border" @click="deleteOrder"> Удалить </Button>
+        <Button
+          class="button--border"
+          data-test="delete-button"
+          @click="deleteOrder"
+        >
+          Удалить
+        </Button>
       </div>
       <div class="order__button">
-        <Button @click="setOrderToCart"> Повторить </Button>
+        <Button data-test="repeat-button" @click="setOrderToCart">
+          Повторить
+        </Button>
       </div>
     </div>
     <ul class="order__list">
       <OrdersItemPizzaView
         v-for="pizza in pizzasOrder"
+        data-test="pizza-item"
         :key="pizza.id"
         :pizza="pizza"
       />
     </ul>
     <ul class="order__additional">
-      <li v-for="miscItem in miscOrder" :key="miscItem.id">
+      <li
+        v-for="miscItem in miscOrder"
+        data-test="misc-item"
+        :key="miscItem.id"
+      >
         <img
           :src="miscItem.image"
           width="20"
@@ -35,7 +48,7 @@
         </p>
       </li>
     </ul>
-    <p class="order__address">Адрес доставки: {{ address }}</p>
+    <p class="order__address" data-test="address">Адрес доставки: {{ address }}</p>
   </section>
 </template>
 
