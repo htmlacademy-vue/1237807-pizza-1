@@ -14,6 +14,7 @@
           name="name"
           label="Название адреса*"
           placeholder="Введите название адреса"
+          data-test="name-input"
           :error-text="validations.name.error"
         />
       </div>
@@ -24,6 +25,7 @@
           name="street"
           label="Улица*"
           placeholder="Введите название улицы"
+          data-test="street-input"
           :error-text="validations.street.error"
         />
       </div>
@@ -34,6 +36,7 @@
           name="building"
           label="Дом*"
           placeholder="Введите номер дома"
+          data-test="building-input"
           :error-text="validations.building.error"
         />
       </div>
@@ -44,6 +47,7 @@
           name="flat"
           label="Квартира"
           placeholder="Введите № квартиры"
+          data-test="flat-input"
         />
       </div>
       <div class="address-form__input">
@@ -53,19 +57,29 @@
           name="comment"
           label="Комментарий"
           placeholder="Введите комментарий"
+          data-test="comment-input"
         />
       </div>
     </div>
     <div class="address-form__buttons">
-      <Button class="button--transparent" @click="closeForm"> Отмена </Button>
+      <Button
+        class="button--transparent"
+        data-test="cancel-btn"
+        @click="closeForm"
+      >
+        Отмена
+      </Button>
       <Button
         v-if="addressToEdit"
         class="button--transparent"
+        data-test="remove-btn"
         @click="removeAddress"
       >
         Удалить
       </Button>
-      <Button type="submit" :disabled="!isFormValid">Сохранить</Button>
+      <Button type="submit" data-test="submit-btn" :disabled="!isFormValid"
+        >Сохранить</Button
+      >
     </div>
   </form>
 </template>

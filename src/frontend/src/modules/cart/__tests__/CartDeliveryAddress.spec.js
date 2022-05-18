@@ -56,7 +56,7 @@ describe("CartDeliveryAddress", () => {
     addAddress(store, mockAddress);
     createComponent({ localVue, store });
     const label = wrapper.find('[data-test="address-name"]');
-    expect(label.text()).toBe("Тестовый адрес");
+    expect(label.text()).toBe(mockAddress.name);
   });
 
   it("sets the initial model values", () => {

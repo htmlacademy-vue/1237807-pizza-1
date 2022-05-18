@@ -48,7 +48,9 @@
         </p>
       </li>
     </ul>
-    <p class="order__address" data-test="address">Адрес доставки: {{ address }}</p>
+    <p class="order__address" data-test="address">
+      Адрес доставки: {{ address }}
+    </p>
   </section>
 </template>
 
