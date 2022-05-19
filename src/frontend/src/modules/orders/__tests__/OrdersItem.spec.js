@@ -123,7 +123,7 @@ describe("OrdersItem", () => {
   });
 
   it("renders address as 'Самовывоз' when no address in order", async () => {
-    const newProps = { ...propsData, ...(propsData.order.address = {}) };
+    const newProps = { order: { ...propsData.order, address: {} } };
     createComponent({ localVue, store, propsData: newProps, mocks });
     const orderAddress = wrapper.find('[data-test="address"]');
     expect(orderAddress.text()).toBe("Адрес доставки: Самовывоз");
