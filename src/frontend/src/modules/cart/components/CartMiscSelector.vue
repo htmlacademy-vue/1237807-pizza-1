@@ -5,6 +5,7 @@
         v-for="miscItem in miscData"
         :key="miscItem.id"
         class="additional-list__item sheet"
+        data-test="misc-item"
       >
         <p class="additional-list__description">
           <img
@@ -20,6 +21,7 @@
             :class="`additional-list__counter`"
             :buttonClass="`counter__button--orange`"
             :value="miscOrder[miscItem.value] || 0"
+            data-test="misc-counter"
             @removeItem="
               updateMiscOrder({
                 item: miscItem.value,

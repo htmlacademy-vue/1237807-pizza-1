@@ -9,6 +9,7 @@
           :class="`diameter__input diameter__input--${size.value}`"
           :selector="size"
           :checked="checked"
+          data-test="size-selector"
           @updateData="updatePizza({ item: 'diameter', payload: $event })"
         />
       </div>

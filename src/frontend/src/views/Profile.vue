@@ -25,7 +25,11 @@
         <span>{{ userPhone }}</span>
       </p>
     </div>
-    <div v-if="!addresses.length" class="layout__address">
+    <div
+      v-if="!addresses.length"
+      class="layout__address"
+      data-test="no-addresses-text"
+    >
       <p>У вас пока нет добавленных адресов</p>
     </div>
     <ProfileAddressView
@@ -33,12 +37,22 @@
       v-for="address in addresses"
       :key="address.id"
       :address="address"
+      data-test="addresses"
     />
     <div class="layout__address">
-      <ProfileAddressForm v-if="isForm" @close="closeForm" />
+      <ProfileAddressForm
+        v-if="isForm"
+        data-test="address-form"
+        @close="closeForm"
+      />
     </div>
     <div class="layout__button">
-      <Button class="button--border" :disabled="isForm" @click="openForm">
+      <Button
+        class="button--border"
+        :disabled="isForm"
+        data-test="add-address-btn"
+        @click="openForm"
+      >
         Добавить новый адрес
       </Button>
     </div>

@@ -9,6 +9,7 @@
           :class="`dough__input dough__input--${doughType.value}`"
           :selector="doughType"
           :checked="checked"
+          data-test="dough-selector"
           @updateData="updatePizza({ item: 'dough', payload: $event })"
         />
       </div>

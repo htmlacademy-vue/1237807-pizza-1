@@ -1,10 +1,15 @@
 <template>
   <div class="layout__address">
-    <div v-if="!isEdited" class="sheet address-form">
+    <div v-if="!isEdited" class="sheet address-form" data-test="address-text">
       <div class="address-form__header">
         <b>{{ address.name }}</b>
         <div class="address-form__edit">
-          <button type="button" class="icon" @click="openForm">
+          <button
+            type="button"
+            class="icon"
+            data-test="open-btn"
+            @click="openForm"
+          >
             <span class="visually-hidden">Изменить адрес</span>
           </button>
         </div>
@@ -12,7 +17,12 @@
       <p>{{ fullAddress }}</p>
       <small>{{ address.comment }}</small>
     </div>
-    <ProfileAddressForm v-else :addressToEdit="address" @close="closeForm" />
+    <ProfileAddressForm
+      v-else
+      :addressToEdit="address"
+      data-test="address-form"
+      @close="closeForm"
+    />
   </div>
 </template>
 

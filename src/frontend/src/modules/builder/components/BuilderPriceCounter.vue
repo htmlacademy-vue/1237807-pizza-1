@@ -1,7 +1,13 @@
 <template>
   <div class="content__result">
     <p>Итого: {{ pizzaCost }} ₽</p>
-    <Button :disabled="disabled" @click="finalizePizza"> Готовьте! </Button>
+    <Button
+      data-test="finalize-button"
+      :disabled="disabled"
+      @click="finalizePizza"
+    >
+      Готовьте!
+    </Button>
   </div>
 </template>
 

@@ -3,13 +3,13 @@
     <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
-        <BuilderDoughSelector />
-        <BuilderSizeSelector />
-        <BuilderIngredientsSelector />
+        <BuilderDoughSelector data-test="dough-selector" />
+        <BuilderSizeSelector data-test="size-selector" />
+        <BuilderIngredientsSelector data-test="ingredients-selector" />
         <div class="content__pizza">
-          <BuilderPizzaTitle />
-          <BuilderPizzaView />
-          <BuilderPriceCounter />
+          <BuilderPizzaTitle data-test="pizza-title" />
+          <BuilderPizzaView data-test="pizza-view" />
+          <BuilderPriceCounter data-test="price-counter" />
         </div>
       </div>
     </form>

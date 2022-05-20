@@ -12,7 +12,12 @@
       <b>Итого: {{ orderTotalCost }} ₽</b>
     </div>
     <div class="footer__submit">
-      <Button type="submit" :disabled="disabled" @click.prevent="submit">
+      <Button
+        type="submit"
+        :disabled="disabled"
+        data-test="submit-button"
+        @click.prevent="submit"
+      >
         Оформить заказ
       </Button>
     </div>

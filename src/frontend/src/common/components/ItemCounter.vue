@@ -3,6 +3,7 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
+      :class="buttonClass"
       :disabled="value <= 0"
       @click="$emit('removeItem')"
     >

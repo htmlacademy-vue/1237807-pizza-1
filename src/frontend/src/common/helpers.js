@@ -5,6 +5,8 @@ import {
   DataApiService,
   OrdersApiService,
 } from "@/services/api.service";
+import user from "@/static/user";
+import { SET_ENTITY } from "@/store/mutations-types";
 
 export const createResources = (error, store) => {
   return {
@@ -105,4 +107,17 @@ export const getIngredientsArray = (arr, data) => {
   }, []);
 
   return ingredients;
+};
+
+export const authenticateUser = (store) => {
+  store.commit(SET_ENTITY, {
+    module: "Auth",
+    entity: "user",
+    value: user,
+  });
+  store.commit(SET_ENTITY, {
+    module: "Auth",
+    entity: "isAuthenticated",
+    value: true,
+  });
 };

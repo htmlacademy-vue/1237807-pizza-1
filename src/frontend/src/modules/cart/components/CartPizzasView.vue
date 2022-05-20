@@ -1,5 +1,9 @@
 <template>
-  <div v-if="pizzasOrder.length === 0" class="sheet cart__empty">
+  <div
+    v-if="pizzasOrder.length === 0"
+    data-test="cart-empty-text"
+    class="sheet cart__empty"
+  >
     <p>В корзине нет ни одного товара</p>
   </div>
   <ul v-else class="cart-list sheet">
@@ -7,6 +11,7 @@
       v-for="pizza in pizzasOrder"
       :key="pizza.id"
       :pizza="pizza"
+      data-test="pizza-item"
     />
   </ul>
 </template>
