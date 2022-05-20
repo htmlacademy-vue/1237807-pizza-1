@@ -32,6 +32,7 @@ import CartPopUp from "@/modules/cart/components/CartPopUp";
 
 export default {
   name: "Cart",
+  layout: "AppLayoutDefault",
   components: {
     CartPizzasView,
     CartMiscSelector,

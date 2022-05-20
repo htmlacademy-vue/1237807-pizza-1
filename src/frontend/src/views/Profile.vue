@@ -63,9 +63,12 @@
 import { mapState, mapGetters } from "vuex";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";
 import ProfileAddressView from "@/modules/profile/components/ProfileAddressView";
+import { auth } from "@/middlewares";
 
 export default {
   name: "Profile",
+  layout: "AppLayoutAuthorizedUser",
+  middlewares: [auth],
   components: { ProfileAddressView, ProfileAddressForm },
   data() {
     return {
