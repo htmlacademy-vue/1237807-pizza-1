@@ -98,20 +98,20 @@ describe("Orders", () => {
     expect(Array.from(ordersHtml).length).toEqual(normalizedOrders.length);
   });
 
-  it ('doesn\'t render no-orders text', async () => {
+  it("doesn't render no-orders text", async () => {
     createOrders(store);
     createComponent({ localVue, store });
     const text = wrapper.findAll('[data-test="no-orders-text"]');
     expect(text.exists()).toBeFalsy();
   });
 
-   it ('doesn\'t render orders', async () => {
+  it("doesn't render orders", async () => {
     createComponent({ localVue, store });
     const ordersHtml = wrapper.findAll('[data-test="orders"]');
     expect(ordersHtml.exists()).toBeFalsy();
   });
 
-  it ('renders no-orders text', async () => {
+  it("renders no-orders text", async () => {
     createComponent({ localVue, store });
     const text = wrapper.find('[data-test="no-orders-text"]');
     expect(text.exists()).toBeTruthy();

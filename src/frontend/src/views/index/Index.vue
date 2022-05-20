@@ -26,6 +26,7 @@ import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounte
 
 export default {
   name: "Index",
+  layout: "AppLayoutDefault",
   components: {
     BuilderDoughSelector,
     BuilderSizeSelector,

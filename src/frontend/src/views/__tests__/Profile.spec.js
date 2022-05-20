@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutations-types";
 import Profile from "@/views/Profile.vue";
-import { authenticateUser } from '@/common/helpers';
+import { authenticateUser } from "@/common/helpers";
 
 const localVue = createLocalVue();
 
@@ -85,15 +85,15 @@ describe("Profile", () => {
     expect(text.exists()).toBeFalsy();
   });
 
-  it ('renders address form on add button click', async () => {
+  it("renders address form on add button click", async () => {
     createComponent({ localVue, store });
     const btn = wrapper.find('[data-test="add-address-btn"]');
-    await btn.trigger('click');
+    await btn.trigger("click");
     const addressForm = wrapper.find('[data-test="address-form"]');
     expect(addressForm.exists()).toBeTruthy();
   });
 
-  it ('doesn\'t renders address form', async () => {
+  it("doesn't renders address form", async () => {
     createComponent({ localVue, store });
     const addressForm = wrapper.find('[data-test="address-form"]');
     expect(addressForm.exists()).toBeFalsy();
