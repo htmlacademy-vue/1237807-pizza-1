@@ -1,9 +1,15 @@
 <template>
-  <form action="test.html" method="post" class="layout-form">
+  <form
+    action="test.html"
+    method="post"
+    class="layout-form"
+  >
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
-          <h1 class="title title--big">Корзина</h1>
+          <h1 class="title title--big">
+            Корзина
+          </h1>
         </div>
         <CartPizzasView data-test="pizza-view" />
         <CartMiscSelector data-test="misc-selector" />
@@ -17,7 +23,10 @@
       enter-active-class="animate__animated animate__bounceInDown"
       leave-active-class="animate__animated animate__bounceOutDown"
     >
-      <CartPopUp v-if="isPopUp" data-test="pop-up" />
+      <CartPopUp
+        v-if="isPopUp"
+        data-test="pop-up"
+      />
     </transition>
   </form>
 </template>
@@ -31,17 +40,19 @@ import CartFooter from "@/modules/cart/components/CartFooter";
 import CartPopUp from "@/modules/cart/components/CartPopUp";
 
 export default {
-  name: "Cart",
+  name: "CartPage",
   layout: "AppLayoutDefault",
+
   components: {
     CartPizzasView,
     CartMiscSelector,
     CartDeliveryForm,
     CartFooter,
-    CartPopUp,
+    CartPopUp
   },
+
   computed: {
-    ...mapState("Cart", ["isPopUp"]),
-  },
+    ...mapState("Cart", ["isPopUp"])
+  }
 };
 </script>

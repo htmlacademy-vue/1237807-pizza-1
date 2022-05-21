@@ -1,15 +1,20 @@
 <template>
   <div class="wrapper">
     <div class="sign-form">
-      <router-link class="close close--white" to="/">
-        <span class="visually-hidden">Закрыть форму авторизации</span>
+      <router-link
+        class="close close--white"
+        to="/"
+      >
+        <span class="visually-hidden"> Закрыть форму авторизации </span>
       </router-link>
       <div class="sign-form__title">
-        <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+        <h1 class="title title--small">
+          Авторизуйтесь на сайте
+        </h1>
       </div>
       <form @submit.prevent="login">
         <div class="sign-form__input">
-          <Input
+          <AppInput
             ref="email"
             v-model="email"
             type="email"
@@ -21,7 +26,7 @@
           />
         </div>
         <div class="sign-form__input">
-          <Input
+          <AppInput
             ref="password"
             v-model="password"
             type="password"
@@ -32,7 +37,9 @@
             :error-text="validations.password.error"
           />
         </div>
-        <Button type="submit">Авторизоваться</Button>
+        <AppButton type="submit">
+          Авторизоваться
+        </AppButton>
       </form>
     </div>
   </div>
@@ -43,35 +50,42 @@ import validator from "@/common/mixins/validator";
 import { isLoggedIn } from "@/middlewares";
 
 export default {
-  name: "Login",
+  name: "LoginPage",
   layout: "AppLayoutEmpty",
   middlewares: [isLoggedIn],
   mixins: [validator],
+
   data: () => ({
     email: "",
     password: "",
+
     validations: {
       email: {
         error: "",
-        rules: ["required", "email"],
+        rules: ["required", "email"]
       },
+
       password: {
         error: "",
-        rules: ["required"],
-      },
-    },
+        rules: ["required"]
+      }
+    }
   }),
+
   watch: {
     email() {
       this.$clearValidationErrors();
     },
+
     password() {
       this.$clearValidationErrors();
-    },
+    }
   },
+
   mounted() {
     this.$refs.email.$refs.input.focus();
   },
+
   methods: {
     async login() {
       if (
@@ -82,14 +96,16 @@ export default {
       ) {
         return;
       }
+
       await this.$store.dispatch("Auth/login", {
         email: this.email,
-        password: this.password,
+        password: this.password
       });
+
       await this.$store.dispatch("fetchAuthorizedOnlyData");
       await this.$router.push("/");
-    },
-  },
+    }
+  }
 };
 </script>
 

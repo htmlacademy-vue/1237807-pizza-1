@@ -3,12 +3,18 @@
     <RadioButton
       :name="selector.type"
       :value="selector.value"
-      :isChecked="selector.value === checked"
+      :is-checked="selector.value === checked"
       @updateData="$emit('updateData', $event)"
     />
-    <b v-if="selector.description">{{ selector.name }}</b>
-    <span v-if="selector.description">{{ selector.description }}</span>
-    <span v-else>{{ selector.name }}</span>
+    <b v-if="selector.description">
+      {{ selector.name }}
+    </b>
+    <span v-if="selector.description">
+      {{ selector.description }}
+    </span>
+    <span v-else>
+      {{ selector.name }}
+    </span>
   </label>
 </template>
 
@@ -18,17 +24,17 @@ import RadioButton from "@/common/components/RadioButton";
 export default {
   name: "SelectorItem",
   components: { RadioButton },
+
   props: {
     selector: {
       type: Object,
-      required: true,
+      required: true
     },
+
     checked: {
       type: String,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
-
-<style lang="scss" scoped></style>

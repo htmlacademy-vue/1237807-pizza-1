@@ -14,9 +14,10 @@ import AppLayoutSideBar from "@/layouts/AppLayoutSideBar";
 
 export default {
   name: "AppLayoutAuthorizedUser",
+
   components: {
     AppLayoutHeader,
-    AppLayoutSideBar,
-  },
+    AppLayoutSideBar
+  }
 };
 </script>

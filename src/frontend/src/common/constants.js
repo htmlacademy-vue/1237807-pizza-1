@@ -3,141 +3,141 @@ export const doughTypes = [
     type: "dough",
     name: "Тонкое",
     value: "light",
-    label: "тонком",
+    label: "тонком"
   },
   {
     type: "dough",
     name: "Толстое",
     value: "large",
-    label: "толстом",
-  },
+    label: "толстом"
+  }
 ];
 
 export const pizzaSizes = [
   {
     type: "diameter",
     name: "23 см",
-    value: "small",
+    value: "small"
   },
   {
     type: "diameter",
     name: "32 см",
-    value: "normal",
+    value: "normal"
   },
   {
     type: "diameter",
     name: "45 см",
-    value: "big",
-  },
+    value: "big"
+  }
 ];
 
 export const sauceTypes = [
   {
     type: "sauce",
     name: "Томатный",
-    value: "tomato",
+    value: "tomato"
   },
   {
     type: "sauce",
     name: "Сливочный",
-    value: "creamy",
-  },
+    value: "creamy"
+  }
 ];
 
 export const ingredientsTypes = [
   {
     type: "ingredients",
     name: "Грибы",
-    value: "mushrooms",
+    value: "mushrooms"
   },
   {
     type: "ingredients",
     name: "Чеддер",
-    value: "cheddar",
+    value: "cheddar"
   },
   {
     type: "ingredients",
     name: "Салями",
-    value: "salami",
+    value: "salami"
   },
   {
     type: "ingredients",
     name: "Ветчина",
-    value: "ham",
+    value: "ham"
   },
   {
     type: "ingredients",
     name: "Ананас",
-    value: "ananas",
+    value: "ananas"
   },
   {
     type: "ingredients",
     name: "Бекон",
-    value: "bacon",
+    value: "bacon"
   },
   {
     type: "ingredients",
     name: "Лук",
-    value: "onion",
+    value: "onion"
   },
   {
     type: "ingredients",
     name: "Чили",
-    value: "chile",
+    value: "chile"
   },
   {
     type: "ingredients",
     name: "Халапеньо",
-    value: "jalapeno",
+    value: "jalapeno"
   },
   {
     type: "ingredients",
     name: "Маслины",
-    value: "olives",
+    value: "olives"
   },
   {
     type: "ingredients",
     name: "Томаты",
-    value: "tomatoes",
+    value: "tomatoes"
   },
   {
     type: "ingredients",
     name: "Лосось",
-    value: "salmon",
+    value: "salmon"
   },
   {
     type: "ingredients",
     name: "Моцарелла",
-    value: "mozzarella",
+    value: "mozzarella"
   },
   {
     type: "ingredients",
     name: "Пармезан",
-    value: "parmesan",
+    value: "parmesan"
   },
   {
     type: "ingredients",
     name: "Блю чиз",
-    value: "blue_cheese",
-  },
+    value: "blue_cheese"
+  }
 ];
 
 export const miscTypes = [
   {
     type: "misc",
     name: "Cola-Cola 0,5 литра",
-    value: "cola",
+    value: "cola"
   },
   {
     type: "misc",
     name: "Острый соус",
-    value: "sauce",
+    value: "sauce"
   },
   {
     type: "misc",
     name: "Картошка из печи",
-    value: "potato",
-  },
+    value: "potato"
+  }
 ];
 
 export const dataTypes = {
@@ -145,7 +145,7 @@ export const dataTypes = {
   sizes: pizzaSizes,
   sauces: sauceTypes,
   ingredients: ingredientsTypes,
-  misc: miscTypes,
+  misc: miscTypes
 };
 
 export const addressValues = {
@@ -157,14 +157,14 @@ export const addressValues = {
     validations: {
       street: {
         error: "",
-        rules: ["required"],
+        rules: ["required"]
       },
       building: {
         error: "",
-        rules: ["required"],
-      },
-    },
-  },
+        rules: ["required"]
+      }
+    }
+  }
 };
 
 export const ERROR_LIVE_TIME = 3000;

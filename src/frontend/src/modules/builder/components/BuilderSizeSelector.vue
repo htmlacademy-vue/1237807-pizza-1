@@ -1,7 +1,9 @@
 <template>
   <div class="content__diameter">
     <div class="sheet">
-      <h2 class="title title--small sheet__title">Выберите размер</h2>
+      <h2 class="title title--small sheet__title">
+        Выберите размер
+      </h2>
       <div class="sheet__content diameter">
         <SelectorItem
           v-for="size in sizes"
@@ -25,20 +27,24 @@ import SelectorItem from "@/common/components/SelectorItem";
 export default {
   name: "BuilderSizeSelector",
   components: { SelectorItem },
+
   computed: {
     ...mapGetters(["getPizzaDataItem"]),
     ...mapGetters("Builder", ["getPizzaItem"]),
+
     sizes() {
       return this.getPizzaDataItem("sizes");
     },
+
     checked() {
       return this.getPizzaItem("diameter");
-    },
+    }
   },
+
   methods: {
     ...mapMutations("Builder", {
-      updatePizza: UPDATE_CURRENT_PIZZA,
-    }),
-  },
+      updatePizza: UPDATE_CURRENT_PIZZA
+    })
+  }
 };
 </script>

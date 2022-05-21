@@ -8,13 +8,13 @@ describe("PizzaItem", () => {
       dough: "light",
       diameter: "normal",
       sauce: "creamy",
-      ingredients: ["salami", "bacon", "bacon", "bacon", "ham", "cheddar"],
-    },
+      ingredients: ["salami", "bacon", "bacon", "bacon", "ham", "cheddar"]
+    }
   };
 
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = shallowMount(PizzaItem, options);
   };
 

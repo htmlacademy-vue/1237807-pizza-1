@@ -3,6 +3,6 @@ export default {
     async $logout() {
       await this.$store.dispatch("Auth/logout");
       await this.$router.push("/login");
-    },
-  },
+    }
+  }
 };

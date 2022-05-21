@@ -12,10 +12,10 @@ const plugins = {
         $error: () => new Error(store),
         $api() {
           return createResources(this.$error, store);
-        },
-      },
+        }
+      }
     });
-  },
+  }
 };
 
 Vue.use(plugins);

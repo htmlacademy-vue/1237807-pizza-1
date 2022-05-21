@@ -1,10 +1,11 @@
 import { shallowMount } from "@vue/test-utils";
-import Index from "@/views/index/Index.vue";
+import IndexPage from "@/views/index/IndexPage.vue";
 
-describe("Index", () => {
+describe("IndexPage", () => {
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = shallowMount(Index, options);
+
+  const createComponent = options => {
+    wrapper = shallowMount(IndexPage, options);
   };
 
   afterEach(() => {

@@ -1,13 +1,16 @@
 import { mount, createLocalVue } from "@vue/test-utils";
-import { authenticateUser } from "@/common/helpers";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";
-import Input from "@/common/components/Input";
+import AppInput from "@/common/components/AppInput";
+import AppButton from "@/common/components/AppButton";
 import flushPromises from "flush-promises";
 
 const localVue = createLocalVue();
-localVue.component("Input", Input);
+
+localVue.component("AppInput", AppInput);
+localVue.component("AppButton", AppButton);
+
 localVue.use(Vuex);
 
 const mockAddress = {
@@ -17,7 +20,7 @@ const mockAddress = {
   building: "11",
   flat: "1",
   comment: "Привет",
-  userId: "string",
+  userId: "string"
 };
 
 describe("ProfileAddressForm", () => {
@@ -25,13 +28,13 @@ describe("ProfileAddressForm", () => {
   let wrapper;
   let propsData;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = mount(ProfileAddressForm, options);
   };
 
   beforeEach(() => {
     propsData = {
-      addressToEdit: null,
+      addressToEdit: null
     };
     store = generateMockStore();
   });
@@ -76,7 +79,7 @@ describe("ProfileAddressForm", () => {
   it("name input has error message when name is empty", async () => {
     createComponent({ localVue, store, propsData });
     await wrapper.setData({
-      validations: { name: { error: "Поле обязательно для заполнения" } },
+      validations: { name: { error: "Поле обязательно для заполнения" } }
     });
     const nameInput = wrapper.find('[data-test="name-input"]');
     expect(nameInput.vm.$props.errorText).toBe(
@@ -87,7 +90,7 @@ describe("ProfileAddressForm", () => {
   it("street input has error message when street is empty", async () => {
     createComponent({ localVue, store, propsData });
     await wrapper.setData({
-      validations: { street: { error: "Поле обязательно для заполнения" } },
+      validations: { street: { error: "Поле обязательно для заполнения" } }
     });
     const streetInput = wrapper.find('[data-test="street-input"]');
     expect(streetInput.vm.$props.errorText).toBe(
@@ -98,7 +101,7 @@ describe("ProfileAddressForm", () => {
   it("building input has error message when building is empty", async () => {
     createComponent({ localVue, store, propsData });
     await wrapper.setData({
-      validations: { building: { error: "Поле обязательно для заполнения" } },
+      validations: { building: { error: "Поле обязательно для заполнения" } }
     });
     const buildingInput = wrapper.find('[data-test="building-input"]');
     expect(buildingInput.vm.$props.errorText).toBe(
@@ -161,27 +164,6 @@ describe("ProfileAddressForm", () => {
     expect(spyPostAddress).not.toHaveBeenCalled();
     expect(spyPutAddress).not.toHaveBeenCalled();
   });
-
-//   it("calls put action on submit if addressToEdit exists", async () => {
-//     propsData.addressToEdit = mockAddress;
-//     createComponent({ localVue, store, propsData });
-//     wrapper.vm.$validateFields = jest.fn(() => Promise.resolve());
-//     const spyOnPutAddress = jest.spyOn(wrapper.vm, "addressPut");
-//     const nameInput = wrapper.find('[data-test="name-input"]');
-//     nameInput.element.value = "Новое название";
-//     await nameInput.trigger("input");
-//     await wrapper.find("form").trigger("submit");
-//     await flushPromises();
-//     expect(spyOnPutAddress).toHaveBeenCalled();
-//   });
-
-//   it("calls post action on submit if addressToEdit doesn't exist", async () => {
-//     createComponent({ localVue, store, propsData });
-//     const spyOnPostAddress = jest.spyOn(wrapper.vm, "addressPost");
-//     await wrapper.setData({ address: mockAddress });
-//     await wrapper.find("form").trigger("submit");
-//     expect(spyOnPostAddress).toHaveBeenCalled();
-//   });
 
   it("emits close event on click on cancel button", async () => {
     createComponent({ localVue, store, propsData });

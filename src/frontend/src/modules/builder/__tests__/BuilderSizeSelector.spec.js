@@ -9,7 +9,8 @@ localVue.use(Vuex);
 describe("BuilderSizeSelector", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(BuilderSizeSelector, options);
   };
 
@@ -54,7 +55,7 @@ describe("BuilderSizeSelector", () => {
     selector.vm.$emit("updateData", "test");
     expect(spyOnMutation).toHaveBeenCalledWith({
       item: "diameter",
-      payload: "test",
+      payload: "test"
     });
   });
 });

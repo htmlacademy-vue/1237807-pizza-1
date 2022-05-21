@@ -15,15 +15,15 @@ const propsData = {
     dough: "large",
     diameter: "small",
     count: 2,
-    ingredients: ["bacon", "mushrooms", "cheddar"],
-  },
+    ingredients: ["bacon", "mushrooms", "cheddar"]
+  }
 };
 
 describe("OrdersItemPizzaView", () => {
   let store;
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = mount(OrdersItemPizzaView, options);
   };
 

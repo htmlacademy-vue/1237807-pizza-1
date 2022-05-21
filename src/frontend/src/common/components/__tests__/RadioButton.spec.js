@@ -4,12 +4,12 @@ import RadioButton from "@/common/components/RadioButton";
 describe("RadioButton", () => {
   const propsData = {
     value: "testValue",
-    name: "testName",
+    name: "testName"
   };
 
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = shallowMount(RadioButton, options);
   };
 

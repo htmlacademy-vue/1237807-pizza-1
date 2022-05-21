@@ -3,11 +3,13 @@ import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutations-types";
 import CartDeliveryForm from "@/modules/cart/components/CartDeliveryForm";
-import Input from "@/common/components/Input";
+import AppInput from "@/common/components/AppInput";
 import { authenticateUser } from "@/common/helpers";
 
 const localVue = createLocalVue();
-localVue.component("Input", Input);
+
+localVue.component("AppInput", AppInput);
+
 localVue.use(Vuex);
 
 const addresses = [
@@ -18,7 +20,7 @@ const addresses = [
     building: "11",
     flat: "1",
     comment: "",
-    userId: "uuid",
+    userId: "uuid"
   },
   {
     id: 1,
@@ -27,15 +29,15 @@ const addresses = [
     building: "24",
     flat: "9",
     comment: "Коммент",
-    userId: "uuid",
-  },
+    userId: "uuid"
+  }
 ];
 
-const createAddresses = (store) => {
+const createAddresses = store => {
   store.commit(SET_ENTITY, {
     module: "Addresses",
     entity: "addresses",
-    value: addresses,
+    value: addresses
   });
 };
 
@@ -43,15 +45,16 @@ describe("CartDeliveryForm", () => {
   let actions;
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(CartDeliveryForm, options);
   };
 
   beforeEach(() => {
     actions = {
       Cart: {
-        setAddressValue: jest.fn(),
-      },
+        setAddressValue: jest.fn()
+      }
     };
     store = generateMockStore(actions);
   });

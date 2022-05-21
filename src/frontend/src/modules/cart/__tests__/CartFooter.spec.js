@@ -4,8 +4,12 @@ import { generateMockStore } from "@/store/mocks";
 import { SET_CART } from "@/store/mutations-types";
 import { authenticateUser } from "@/common/helpers";
 import CartFooter from "@/modules/cart/components/CartFooter";
+import AppButton from "@/common/components/AppButton";
 
 const localVue = createLocalVue();
+
+localVue.component("AppButton", AppButton);
+
 localVue.use(Vuex);
 
 const mockOrder = {
@@ -17,7 +21,7 @@ const mockOrder = {
       dough: "large",
       diameter: "small",
       count: 2,
-      ingredients: ["bacon", "mushrooms", "cheddar"],
+      ingredients: ["bacon", "mushrooms", "cheddar"]
     },
     {
       id: 2,
@@ -26,18 +30,18 @@ const mockOrder = {
       dough: "light",
       diameter: "big",
       count: 1,
-      ingredients: ["ham", "onion", "onion", "jalapeno"],
-    },
+      ingredients: ["ham", "onion", "onion", "jalapeno"]
+    }
   ],
   miscOrder: {
     cola: 1,
     sauce: 2,
-    potato: 4,
+    potato: 4
   },
   address: {
-    name: "Тестовый адрес",
+    name: "Тестовый адрес"
   },
-  phone: "1234567",
+  phone: "1234567"
 };
 
 const setCartOrder = (store, payload) => {
@@ -47,9 +51,10 @@ const setCartOrder = (store, payload) => {
 describe("CartFooter", () => {
   let store;
   let wrapper;
+
   const stubs = ["router-link"];
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = mount(CartFooter, options);
   };
 
@@ -86,8 +91,8 @@ describe("CartFooter", () => {
       address: {
         ...mockOrder.address,
         street: "",
-        validations: { street: { error: "Поле обязательно для заполнения" } },
-      },
+        validations: { street: { error: "Поле обязательно для заполнения" } }
+      }
     });
     createComponent({ localVue, store, stubs });
     const submitButton = wrapper.find('[data-test="submit-button"]');
@@ -110,7 +115,7 @@ describe("CartFooter", () => {
     await submitButton.trigger("click");
     expect(spyOnOrderPost).toHaveBeenCalledWith({
       ...mockOrder,
-      userId: "uuid",
+      userId: "uuid"
     });
   });
 

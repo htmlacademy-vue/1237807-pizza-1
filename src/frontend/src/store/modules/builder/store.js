@@ -1,7 +1,7 @@
 import {
   UPDATE_CURRENT_PIZZA,
   SET_CURRENT_PIZZA,
-  RESET_CURRENT_PIZZA,
+  RESET_CURRENT_PIZZA
 } from "@/store/mutations-types";
 
 const setupDefaultPizza = () => ({
@@ -10,20 +10,20 @@ const setupDefaultPizza = () => ({
   diameter: "normal",
   sauce: "tomato",
   ingredients: ["ananas", "bacon", "cheddar"],
-  count: 1,
+  count: 1
 });
 
 export default {
   namespaced: true,
   state: {
-    pizza: setupDefaultPizza(),
+    pizza: setupDefaultPizza()
   },
 
   getters: {
-    getPizzaItem: (state) => (item) => state.pizza[item],
+    getPizzaItem: state => item => state.pizza[item],
     isPizzaReady({ pizza }) {
       return pizza.ingredients.length !== 0 && pizza.title !== "";
-    },
+    }
   },
 
   mutations: {
@@ -46,6 +46,6 @@ export default {
     },
     [RESET_CURRENT_PIZZA](state) {
       state.pizza = setupDefaultPizza();
-    },
-  },
+    }
+  }
 };

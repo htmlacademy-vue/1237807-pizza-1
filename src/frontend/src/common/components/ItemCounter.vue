@@ -31,27 +31,31 @@
 <script>
 export default {
   name: "ItemCounter",
+
   props: {
     value: {
       type: Number,
-      required: true,
+      required: true
     },
+
     maxCount: {
       type: Number,
-      default: null,
+      default: null
     },
+
     buttonClass: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
+
   computed: {
     disabledPlus() {
       if (this.maxCount && this.value >= this.maxCount) {
         return true;
       }
       return false;
-    },
-  },
+    }
+  }
 };
 </script>

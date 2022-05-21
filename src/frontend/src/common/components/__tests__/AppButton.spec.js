@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import Button from "@/common/components/Button";
+import AppButton from "@/common/components/AppButton";
 
-describe("Button", () => {
+describe("AppButton", () => {
   const slots = { default: "content" };
   const defaultBtnType = "button";
   const propsData = { type: "submit" };
@@ -9,8 +9,8 @@ describe("Button", () => {
 
   let wrapper;
 
-  const createComponent = (options) => {
-    wrapper = shallowMount(Button, options);
+  const createComponent = options => {
+    wrapper = shallowMount(AppButton, options);
   };
 
   beforeEach(() => {

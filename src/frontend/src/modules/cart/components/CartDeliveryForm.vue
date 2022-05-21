@@ -2,11 +2,11 @@
   <div class="cart__form">
     <div class="cart-form">
       <label class="cart-form__select">
-        <span class="cart-form__label">Получение заказа:</span>
+        <span class="cart-form__label"> Получение заказа: </span>
         <select
+          v-model="deliveryMethod"
           name="test"
           class="select"
-          v-model="deliveryMethod"
           data-test="delivery-select"
           @change="setAddressValue"
         >
@@ -20,16 +20,19 @@
           </option>
         </select>
       </label>
-      <Input
-        class="input--big-label"
+      <AppInput
         ref="phone"
         v-model="phoneNumber"
+        class="input--big-label"
         name="phone"
         label="Контактный телефон:"
         placeholder="+7 999-999-99-99"
         data-test="phone-input"
       />
-      <CartDeliveryAddress v-if="isAddressForm" data-test="address-form" />
+      <CartDeliveryAddress
+        v-if="isAddressForm"
+        data-test="address-form"
+      />
     </div>
   </div>
 </template>
@@ -42,59 +45,65 @@ import { UPDATE_DELIVERY_OPTION, UPDATE_PHONE } from "@/store/mutations-types";
 export default {
   name: "CartDeliveryForm",
   components: { CartDeliveryAddress },
-  methods: {
-    ...mapActions("Cart", ["setAddressValue"]),
-    ...mapMutations("Cart", {
-      updateDeliveryMethod: UPDATE_DELIVERY_OPTION,
-      updatePhoneNumber: UPDATE_PHONE,
-    }),
-  },
+
   computed: {
     ...mapState("Auth", ["isAuthenticated"]),
     ...mapState("Addresses", ["addresses"]),
     ...mapState("Cart", ["deliveryOption", "phone"]),
+
     options() {
       let options = [
         {
           value: "pickup",
-          label: "Заберу сам",
+          label: "Заберу сам"
         },
         {
           value: "new",
-          label: "Новый адрес",
-        },
+          label: "Новый адрес"
+        }
       ];
 
       if (this.isAuthenticated && this.addresses.length) {
-        this.addresses.map((address) => {
+        this.addresses.map(address => {
           options.push({
             value: address.id,
-            label: address.name,
+            label: address.name
           });
         });
       }
 
       return options;
     },
+
     isAddressForm() {
       return this.deliveryOption !== "pickup";
     },
+
     deliveryMethod: {
       get() {
         return this.deliveryOption;
       },
       set(value) {
         this.updateDeliveryMethod(value);
-      },
+      }
     },
+
     phoneNumber: {
       get() {
         return this.phone;
       },
       set(value) {
         this.updatePhoneNumber(value);
-      },
-    },
+      }
+    }
   },
+
+  methods: {
+    ...mapActions("Cart", ["setAddressValue"]),
+    ...mapMutations("Cart", {
+      updateDeliveryMethod: UPDATE_DELIVERY_OPTION,
+      updatePhoneNumber: UPDATE_PHONE
+    })
+  }
 };
 </script>

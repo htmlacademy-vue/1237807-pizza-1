@@ -6,10 +6,10 @@ import { middlewarePipeline } from "@/middlewares";
 
 Vue.use(Router);
 
-export default Promise.all(routes).then((routes) => {
+export default Promise.all(routes).then(routes => {
   const router = new Router({
     mode: "history",
-    routes,
+    routes
   });
 
   router.beforeEach((to, from, next) => {
@@ -27,7 +27,7 @@ export default Promise.all(routes).then((routes) => {
         context,
         middlewares,
         nextMiddlewareIndex
-      ),
+      )
     });
   });
   return router;

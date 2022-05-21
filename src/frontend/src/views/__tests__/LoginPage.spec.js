@@ -1,38 +1,39 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import $validator from "@/common/mixins/validator";
-import Login from "@/views/Login";
-import Button from "@/common/components/Button";
-import Input from "@/common/components/Input";
+import LoginPage from "@/views/LoginPage";
+import AppButton from "@/common/components/AppButton";
+import AppInput from "@/common/components/AppInput";
 
 const localVue = createLocalVue();
 
-localVue.component("Button", Button);
-localVue.component("Input", Input);
+localVue.component("AppButton", AppButton);
+localVue.component("AppInput", AppInput);
 
-describe("Login", () => {
+describe("LoginPage", () => {
   let routerPush;
   let dispatch;
   let login;
 
   const methods = {
-    login,
+    login
   };
 
   const mocks = {
     $router: {
-      push: routerPush,
+      push: routerPush
     },
     $store: {
-      dispatch,
+      dispatch
     },
-    $validator,
+    $validator
   };
 
   const stubs = ["router-link"];
 
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = mount(Login, options);
+
+  const createComponent = options => {
+    wrapper = mount(LoginPage, options);
   };
 
   beforeEach(() => {

@@ -1,7 +1,9 @@
 <template>
   <div class="content__ingredients">
     <div class="sheet">
-      <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
+      <h2 class="title title--small sheet__title">
+        Выберите ингредиенты
+      </h2>
       <div class="sheet__content ingredients">
         <div class="ingredients__sauce">
           <p>Основной соус:</p>
@@ -37,7 +39,7 @@
               <ItemCounter
                 :class="`ingredients__counter`"
                 :value="ingredientsCount[ingredient.value] || 0"
-                :maxCount="MAX_INGREDIENTS"
+                :max-count="MAX_INGREDIENTS"
                 data-test="ingredients-counter"
                 @removeItem="
                   updatePizza({
@@ -70,51 +72,60 @@ import { countItemsInArray } from "@/common/helpers";
 import {
   DATA_TRANSFER_PAYLOAD,
   MOVE,
-  MAX_INGREDIENTS,
+  MAX_INGREDIENTS
 } from "@/common/constants";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: { SelectorItem, ItemCounter },
+
   data() {
     return {
-      MAX_INGREDIENTS,
+      MAX_INGREDIENTS
     };
   },
+
   computed: {
     ...mapGetters(["getPizzaDataItem"]),
     ...mapGetters("Builder", ["getPizzaItem"]),
+
     sauces() {
       return this.getPizzaDataItem("sauces");
     },
+
     ingredients() {
       return this.getPizzaDataItem("ingredients");
     },
+
     sauceChecked() {
       return this.getPizzaItem("sauce");
     },
+
     ingredientsChecked() {
       return this.getPizzaItem("ingredients");
     },
+
     ingredientsCount() {
       return countItemsInArray(this.ingredientsChecked);
-    },
+    }
   },
   methods: {
     ...mapMutations("Builder", {
-      updatePizza: UPDATE_CURRENT_PIZZA,
+      updatePizza: UPDATE_CURRENT_PIZZA
     }),
+
     isDraggable(ingredient) {
       return (
         !this.ingredientsCount[ingredient] ||
         this.ingredientsCount[ingredient] < this.MAX_INGREDIENTS
       );
     },
+
     onDrag({ dataTransfer }, data) {
       dataTransfer.effectAllowed = MOVE;
       dataTransfer.dropEffect = MOVE;
       dataTransfer.setData(DATA_TRANSFER_PAYLOAD, JSON.stringify(data));
-    },
-  },
+    }
+  }
 };
 </script>

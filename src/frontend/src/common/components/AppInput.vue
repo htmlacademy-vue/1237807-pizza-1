@@ -14,7 +14,10 @@
       :disabled="disabled"
       @input="$emit('input', $event.target.value)"
     />
-    <span v-if="showError" class="error__text">
+    <span
+      v-if="showError"
+      class="error__text"
+    >
       {{ errorText }}
     </span>
   </label>
@@ -22,54 +25,65 @@
 
 <script>
 export default {
-  name: "Input",
+  name: "AppInput",
+
   model: {
     prop: "value",
-    event: "input",
+    event: "input"
   },
+
   props: {
     value: {
       type: [String, Number],
-      default: "",
+      default: ""
     },
+
     name: {
       type: String,
-      required: true,
+      required: true
     },
+
     label: {
       type: String,
-      required: true,
+      required: true
     },
+
     type: {
       type: String,
-      default: "text",
+      default: "text"
     },
+
     placeholder: {
       type: String,
-      default: "",
+      default: ""
     },
+
     errorText: {
       type: String,
-      default: "",
+      default: ""
     },
+
     required: {
       type: Boolean,
-      default: false,
+      default: false
     },
+
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
+
     hideLabel: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
+
   computed: {
     showError() {
       return !!this.errorText;
-    },
-  },
+    }
+  }
 };
 </script>
 

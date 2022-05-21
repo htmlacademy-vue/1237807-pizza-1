@@ -8,29 +8,29 @@ import misc from "@/static/misc";
 import { dataTypes } from "@/common/constants";
 
 const normalizeData = (data, types) => {
-  const requiredItem = types.find((type) => type.name === data.name);
+  const requiredItem = types.find(type => type.name === data.name);
 
   return {
     ...data,
     type: requiredItem.type,
-    value: requiredItem.value,
+    value: requiredItem.value
   };
 };
 
 const initState = () => ({
   pizzaData: {
-    dough: pizza.dough.map((item) => normalizeData(item, dataTypes.dough)),
-    sizes: pizza.sizes.map((item) => normalizeData(item, dataTypes.sizes)),
-    sauces: pizza.sauces.map((item) => normalizeData(item, dataTypes.sauces)),
-    ingredients: pizza.ingredients.map((item) =>
+    dough: pizza.dough.map(item => normalizeData(item, dataTypes.dough)),
+    sizes: pizza.sizes.map(item => normalizeData(item, dataTypes.sizes)),
+    sauces: pizza.sauces.map(item => normalizeData(item, dataTypes.sauces)),
+    ingredients: pizza.ingredients.map(item =>
       normalizeData(item, dataTypes.ingredients)
-    ),
+    )
   },
-  miscData: misc.map((item) => normalizeData(item, dataTypes.misc)),
-  error: "",
+  miscData: misc.map(item => normalizeData(item, dataTypes.misc)),
+  error: ""
 });
 
-export const generateMockStore = (actions) => {
+export const generateMockStore = actions => {
   const modulesCopy = cloneDeep(modules);
   if (actions) {
     Object.entries(actions).forEach(([module, actions]) => {
@@ -43,6 +43,6 @@ export const generateMockStore = (actions) => {
     mutations,
     getters,
     modules: modulesCopy,
-    plugins: [VuexPlugins],
+    plugins: [VuexPlugins]
   });
 };

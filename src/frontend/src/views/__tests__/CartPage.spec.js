@@ -2,23 +2,29 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_POP_UP } from "@/store/mutations-types";
-import Cart from "@/views/Cart.vue";
+import CartPage from "@/views/CartPage.vue";
+import AppButton from "@/common/components/AppButton";
+import AppInput from "@/common/components/AppInput";
 
 const localVue = createLocalVue();
 
+localVue.component("AppButton", AppButton);
+localVue.component("AppInput", AppInput);
+
 localVue.use(Vuex);
 
-const setPopUp = (store) => {
+const setPopUp = store => {
   store.commit(`Cart/${SET_POP_UP}`, true);
 };
 
-describe("Cart", () => {
+describe("CartPage", () => {
   const stubs = ["router-link"];
 
   let store;
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = mount(Cart, options);
+
+  const createComponent = options => {
+    wrapper = mount(CartPage, options);
   };
 
   beforeEach(() => {

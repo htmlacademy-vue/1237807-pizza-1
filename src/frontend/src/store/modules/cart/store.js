@@ -9,7 +9,7 @@ import {
   UPDATE_ADDRESS,
   SET_POP_UP,
   SET_CART,
-  RESET_CART,
+  RESET_CART
 } from "@/store/mutations-types";
 import { capitalize } from "@/common/helpers";
 import { addressValues } from "@/common/constants";
@@ -20,7 +20,7 @@ const module = capitalize(entity);
 const setupDefaultMiscOrder = () => ({
   cola: 0,
   sauce: 0,
-  potato: 0,
+  potato: 0
 });
 
 export default {
@@ -31,7 +31,7 @@ export default {
     phone: "",
     address: {},
     deliveryOption: "pickup",
-    isPopUp: false,
+    isPopUp: false
   },
 
   mutations: {
@@ -72,7 +72,7 @@ export default {
     },
     [SET_POP_UP](state, status) {
       state.isPopUp = status;
-    },
+    }
   },
 
   actions: {
@@ -85,7 +85,7 @@ export default {
         {
           module: module,
           entity: "pizzasOrder",
-          value: newPizza,
+          value: newPizza
         },
         { root: true }
       );
@@ -96,7 +96,7 @@ export default {
         {
           module: module,
           entity: "pizzasOrder",
-          value: updatedPizza,
+          value: updatedPizza
         },
         { root: true }
       );
@@ -107,7 +107,7 @@ export default {
         {
           module: module,
           entity: "pizzasOrder",
-          id,
+          id
         },
         { root: true }
       );
@@ -120,7 +120,7 @@ export default {
           {
             module: module,
             entity: "address",
-            value: addressValues[selectedOption],
+            value: addressValues[selectedOption]
           },
           { root: true }
         );
@@ -134,11 +134,11 @@ export default {
           {
             module: module,
             entity: "address",
-            value: selectedAddress,
+            value: selectedAddress
           },
           { root: true }
         );
       }
-    },
-  },
+    }
+  }
 };

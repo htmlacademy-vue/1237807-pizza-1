@@ -1,26 +1,28 @@
 import { shallowMount } from "@vue/test-utils";
 import AppLayout from "@/layouts/AppLayout";
-import Error from "@/common/components/Error";
+import AppError from "@/common/components/AppError";
 
 const mocks = {
   $store: {
     state: {
-      error: "",
-    },
+      error: ""
+    }
   },
   $route: {
     meta: {
-      layout: "",
-    },
-  },
+      layout: ""
+    }
+  }
 };
+
 const stubs = {
-  Error,
+  AppError
 };
 
 describe("AppLayout", () => {
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = shallowMount(AppLayout, options);
   };
 

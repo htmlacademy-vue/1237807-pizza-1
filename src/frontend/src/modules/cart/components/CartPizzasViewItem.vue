@@ -1,10 +1,13 @@
 <template>
   <li class="cart-list__item">
-    <PizzaItem class="cart-list__product" :pizza="pizza" />
+    <PizzaItem
+      class="cart-list__product"
+      :pizza="pizza"
+    />
     <ItemCounter
       :class="`cart-list__counter`"
       :value="pizza.count || 0"
-      :buttonClass="`counter__button--orange`"
+      :button-class="`counter__button--orange`"
       data-test="pizza-counter"
       @removeItem="updatePizzasCount"
       @addItem="updatePizzasCount(true)"
@@ -34,23 +37,29 @@ import { SET_CURRENT_PIZZA } from "@/store/mutations-types";
 export default {
   name: "CartPizzasViewItem",
   components: { PizzaItem, ItemCounter },
+
   props: {
     pizza: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
+
   computed: {
     ...mapGetters(["getPizzaCost"]),
+
     totalCost() {
       return this.getPizzaCost(this.pizza) * this.pizza.count;
-    },
+    }
   },
+
   methods: {
     ...mapActions("Cart", ["updatePizza", "deletePizza"]),
+
     ...mapMutations("Builder", {
-      setPizzaToBuilder: SET_CURRENT_PIZZA,
+      setPizzaToBuilder: SET_CURRENT_PIZZA
     }),
+
     updatePizzasCount(isAddition) {
       let newCount;
 
@@ -67,10 +76,11 @@ export default {
 
       this.updatePizza({ ...this.pizza, count: newCount });
     },
+
     changePizza() {
       this.setPizzaToBuilder(this.pizza);
       this.$router.push("/");
-    },
-  },
+    }
+  }
 };
 </script>
