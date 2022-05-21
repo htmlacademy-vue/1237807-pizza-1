@@ -10,14 +10,15 @@ localVue.use(Vuex);
 const addMiscItemCount = (store, payload) => {
   store.commit(`Cart/${UPDATE_MISC_ORDER}`, {
     item: payload,
-    isAddition: true,
+    isAddition: true
   });
 };
 
 describe("CartMiscSelector", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(CartMiscSelector, options);
   };
 
@@ -54,7 +55,7 @@ describe("CartMiscSelector", () => {
     const counter = wrapper.find('[data-test="misc-counter"]');
     counter.vm.$emit("removeItem");
     expect(spyOnMutation).toHaveBeenCalledWith({
-      item: "cola",
+      item: "cola"
     });
   });
 
@@ -65,7 +66,7 @@ describe("CartMiscSelector", () => {
     counter.vm.$emit("addItem");
     expect(spyOnMutation).toHaveBeenCalledWith({
       item: "cola",
-      isAddition: true,
+      isAddition: true
     });
   });
 });

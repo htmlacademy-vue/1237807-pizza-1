@@ -2,10 +2,15 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutations-types";
-import Profile from "@/views/Profile.vue";
+import ProfilePage from "@/views/ProfilePage.vue";
+import AppButton from "@/common/components/AppButton";
+import AppInput from "@/common/components/AppInput";
 import { authenticateUser } from "@/common/helpers";
 
 const localVue = createLocalVue();
+
+localVue.component("AppButton", AppButton);
+localVue.component("AppInput", AppInput);
 
 localVue.use(Vuex);
 
@@ -17,7 +22,7 @@ const addresses = [
     building: "11",
     flat: "1",
     comment: "",
-    userId: "uuid",
+    userId: "uuid"
   },
   {
     id: 1,
@@ -26,23 +31,24 @@ const addresses = [
     building: "24",
     flat: "9",
     comment: "Коммент",
-    userId: "uuid",
-  },
+    userId: "uuid"
+  }
 ];
 
-const createAddresses = (store) => {
+const createAddresses = store => {
   store.commit(SET_ENTITY, {
     module: "Addresses",
     entity: "addresses",
-    value: addresses,
+    value: addresses
   });
 };
 
-describe("Profile", () => {
+describe("ProfilePage", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = mount(Profile, options);
+
+  const createComponent = options => {
+    wrapper = mount(ProfilePage, options);
   };
 
   beforeEach(() => {

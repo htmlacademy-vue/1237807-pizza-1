@@ -2,8 +2,14 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import ProfileAddressView from "@/modules/profile/components/ProfileAddressView";
+import AppButton from "@/common/components/AppButton";
+import AppInput from "@/common/components/AppInput";
 
 const localVue = createLocalVue();
+
+localVue.component("AppButton", AppButton);
+localVue.component("AppInput", AppInput);
+
 localVue.use(Vuex);
 
 const propsData = {
@@ -14,15 +20,15 @@ const propsData = {
     building: "11",
     flat: "1",
     comment: "Привет",
-    userId: "string",
-  },
+    userId: "string"
+  }
 };
 
 describe("ProfileAddressView", () => {
   let store;
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = mount(ProfileAddressView, options);
   };
 

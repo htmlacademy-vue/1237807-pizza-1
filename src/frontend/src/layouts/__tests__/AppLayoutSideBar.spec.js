@@ -4,7 +4,8 @@ import AppLayoutSideBar from "@/layouts/AppLayoutSideBar";
 describe("AppLayoutSideBar", () => {
   const stubs = ["router-link"];
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = shallowMount(AppLayoutSideBar, options);
   };
 

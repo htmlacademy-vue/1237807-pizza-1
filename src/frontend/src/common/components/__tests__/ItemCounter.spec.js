@@ -5,12 +5,12 @@ describe("ItemCounter", () => {
   const propsData = {
     value: 1,
     maxCount: 3,
-    buttonClass: "counter__button--orange",
+    buttonClass: "counter__button--orange"
   };
 
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = shallowMount(ItemCounter, options);
   };
 

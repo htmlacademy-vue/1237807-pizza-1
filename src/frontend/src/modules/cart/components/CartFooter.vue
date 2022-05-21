@@ -1,7 +1,10 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <router-link class="button button--border button--arrow" to="/">
+      <router-link
+        class="button button--border button--arrow"
+        to="/"
+      >
         Хочу еще одну
       </router-link>
     </div>
@@ -12,14 +15,14 @@
       <b>Итого: {{ orderTotalCost }} ₽</b>
     </div>
     <div class="footer__submit">
-      <Button
+      <AppButton
         type="submit"
         :disabled="disabled"
         data-test="submit-button"
         @click.prevent="submit"
       >
         Оформить заказ
-      </Button>
+      </AppButton>
     </div>
   </section>
 </template>
@@ -29,56 +32,66 @@ import { mapMutations, mapState, mapActions, mapGetters } from "vuex";
 import {
   SET_POP_UP,
   RESET_CART,
-  RESET_CURRENT_PIZZA,
+  RESET_CURRENT_PIZZA
 } from "@/store/mutations-types";
 import validator from "@/common/mixins/validator";
 
 export default {
   name: "CartFooter",
   mixins: [validator],
+
   computed: {
     ...mapGetters(["getOrderCost"]),
     ...mapState("Auth", ["user", "isAuthenticated"]),
     ...mapState("Cart", ["pizzasOrder", "miscOrder", "address", "phone"]),
+
     orderTotalCost() {
       return this.getOrderCost({
         miscOrder: this.miscOrder,
-        pizzasOrder: this.pizzasOrder,
+        pizzasOrder: this.pizzasOrder
       });
     },
+
     isFormInvalid() {
       return (
         this.address.validations?.street.error.length > 0 ||
         this.address.validations?.building.error.length > 0
       );
     },
+
     disabled() {
       return this.orderTotalCost === 0 || this.isFormInvalid;
     },
+
     finalOrder() {
       return {
         userId: (this.isAuthenticated && this.user?.id) || null,
         phone: this.phone,
         address: (Object.keys(this.address).length && this.address) || null,
         pizzasOrder: this.pizzasOrder,
-        miscOrder: this.miscOrder,
+        miscOrder: this.miscOrder
       };
-    },
+    }
   },
+
   methods: {
     ...mapMutations("Cart", {
       setPopUp: SET_POP_UP,
-      resetCart: RESET_CART,
+      resetCart: RESET_CART
     }),
+
     ...mapMutations("Builder", {
-      resetBuilder: RESET_CURRENT_PIZZA,
+      resetBuilder: RESET_CURRENT_PIZZA
     }),
+
     ...mapActions("Orders", {
-      orderPost: "post",
+      orderPost: "post"
     }),
+
     openPopUp() {
       return this.setPopUp(true);
     },
+
     async submit() {
       if (
         this.address.validations &&
@@ -97,7 +110,7 @@ export default {
       this.resetCart();
       this.resetBuilder();
       this.openPopUp();
-    },
-  },
+    }
+  }
 };
 </script>

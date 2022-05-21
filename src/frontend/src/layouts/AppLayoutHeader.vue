@@ -1,7 +1,10 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <router-link to="/" class="logo">
+      <router-link
+        to="/"
+        class="logo"
+      >
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
@@ -11,9 +14,16 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">{{ orderTotalCost }} ₽</router-link>
+      <router-link to="/cart">
+        {{ orderTotalCost }} ₽
+      </router-link>
     </div>
-    <div v-if="showUser" class="header__user" data-test="header-user">
+    <div
+      v-if="showUser"
+      key="header-autnorized"
+      class="header__user"
+      data-test="header-user"
+    >
       <router-link to="/profile">
         <picture>
           <source
@@ -30,13 +40,25 @@
         </picture>
         <span>{{ user.name }}</span>
       </router-link>
-      <a class="header__logout" @click="$logout" data-test="logout-btn">
+      <a
+        class="header__logout"
+        data-test="logout-btn"
+        @click="$logout"
+      >
         <span>Выйти</span>
       </a>
     </div>
 
-    <div v-else class="header__user">
-      <router-link class="header__login" to="/login" data-test="login-btn">
+    <div
+      v-else
+      key="header-notautnorized"
+      class="header__user"
+    >
+      <router-link
+        class="header__login"
+        to="/login"
+        data-test="login-btn"
+      >
         <span>Войти</span>
       </router-link>
     </div>
@@ -50,26 +72,31 @@ import { logout } from "@/common/mixins";
 export default {
   name: "AppLayoutHeader",
   mixins: [logout],
+
   computed: {
     ...mapState(["Auth"]),
     ...mapState("Cart", ["pizzasOrder", "miscOrder"]),
     ...mapGetters("Auth", ["getUserAvatar"]),
     ...mapGetters(["getOrderCost"]),
+
     orderTotalCost() {
       return this.getOrderCost({
         miscOrder: this.miscOrder,
-        pizzasOrder: this.pizzasOrder,
+        pizzasOrder: this.pizzasOrder
       });
     },
+
     user() {
       return this.Auth.user;
     },
+
     userAvatar() {
       return this.getUserAvatar;
     },
+
     showUser() {
       return this.Auth.isAuthenticated;
-    },
-  },
+    }
+  }
 };
 </script>

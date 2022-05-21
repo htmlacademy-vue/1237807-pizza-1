@@ -1,7 +1,9 @@
 <template>
   <div class="layout__content">
     <div class="layout__title">
-      <h1 class="title title--big">Мои данные</h1>
+      <h1 class="title title--big">
+        Мои данные
+      </h1>
     </div>
     <div class="user">
       <picture>
@@ -33,8 +35,8 @@
       <p>У вас пока нет добавленных адресов</p>
     </div>
     <ProfileAddressView
-      v-else
       v-for="address in addresses"
+      v-else
       :key="address.id"
       :address="address"
       data-test="addresses"
@@ -47,14 +49,14 @@
       />
     </div>
     <div class="layout__button">
-      <Button
+      <AppButton
         class="button--border"
         :disabled="isForm"
         data-test="add-address-btn"
         @click="openForm"
       >
         Добавить новый адрес
-      </Button>
+      </AppButton>
     </div>
   </div>
 </template>
@@ -66,36 +68,43 @@ import ProfileAddressView from "@/modules/profile/components/ProfileAddressView"
 import { auth } from "@/middlewares";
 
 export default {
-  name: "Profile",
+  name: "ProfilePage",
   layout: "AppLayoutAuthorizedUser",
   middlewares: [auth],
   components: { ProfileAddressView, ProfileAddressForm },
+
   data() {
     return {
-      isForm: false,
+      isForm: false
     };
   },
+
   computed: {
     ...mapState("Addresses", ["addresses"]),
     ...mapState("Auth", ["user"]),
     ...mapGetters("Auth", ["getUserAvatar"]),
+
     userAvatar() {
       return this.getUserAvatar;
     },
+
     userName() {
       return this.user.name;
     },
+
     userPhone() {
       return this.user.phone;
-    },
+    }
   },
+
   methods: {
     openForm() {
       this.isForm = true;
     },
+
     closeForm() {
       this.isForm = false;
-    },
-  },
+    }
+  }
 };
 </script>

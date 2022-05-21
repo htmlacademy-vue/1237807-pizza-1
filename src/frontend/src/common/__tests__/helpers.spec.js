@@ -8,26 +8,26 @@ import {
   getValueById,
   getRequestDataFromObject,
   getObjectFromResponseData,
-  getIngredientsArray,
+  getIngredientsArray
 } from "@/common/helpers";
 
 const mockArray = [
   {
     id: 1,
     value: "one",
-    price: 100,
+    price: 100
   },
   {
     id: 2,
     value: "two",
     price: 200,
-    multiplier: 5,
+    multiplier: 5
   },
   {
     id: 3,
     value: "three",
-    price: 300,
-  },
+    price: 300
+  }
 ];
 
 describe("test helpers functions", () => {
@@ -47,7 +47,7 @@ describe("test helpers functions", () => {
     const result = {
       one: 1,
       two: 2,
-      three: 3,
+      three: 3
     };
     expect(countItemsInArray(arr)).toStrictEqual(result);
   });
@@ -59,7 +59,7 @@ describe("test helpers functions", () => {
       id: 2,
       value: "two",
       price: 200,
-      multiplier: 5,
+      multiplier: 5
     };
     expect(getRequiredValue(mockArray, requiredValue)).toStrictEqual(result);
   });
@@ -81,19 +81,19 @@ describe("test helpers functions", () => {
     const obj = {
       one: 1,
       two: 2,
-      three: 3,
+      three: 3
     };
 
     const data = [
       { id: 1, value: "one" },
       { id: 2, value: "two" },
-      { id: 3, value: "three" },
+      { id: 3, value: "three" }
     ];
 
     const result = [
       { numberId: 1, quantity: 1 },
       { numberId: 2, quantity: 2 },
-      { numberId: 3, quantity: 3 },
+      { numberId: 3, quantity: 3 }
     ];
     expect(getRequestDataFromObject(obj, data, "numberId")).toStrictEqual(
       result
@@ -104,19 +104,19 @@ describe("test helpers functions", () => {
     const arr = [
       { miscId: 1, quantity: 1 },
       { miscId: 2, quantity: 2 },
-      { miscId: 3, quantity: 3 },
+      { miscId: 3, quantity: 3 }
     ];
 
     const data = [
       { id: 1, value: "one" },
       { id: 2, value: "two" },
-      { id: 3, value: "three" },
+      { id: 3, value: "three" }
     ];
 
     const result = {
       one: 1,
       two: 2,
-      three: 3,
+      three: 3
     };
     expect(getObjectFromResponseData(arr, data)).toStrictEqual(result);
   });
@@ -125,13 +125,13 @@ describe("test helpers functions", () => {
     const arr = [
       { ingredientId: 1, quantity: 1 },
       { ingredientId: 2, quantity: 2 },
-      { ingredientId: 3, quantity: 3 },
+      { ingredientId: 3, quantity: 3 }
     ];
 
     const data = [
       { id: 1, value: "bacon" },
       { id: 2, value: "salmon" },
-      { id: 3, value: "ananas" },
+      { id: 3, value: "ananas" }
     ];
 
     const result = ["bacon", "salmon", "salmon", "ananas", "ananas", "ananas"];

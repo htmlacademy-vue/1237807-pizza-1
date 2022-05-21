@@ -12,19 +12,22 @@
 <script>
 export default {
   name: "RadioButton",
+
   props: {
     name: {
       type: String,
-      required: true,
+      required: true
     },
+
     value: {
       type: String,
-      required: true,
+      required: true
     },
+
     isChecked: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 };
 </script>

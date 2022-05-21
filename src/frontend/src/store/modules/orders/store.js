@@ -9,7 +9,7 @@ const namespace = { entity, module };
 export default {
   namespaced: true,
   state: {
-    orders: [],
+    orders: []
   },
 
   actions: {
@@ -20,7 +20,7 @@ export default {
         SET_ENTITY,
         {
           ...namespace,
-          value: ordersData,
+          value: ordersData
         },
         { root: true }
       );
@@ -38,10 +38,10 @@ export default {
         DELETE_ENTITY,
         {
           ...namespace,
-          id,
+          id
         },
         { root: true }
       );
-    },
-  },
+    }
+  }
 };

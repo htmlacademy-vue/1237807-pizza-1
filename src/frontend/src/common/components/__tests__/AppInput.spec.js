@@ -1,8 +1,9 @@
 import { shallowMount } from "@vue/test-utils";
-import Input from "@/common/components/Input";
+import AppInput from "@/common/components/AppInput";
 
-describe("Input", () => {
+describe("AppInput", () => {
   const errorClass = "error__input";
+
   const propsData = {
     value: "testValue",
     name: "testName",
@@ -11,12 +12,13 @@ describe("Input", () => {
     placeholder: "Test",
     errorText: "Error",
     required: true,
-    hideLabel: true,
+    hideLabel: true
   };
 
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = shallowMount(Input, options);
+
+  const createComponent = options => {
+    wrapper = shallowMount(AppInput, options);
   };
 
   afterEach(() => {

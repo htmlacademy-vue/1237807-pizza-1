@@ -3,7 +3,7 @@ import {
   AuthApiService,
   CrudApiService,
   DataApiService,
-  OrdersApiService,
+  OrdersApiService
 } from "@/services/api.service";
 import user from "@/static/user";
 import { SET_ENTITY } from "@/store/mutations-types";
@@ -17,22 +17,22 @@ export const createResources = (error, store) => {
     [resources.SIZES]: new DataApiService(resources.SIZES, error),
     [resources.SAUCES]: new DataApiService(resources.SAUCES, error),
     [resources.INGREDIENTS]: new DataApiService(resources.INGREDIENTS, error),
-    [resources.MISC]: new DataApiService(resources.MISC, error),
+    [resources.MISC]: new DataApiService(resources.MISC, error)
   };
 };
 
-export const setAuth = (store) => {
+export const setAuth = store => {
   store.$api.auth.setAuthHeader();
   store.dispatch("Auth/getMe");
 };
 
-export const capitalize = (string) =>
+export const capitalize = string =>
   `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
 
-export const lowercase = (string) =>
+export const lowercase = string =>
   `${string.charAt(0).toLowerCase()}${string.slice(1)}`;
 
-export const countItemsInArray = (arr) => {
+export const countItemsInArray = arr => {
   const count = arr.reduce((acc, item) => {
     acc[item] = (acc[item] || 0) + 1;
     return acc;
@@ -42,7 +42,7 @@ export const countItemsInArray = (arr) => {
 };
 
 export const getRequiredValue = (arr, value) => {
-  return arr.filter((item) => item.value === value)[0];
+  return arr.filter(item => item.value === value)[0];
 };
 
 export const getPrice = (arr, value) => {
@@ -64,7 +64,7 @@ export const getId = (arr, value) => {
 };
 
 export const getValueById = (arr, id) => {
-  const requiredData = arr.filter((item) => item.id === id)[0];
+  const requiredData = arr.filter(item => item.id === id)[0];
 
   if (requiredData) {
     return requiredData.value;
@@ -75,7 +75,7 @@ export const getRequestDataFromObject = (obj, data, detailId) => {
   const requestArray = Object.entries(obj).reduce((acc, [key, value]) => {
     acc.push({
       [detailId]: getId(data, key),
-      quantity: value,
+      quantity: value
     });
     return acc;
   }, []);
@@ -109,15 +109,15 @@ export const getIngredientsArray = (arr, data) => {
   return ingredients;
 };
 
-export const authenticateUser = (store) => {
+export const authenticateUser = store => {
   store.commit(SET_ENTITY, {
     module: "Auth",
     entity: "user",
-    value: user,
+    value: user
   });
   store.commit(SET_ENTITY, {
     module: "Auth",
     entity: "isAuthenticated",
-    value: true,
+    value: true
   });
 };

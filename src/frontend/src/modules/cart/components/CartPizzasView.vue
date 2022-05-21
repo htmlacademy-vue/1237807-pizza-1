@@ -6,7 +6,10 @@
   >
     <p>В корзине нет ни одного товара</p>
   </div>
-  <ul v-else class="cart-list sheet">
+  <ul
+    v-else
+    class="cart-list sheet"
+  >
     <CartPizzasViewItem
       v-for="pizza in pizzasOrder"
       :key="pizza.id"
@@ -24,7 +27,7 @@ export default {
   name: "CartPizzasView",
   components: { CartPizzasViewItem },
   computed: {
-    ...mapState("Cart", ["pizzasOrder"]),
-  },
+    ...mapState("Cart", ["pizzasOrder"])
+  }
 };
 </script>

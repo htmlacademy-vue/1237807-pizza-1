@@ -2,23 +2,24 @@ const CARET = "^";
 const COLON = ":";
 const UNDERSCORE = "_";
 
-const importAll = (context) =>
-  context.keys().map((key) => key.slice(2).replace(".vue", "").split("/"));
+const importAll = context =>
+  context.keys().map(key => key.slice(2).replace(".vue", "").split("/"));
 
 const pages = importAll(require.context("../views", true, /\.vue$/));
 
-const generateRoute = (path) => {
+const generateRoute = path => {
   if (path[0].toLowerCase().startsWith("index") && path.length > 1) {
     path.shift();
   }
 
   if (path.length === 1) {
-    const shortcut = path[0].toLowerCase();
+    const shortcut = path[0].toLowerCase().replace("page", "");
+
     return shortcut.startsWith("index")
       ? ""
       : shortcut.startsWith(UNDERSCORE)
-      ? shortcut.replace(UNDERSCORE, COLON)
-      : shortcut;
+        ? shortcut.replace(UNDERSCORE, COLON)
+        : shortcut;
   }
 
   const lastElement = path[path.length - 1];
@@ -29,21 +30,21 @@ const generateRoute = (path) => {
     path[path.length - 1] = lastElement.replace(UNDERSCORE, COLON);
   }
 
-  return path.map((p) => p.toLowerCase()).join("/");
+  return path.map(p => p.toLowerCase()).join("/");
 };
 
-const childrenFilter = (p) => ~p.indexOf(CARET);
+const childrenFilter = p => ~p.indexOf(CARET);
 
 const childrenByPath = pages
-  .filter((path) => path.some(childrenFilter))
-  .map((path) => {
+  .filter(path => path.some(childrenFilter))
+  .map(path => {
     const copy = [...path];
     copy[copy.length - 1] = copy[copy.length - 1].slice(1);
     const key = `/${generateRoute(copy.slice(0, copy.length - 1))}`;
     return {
       path,
       route: `/${generateRoute(copy)}`,
-      key,
+      key
     };
   })
   .reduce((acc, cur) => {
@@ -66,13 +67,13 @@ const handleNotFoundPage = async () => {
   const component = await module.default;
   return {
     path: "*",
-    component,
+    component
   };
 };
 
 export default pages
-  .filter((path) => !path.some(childrenFilter))
-  .map(async (path) => {
+  .filter(path => !path.some(childrenFilter))
+  .map(async path => {
     if (path.includes(notFoundPage)) {
       return await handleNotFoundPage();
     }
@@ -91,7 +92,7 @@ export default pages
         const {
           layout: childLayout,
           middlewares: childMiddleware,
-          name: childName,
+          name: childName
         } = childComponent;
 
         return {
@@ -100,8 +101,8 @@ export default pages
           component: childComponent,
           meta: {
             layout: childLayout || defaultLayout,
-            middlewares: childMiddleware || {},
-          },
+            middlewares: childMiddleware || {}
+          }
         };
       });
       children = await Promise.all(promises);
@@ -112,8 +113,8 @@ export default pages
       component,
       meta: {
         layout: layout || defaultLayout,
-        middlewares: middlewares || {},
+        middlewares: middlewares || {}
       },
-      children,
+      children
     };
   });

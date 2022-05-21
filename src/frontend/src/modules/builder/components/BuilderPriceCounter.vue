@@ -1,13 +1,13 @@
 <template>
   <div class="content__result">
     <p>Итого: {{ pizzaCost }} ₽</p>
-    <Button
+    <AppButton
       data-test="finalize-button"
       :disabled="disabled"
       @click="finalizePizza"
     >
       Готовьте!
-    </Button>
+    </AppButton>
   </div>
 </template>
 
@@ -17,22 +17,27 @@ import { RESET_CURRENT_PIZZA } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPriceCounter",
+
   computed: {
     ...mapState("Builder", ["pizza"]),
     ...mapGetters(["getPizzaCost"]),
     ...mapGetters("Builder", ["isPizzaReady"]),
+
     pizzaCost() {
       return this.getPizzaCost(this.pizza);
     },
+
     disabled() {
       return !this.isPizzaReady;
-    },
+    }
   },
+
   methods: {
     ...mapActions("Cart", ["addPizza", "updatePizza"]),
     ...mapMutations("Builder", {
-      resetPizza: RESET_CURRENT_PIZZA,
+      resetPizza: RESET_CURRENT_PIZZA
     }),
+
     finalizePizza() {
       if (this.pizza.id) {
         this.updatePizza(this.pizza);
@@ -41,7 +46,7 @@ export default {
       }
 
       this.resetPizza();
-    },
-  },
+    }
+  }
 };
 </script>

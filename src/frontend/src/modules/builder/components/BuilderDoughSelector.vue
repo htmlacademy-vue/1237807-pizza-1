@@ -1,7 +1,9 @@
 <template>
   <div class="content__dough">
     <div class="sheet">
-      <h2 class="title title--small sheet__title">Выберите тесто</h2>
+      <h2 class="title title--small sheet__title">
+        Выберите тесто
+      </h2>
       <div class="sheet__content dough">
         <SelectorItem
           v-for="doughType in dough"
@@ -25,20 +27,24 @@ import SelectorItem from "@/common/components/SelectorItem";
 export default {
   name: "BuilderDoughSelector",
   components: { SelectorItem },
+
   computed: {
     ...mapGetters(["getPizzaDataItem"]),
     ...mapGetters("Builder", ["getPizzaItem"]),
+
     dough() {
       return this.getPizzaDataItem("dough");
     },
+
     checked() {
       return this.getPizzaItem("dough");
-    },
+    }
   },
+
   methods: {
     ...mapMutations("Builder", {
-      updatePizza: UPDATE_CURRENT_PIZZA,
-    }),
-  },
+      updatePizza: UPDATE_CURRENT_PIZZA
+    })
+  }
 };
 </script>

@@ -2,24 +2,24 @@ import { emailRegex } from "@/common/constants";
 
 const rules = {
   isNotEmpty: {
-    rule: (value) => !!value?.trim(),
-    message: "Поле не заполнено",
+    rule: value => !!value?.trim(),
+    message: "Поле не заполнено"
   },
   required: {
-    rule: (value) => !!value?.trim(),
-    message: "Поле обязательно для заполнения",
+    rule: value => !!value?.trim(),
+    message: "Поле обязательно для заполнения"
   },
   email: {
-    rule: (value) =>
+    rule: value =>
       /* eslint-disable-next-line */
       !!value ? emailRegex.test(String(value).toLowerCase()) : true,
-    message: "Электроная почта имеет неверный формат",
-  },
+    message: "Электроная почта имеет неверный формат"
+  }
 };
 
 const validator = (value, appliedRules) => {
   let error = "";
-  appliedRules.forEach((appliedRule) => {
+  appliedRules.forEach(appliedRule => {
     if (!rules[appliedRule]) {
       return;
     }
@@ -35,7 +35,7 @@ export default {
   methods: {
     $validateFields(fields, validations) {
       let isValid = true;
-      Object.keys(validations).forEach((key) => {
+      Object.keys(validations).forEach(key => {
         validations[key].error = validator(fields[key], validations[key].rules);
         if (validations[key].error) {
           isValid = false;
@@ -47,9 +47,9 @@ export default {
       if (!this.validations) {
         return;
       }
-      Object.keys(this.validations).forEach((key) => {
+      Object.keys(this.validations).forEach(key => {
         this.$set(this.validations[key], "error", "");
       });
-    },
-  },
+    }
+  }
 };

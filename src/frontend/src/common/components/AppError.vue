@@ -1,19 +1,27 @@
 <template>
-  <div v-if="error" class="popup">
+  <div
+    v-if="error"
+    class="popup"
+  >
     <div class="popup__title">
-      <h2 class="title">Ошибка</h2>
+      <h2 class="title">
+        Ошибка
+      </h2>
     </div>
     <p>{{ error }}</p>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
-  name: "Error",
-  computed: {
-    ...mapState(["error"]),
-  },
+  name: "AppError",
+
+  props: {
+    error: {
+      type: String,
+      default: ""
+    }
+  }
 };
 </script>
 

@@ -11,14 +11,15 @@ const addIngredientsCount = (store, payload) => {
   store.commit(`Builder/${UPDATE_CURRENT_PIZZA}`, {
     item: "ingredients",
     payload,
-    isAddition: true,
+    isAddition: true
   });
 };
 
 describe("BuilderIngredientsSelector", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(BuilderIngredientsSelector, options);
   };
 
@@ -56,7 +57,7 @@ describe("BuilderIngredientsSelector", () => {
     selector.vm.$emit("updateData", "test");
     expect(spyOnMutation).toHaveBeenCalledWith({
       item: "sauce",
-      payload: "test",
+      payload: "test"
     });
   });
 
@@ -105,7 +106,7 @@ describe("BuilderIngredientsSelector", () => {
     counter.vm.$emit("removeItem");
     expect(spyOnMutation).toHaveBeenCalledWith({
       item: "ingredients",
-      payload: "mushrooms",
+      payload: "mushrooms"
     });
   });
 
@@ -117,7 +118,7 @@ describe("BuilderIngredientsSelector", () => {
     expect(spyOnMutation).toHaveBeenCalledWith({
       item: "ingredients",
       payload: "mushrooms",
-      isAddition: true,
+      isAddition: true
     });
   });
 });

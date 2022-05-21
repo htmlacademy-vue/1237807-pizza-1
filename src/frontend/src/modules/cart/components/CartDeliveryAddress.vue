@@ -1,10 +1,13 @@
 <template>
   <div class="cart-form__address">
-    <span class="cart-form__label" data-test="address-name">{{
-      address.name || "Новый адрес:"
-    }}</span>
+    <span
+      class="cart-form__label"
+      data-test="address-name"
+    >
+      {{ address.name || "Новый адрес:" }}
+    </span>
     <div class="cart-form__input">
-      <Input
+      <AppInput
         ref="street"
         v-model="street"
         name="street"
@@ -15,7 +18,7 @@
       />
     </div>
     <div class="cart-form__input cart-form__input--small">
-      <Input
+      <AppInput
         ref="building"
         v-model="building"
         name="building"
@@ -26,7 +29,7 @@
       />
     </div>
     <div class="cart-form__input cart-form__input--small">
-      <Input
+      <AppInput
         ref="flat"
         v-model="flat"
         name="flat"
@@ -46,55 +49,64 @@ import { UPDATE_ADDRESS } from "@/store/mutations-types";
 export default {
   name: "CartDeliveryAddress",
   mixins: [validator],
-  methods: {
-    ...mapMutations("Cart", {
-      updateAddress: UPDATE_ADDRESS,
-    }),
-  },
+
   computed: {
     ...mapState("Cart", ["address"]),
+
     validations() {
       return this.address.validations || {};
     },
+
     disabled() {
       return !!this.address.id;
     },
+
     street: {
       get() {
         return this.address.street;
       },
       set(value) {
         this.updateAddress({ key: "street", value });
-      },
+      }
     },
+
     building: {
       get() {
         return this.address.building;
       },
       set(value) {
         this.updateAddress({ key: "building", value });
-      },
+      }
     },
+
     flat: {
       get() {
         return this.address.flat;
       },
       set(value) {
         this.updateAddress({ key: "flat", value });
-      },
-    },
+      }
+    }
   },
+
   watch: {
     street() {
       if (!this.disabled) {
         this.$clearValidationErrors();
       }
     },
+
     building() {
       if (!this.disabled) {
         this.$clearValidationErrors();
       }
-    },
+    }
   },
+
+  methods: {
+    ...mapMutations("Cart", {
+      updateAddress: UPDATE_ADDRESS
+    })
+  }
 };
 </script>

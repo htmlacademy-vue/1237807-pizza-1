@@ -9,7 +9,8 @@ localVue.use(Vuex);
 describe("BuilderDoughSelector", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(BuilderDoughSelector, options);
   };
 
@@ -54,7 +55,7 @@ describe("BuilderDoughSelector", () => {
     selector.vm.$emit("updateData", "test");
     expect(spyOnMutation).toHaveBeenCalledWith({
       item: "dough",
-      payload: "test",
+      payload: "test"
     });
   });
 });

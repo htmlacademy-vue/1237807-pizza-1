@@ -2,7 +2,7 @@ import {
   SET_ENTITY,
   ADD_ENTITY,
   UPDATE_ENTITY,
-  DELETE_ENTITY,
+  DELETE_ENTITY
 } from "@/store/mutations-types";
 import { capitalize } from "@/common/helpers";
 import { cloneDeep } from "lodash";
@@ -14,7 +14,7 @@ const namespace = { entity, module };
 export default {
   namespaced: true,
   state: {
-    addresses: [],
+    addresses: []
   },
 
   actions: {
@@ -24,7 +24,7 @@ export default {
         SET_ENTITY,
         {
           ...namespace,
-          value: addressesData,
+          value: addressesData
         },
         { root: true }
       );
@@ -37,7 +37,7 @@ export default {
         ADD_ENTITY,
         {
           ...namespace,
-          value: data,
+          value: data
         },
         { root: true }
       );
@@ -50,7 +50,7 @@ export default {
         UPDATE_ENTITY,
         {
           ...namespace,
-          value: address,
+          value: address
         },
         { root: true }
       );
@@ -62,10 +62,10 @@ export default {
         DELETE_ENTITY,
         {
           ...namespace,
-          id,
+          id
         },
         { root: true }
       );
-    },
-  },
+    }
+  }
 };

@@ -3,10 +3,12 @@ import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutations-types";
 import CartDeliveryAddress from "@/modules/cart/components/CartDeliveryAddress";
-import Input from "@/common/components/Input";
+import AppInput from "@/common/components/AppInput";
 
 const localVue = createLocalVue();
-localVue.component("Input", Input);
+
+localVue.component("AppInput", AppInput);
+
 localVue.use(Vuex);
 
 const mockAddress = {
@@ -15,21 +17,22 @@ const mockAddress = {
   building: "11",
   flat: "1",
   comment: "",
-  userId: "uuid",
+  userId: "uuid"
 };
 
 const addAddress = (store, payload) => {
   store.commit(SET_ENTITY, {
     module: "Cart",
     entity: "address",
-    value: payload,
+    value: payload
   });
 };
 
 describe("CartDeliveryAddress", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(CartDeliveryAddress, options);
   };
 
@@ -96,7 +99,7 @@ describe("CartDeliveryAddress", () => {
     addAddress(store, {
       ...mockAddress,
       street: "",
-      validations: { street: { error: "Поле обязательно для заполнения" } },
+      validations: { street: { error: "Поле обязательно для заполнения" } }
     });
     createComponent({ localVue, store });
     const streetInput = wrapper.find('[data-test="street-input"]');
@@ -109,7 +112,7 @@ describe("CartDeliveryAddress", () => {
     addAddress(store, {
       ...mockAddress,
       building: "",
-      validations: { building: { error: "Поле обязательно для заполнения" } },
+      validations: { building: { error: "Поле обязательно для заполнения" } }
     });
     createComponent({ localVue, store });
     const buildingInput = wrapper.find('[data-test="building-input"]');
@@ -128,7 +131,7 @@ describe("CartDeliveryAddress", () => {
     await streetInput.trigger("input");
     expect(spyOnMutation).toHaveBeenCalledWith({
       key: "street",
-      value: "test",
+      value: "test"
     });
   });
 
@@ -142,7 +145,7 @@ describe("CartDeliveryAddress", () => {
     await buildingInput.trigger("input");
     expect(spyOnMutation).toHaveBeenCalledWith({
       key: "building",
-      value: "test",
+      value: "test"
     });
   });
 
@@ -154,7 +157,7 @@ describe("CartDeliveryAddress", () => {
     await flatInput.trigger("input");
     expect(spyOnMutation).toHaveBeenCalledWith({
       key: "flat",
-      value: "test",
+      value: "test"
     });
   });
 });

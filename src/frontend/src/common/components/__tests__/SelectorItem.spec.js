@@ -4,16 +4,16 @@ import RadioButton from "@/common/components/RadioButton";
 
 describe("SelectorItem", () => {
   const stubs = {
-    RadioButton,
+    RadioButton
   };
 
   const propsData = {
     selector: { value: "testValue", type: "testType", name: "testName" },
-    checked: "testChecked",
+    checked: "testChecked"
   };
 
   let wrapper;
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = shallowMount(SelectorItem, options);
   };
 
@@ -23,14 +23,14 @@ describe("SelectorItem", () => {
 
   it("renders out selector name in span when there is not selector description", () => {
     createComponent({ stubs, propsData });
-    expect(wrapper.html()).toContain('span');
+    expect(wrapper.html()).toContain("span");
     expect(wrapper.html()).toContain(propsData.selector.name);
   });
 
   it("renders out selector name in b when there is selector description", () => {
     propsData.selector.description = "testDescription";
     createComponent({ stubs, propsData });
-    expect(wrapper.html()).toContain('b');
+    expect(wrapper.html()).toContain("b");
     expect(wrapper.html()).toContain(propsData.selector.name);
     expect(wrapper.html()).toContain(propsData.selector.description);
   });

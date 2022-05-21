@@ -15,8 +15,8 @@ const propsData = {
     dough: "large",
     diameter: "small",
     count: 2,
-    ingredients: ["bacon", "mushrooms", "cheddar"],
-  },
+    ingredients: ["bacon", "mushrooms", "cheddar"]
+  }
 };
 
 describe("CartPizzasViewItem", () => {
@@ -25,11 +25,11 @@ describe("CartPizzasViewItem", () => {
 
   const mocks = {
     $router: {
-      push: jest.fn(),
-    },
+      push: jest.fn()
+    }
   };
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = mount(CartPizzasViewItem, options);
   };
 
@@ -81,7 +81,7 @@ describe("CartPizzasViewItem", () => {
       localVue,
       store,
       mocks,
-      propsData: { pizza: { ...propsData.pizza, count: 1 } },
+      propsData: { pizza: { ...propsData.pizza, count: 1 } }
     });
     const spyOnDeletePizza = jest.spyOn(wrapper.vm, "deletePizza");
     const counter = wrapper.find('[data-test="pizza-counter"]');

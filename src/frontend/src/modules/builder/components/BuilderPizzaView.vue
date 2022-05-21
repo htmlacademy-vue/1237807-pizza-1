@@ -22,7 +22,7 @@
               ingredient,
               index
             )}`"
-          ></div>
+          />
         </transition-group>
       </div>
     </div>
@@ -39,31 +39,39 @@ import { DATA_TRANSFER_PAYLOAD } from "@/common/constants";
 
 export default {
   name: "BuilderPizzaView",
+
   data() {
     return {
       doughLayer,
-      ingredientsIndex,
+      ingredientsIndex
     };
   },
+
   computed: {
     ...mapGetters("Builder", ["getPizzaItem"]),
+
     dough() {
       return this.getPizzaItem("dough");
     },
+
     sauce() {
       return this.getPizzaItem("sauce");
     },
+
     ingredients() {
       return this.getPizzaItem("ingredients");
     },
+
     ingredientsCount() {
       return countItemsInArray(this.ingredients);
-    },
+    }
   },
+
   methods: {
     ...mapMutations("Builder", {
-      updatePizza: UPDATE_CURRENT_PIZZA,
+      updatePizza: UPDATE_CURRENT_PIZZA
     }),
+
     getIngredientCountClassName(ingredient, index) {
       const isMultiIngredient = this.ingredientsCount[ingredient] > 1;
 
@@ -85,11 +93,14 @@ export default {
         ? this.ingredientsIndex[currentIngredientIndex]
         : "";
     },
+
     onDrop({ dataTransfer }) {
       if (!dataTransfer) {
         return;
       }
+
       const payload = dataTransfer.getData(DATA_TRANSFER_PAYLOAD);
+
       if (payload) {
         const transferData = JSON.parse(
           dataTransfer.getData(DATA_TRANSFER_PAYLOAD)
@@ -98,11 +109,11 @@ export default {
         this.updatePizza({
           item: "ingredients",
           payload: transferData.value,
-          isAddition: true,
+          isAddition: true
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

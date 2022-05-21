@@ -2,9 +2,13 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import { SET_ENTITY } from "@/store/mutations-types";
-import Orders from "@/views/Orders.vue";
+import OrdersPage from "@/views/OrdersPage.vue";
+import AppButton from "@/common/components/AppButton";
 
 const localVue = createLocalVue();
+
+localVue.component("AppButton", AppButton);
+
 localVue.use(Vuex);
 
 const normalizedOrders = [
@@ -18,7 +22,7 @@ const normalizedOrders = [
         dough: "large",
         diameter: "small",
         count: 2,
-        ingredients: ["bacon", "mushrooms", "cheddar"],
+        ingredients: ["bacon", "mushrooms", "cheddar"]
       },
       {
         id: 2,
@@ -27,17 +31,17 @@ const normalizedOrders = [
         dough: "light",
         diameter: "big",
         count: 1,
-        ingredients: ["ham", "onion", "onion", "jalapeno"],
-      },
+        ingredients: ["ham", "onion", "onion", "jalapeno"]
+      }
     ],
     miscOrder: {
       cola: 1,
       sauce: 2,
-      potato: 4,
+      potato: 4
     },
     address: {
-      name: "Тестовый адрес",
-    },
+      name: "Тестовый адрес"
+    }
   },
   {
     id: 2,
@@ -49,33 +53,34 @@ const normalizedOrders = [
         dough: "light",
         diameter: "normal",
         count: 3,
-        ingredients: ["olives", "salmon", "mozzarella"],
-      },
+        ingredients: ["olives", "salmon", "mozzarella"]
+      }
     ],
     miscOrder: {
       cola: 3,
       sauce: 0,
-      potato: 1,
+      potato: 1
     },
     address: {
-      name: "Новый адрес",
-    },
-  },
+      name: "Новый адрес"
+    }
+  }
 ];
 
-const createOrders = (store) => {
+const createOrders = store => {
   store.commit(SET_ENTITY, {
     module: "Orders",
     entity: "orders",
-    value: normalizedOrders,
+    value: normalizedOrders
   });
 };
 
-describe("Orders", () => {
+describe("OrdersPage", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
-    wrapper = mount(Orders, options);
+
+  const createComponent = options => {
+    wrapper = mount(OrdersPage, options);
   };
 
   beforeEach(() => {

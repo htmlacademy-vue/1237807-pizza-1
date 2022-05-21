@@ -1,8 +1,8 @@
 import Vue from "vue";
-import Button from "@/common/components/Button";
-import Input from "@/common/components/Input";
-import Error from "@/common/components/Error";
+import AppButton from "@/common/components/AppButton";
+import AppInput from "@/common/components/AppInput";
+import AppError from "@/common/components/AppError";
 
-Vue.component("Button", Button);
-Vue.component("Input", Input);
-Vue.component("Error", Error);
+Vue.component("AppButton", AppButton);
+Vue.component("AppInput", AppInput);
+Vue.component("AppError", AppError);

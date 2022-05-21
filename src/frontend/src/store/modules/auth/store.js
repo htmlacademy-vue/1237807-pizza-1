@@ -4,13 +4,13 @@ export default {
   namespaced: true,
   state: {
     isAuthenticated: false,
-    user: null,
+    user: null
   },
 
   getters: {
-    getUserAttribute: (state) => (attr) => state.user ? state.user[attr] : "",
-    getUserAvatar: (state) =>
-      state.user ? state.user.avatar.split(".")[0] : "",
+    getUserAttribute: state => attr => state.user ? state.user[attr] : "",
+    getUserAvatar: state =>
+      state.user ? state.user.avatar.split(".")[0] : ""
   },
 
   actions: {
@@ -56,6 +56,6 @@ export default {
       } catch {
         dispatch("logout", false);
       }
-    },
-  },
+    }
+  }
 };

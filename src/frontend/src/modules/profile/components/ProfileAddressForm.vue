@@ -8,7 +8,7 @@
     </div>
     <div class="address-form__wrapper">
       <div class="address-form__input">
-        <Input
+        <AppInput
           ref="name"
           v-model="address.name"
           name="name"
@@ -19,7 +19,7 @@
         />
       </div>
       <div class="address-form__input address-form__input--size--normal">
-        <Input
+        <AppInput
           ref="street"
           v-model="address.street"
           name="street"
@@ -30,7 +30,7 @@
         />
       </div>
       <div class="address-form__input address-form__input--size--small">
-        <Input
+        <AppInput
           ref="building"
           v-model="address.building"
           name="building"
@@ -41,7 +41,7 @@
         />
       </div>
       <div class="address-form__input address-form__input--size--small">
-        <Input
+        <AppInput
           ref="flat"
           v-model="address.flat"
           name="flat"
@@ -51,7 +51,7 @@
         />
       </div>
       <div class="address-form__input">
-        <Input
+        <AppInput
           ref="comment"
           v-model="address.comment"
           name="comment"
@@ -62,24 +62,28 @@
       </div>
     </div>
     <div class="address-form__buttons">
-      <Button
+      <AppButton
         class="button--transparent"
         data-test="cancel-btn"
         @click="closeForm"
       >
         Отмена
-      </Button>
-      <Button
+      </AppButton>
+      <AppButton
         v-if="addressToEdit"
         class="button--transparent"
         data-test="remove-btn"
         @click="removeAddress"
       >
         Удалить
-      </Button>
-      <Button type="submit" data-test="submit-btn" :disabled="!isFormValid"
-        >Сохранить</Button
+      </AppButton>
+      <AppButton
+        type="submit"
+        data-test="submit-btn"
+        :disabled="!isFormValid"
       >
+        Сохранить
+      </AppButton>
     </div>
   </form>
 </template>
@@ -95,46 +99,54 @@ const createNewAddress = () => ({
   street: "",
   building: "",
   flat: "",
-  comment: "",
+  comment: ""
 });
 
 export default {
   name: "ProfileAddressForm",
   mixins: [validator],
+
   props: {
     addressToEdit: {
       type: Object,
-      default: null,
-    },
+      default: null
+    }
   },
+
   data() {
     return {
       address: createNewAddress(),
+
       validations: {
         name: {
           error: "",
-          rules: ["required"],
+          rules: ["required"]
         },
+
         street: {
           error: "",
-          rules: ["required"],
+          rules: ["required"]
         },
+
         building: {
           error: "",
-          rules: ["required"],
-        },
+          rules: ["required"]
+        }
       },
-      isFormValid: true,
+
+      isFormValid: true
     };
   },
+
   watch: {
     address: {
       deep: true,
       handler() {
         this.isFormValid = true;
-      },
-    },
+      }
+    }
   },
+
   created() {
     if (this.addressToEdit) {
       this.address = cloneDeep(this.addressToEdit);
@@ -143,31 +155,37 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapActions("Addresses", {
       addressPost: "post",
       addressPut: "put",
-      addressDelete: "delete",
+      addressDelete: "delete"
     }),
+
     async submit() {
       if (!this.$validateFields(this.address, this.validations)) {
         this.isFormValid = false;
         return;
       }
+
       if (this.addressToEdit) {
         await this.addressPut(this.address);
       } else {
         await this.addressPost(this.address);
       }
+
       this.closeForm();
     },
+
     async removeAddress() {
       await this.addressDelete(this.address.id);
       this.closeForm();
     },
+
     closeForm() {
       this.$emit("close");
-    },
-  },
+    }
+  }
 };
 </script>

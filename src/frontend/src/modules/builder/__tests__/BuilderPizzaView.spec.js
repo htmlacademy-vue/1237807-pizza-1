@@ -22,19 +22,20 @@ const mockCurrentPizzaData = {
     "salami",
     "ananas",
     "ananas",
-    "cheddar",
+    "cheddar"
   ],
-  count: 1,
+  count: 1
 };
 
-const addCurrentPizza = (store) => {
+const addCurrentPizza = store => {
   store.commit(`Builder/${SET_CURRENT_PIZZA}`, mockCurrentPizzaData);
 };
 
 describe("BuilderPizzaView", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(BuilderPizzaView, options);
   };
 

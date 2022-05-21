@@ -7,7 +7,7 @@ import {
   countItemsInArray,
   getRequestDataFromObject,
   getIngredientsArray,
-  getObjectFromResponseData,
+  getObjectFromResponseData
 } from "@/common/helpers";
 
 class BaseApiService {
@@ -90,18 +90,18 @@ export class DataApiService extends ReadOnlyApiService {
   }
 
   _normalize(data, items) {
-    const requiredItem = items.find((item) => item.name === data.name);
+    const requiredItem = items.find(item => item.name === data.name);
 
     return {
       ...data,
       type: requiredItem.type,
-      value: requiredItem.value,
+      value: requiredItem.value
     };
   }
 
   async query() {
     const data = await super.query();
-    return data.map((item) => this._normalize(item, dataTypes[this.#resource]));
+    return data.map(item => this._normalize(item, dataTypes[this.#resource]));
   }
 }
 
@@ -117,29 +117,29 @@ export class OrdersApiService extends CrudApiService {
   _normalize(order) {
     const pizzasOrder = !order.orderPizzas
       ? []
-      : order.orderPizzas.map((pizza) => {
-          return {
-            id: pizza.id,
-            title: pizza.name,
-            sauce: getValueById(
-              this.#store.state.pizzaData.sauces,
-              pizza.sauceId
-            ),
-            dough: getValueById(
-              this.#store.state.pizzaData.dough,
-              pizza.doughId
-            ),
-            diameter: getValueById(
-              this.#store.state.pizzaData.sizes,
-              pizza.sizeId
-            ),
-            count: pizza.quantity,
-            ingredients: getIngredientsArray(
-              pizza.ingredients,
-              this.#store.state.pizzaData.ingredients
-            ),
-          };
-        });
+      : order.orderPizzas.map(pizza => {
+        return {
+          id: pizza.id,
+          title: pizza.name,
+          sauce: getValueById(
+            this.#store.state.pizzaData.sauces,
+            pizza.sauceId
+          ),
+          dough: getValueById(
+            this.#store.state.pizzaData.dough,
+            pizza.doughId
+          ),
+          diameter: getValueById(
+            this.#store.state.pizzaData.sizes,
+            pizza.sizeId
+          ),
+          count: pizza.quantity,
+          ingredients: getIngredientsArray(
+            pizza.ingredients,
+            this.#store.state.pizzaData.ingredients
+          )
+        };
+      });
 
     const miscOrder = getObjectFromResponseData(
       order.orderMisc,
@@ -155,7 +155,7 @@ export class OrdersApiService extends CrudApiService {
   }
 
   _createRequest(order) {
-    const pizzas = order.pizzasOrder.map((pizza) => {
+    const pizzas = order.pizzasOrder.map(pizza => {
       return {
         name: pizza.title,
         sauceId: getId(this.#store.state.pizzaData.sauces, pizza.sauce),
@@ -166,7 +166,7 @@ export class OrdersApiService extends CrudApiService {
           countItemsInArray(pizza.ingredients),
           this.#store.state.pizzaData.ingredients,
           "ingredientId"
-        ),
+        )
       };
     });
     const misc = getRequestDataFromObject(
@@ -190,7 +190,7 @@ export class OrdersApiService extends CrudApiService {
 
   async query() {
     const data = await super.query();
-    return data.map((item) => this._normalize(item));
+    return data.map(item => this._normalize(item));
   }
 
   async post(order) {

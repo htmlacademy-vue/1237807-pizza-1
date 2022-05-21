@@ -10,14 +10,15 @@ localVue.use(Vuex);
 const addPizzaTitle = (store, payload) => {
   store.commit(`Builder/${UPDATE_CURRENT_PIZZA}`, {
     item: "title",
-    payload,
+    payload
   });
 };
 
 describe("BuilderPizzaTitle", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(BuilderPizzaTitle, options);
   };
 
@@ -49,7 +50,7 @@ describe("BuilderPizzaTitle", () => {
     await input.trigger("change");
     expect(spyOnMutation).toHaveBeenCalledWith({
       item: "title",
-      payload: "test",
+      payload: "test"
     });
   });
 });

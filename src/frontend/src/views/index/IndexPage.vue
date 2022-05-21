@@ -1,8 +1,13 @@
 <template>
   <main class="content">
-    <form action="#" method="post">
+    <form
+      action="#"
+      method="post"
+    >
       <div class="content__wrapper">
-        <h1 class="title title--big">Конструктор пиццы</h1>
+        <h1 class="title title--big">
+          Конструктор пиццы
+        </h1>
         <BuilderDoughSelector data-test="dough-selector" />
         <BuilderSizeSelector data-test="size-selector" />
         <BuilderIngredientsSelector data-test="ingredients-selector" />
@@ -25,15 +30,16 @@ import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 
 export default {
-  name: "Index",
+  name: "IndexPage",
   layout: "AppLayoutDefault",
+
   components: {
     BuilderDoughSelector,
     BuilderSizeSelector,
     BuilderIngredientsSelector,
     BuilderPizzaTitle,
     BuilderPizzaView,
-    BuilderPriceCounter,
-  },
+    BuilderPriceCounter
+  }
 };
 </script>

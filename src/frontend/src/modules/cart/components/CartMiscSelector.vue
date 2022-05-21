@@ -19,7 +19,7 @@
         <div class="additional-list__wrapper">
           <ItemCounter
             :class="`additional-list__counter`"
-            :buttonClass="`counter__button--orange`"
+            :button-class="`counter__button--orange`"
             :value="miscOrder[miscItem.value] || 0"
             data-test="misc-counter"
             @removeItem="
@@ -51,14 +51,16 @@ import ItemCounter from "@/common/components/ItemCounter";
 export default {
   name: "CartMiscSelector",
   components: { ItemCounter },
+
   computed: {
     ...mapState(["miscData"]),
-    ...mapState("Cart", ["miscOrder"]),
+    ...mapState("Cart", ["miscOrder"])
   },
+
   methods: {
     ...mapMutations("Cart", {
-      updateMiscOrder: UPDATE_MISC_ORDER,
-    }),
-  },
+      updateMiscOrder: UPDATE_MISC_ORDER
+    })
+  }
 };
 </script>

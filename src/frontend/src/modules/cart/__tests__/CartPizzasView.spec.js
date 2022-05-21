@@ -15,7 +15,7 @@ const mockPizzasOrder = [
     dough: "large",
     diameter: "small",
     count: 2,
-    ingredients: ["bacon", "mushrooms", "cheddar"],
+    ingredients: ["bacon", "mushrooms", "cheddar"]
   },
   {
     id: 2,
@@ -24,22 +24,23 @@ const mockPizzasOrder = [
     dough: "light",
     diameter: "big",
     count: 1,
-    ingredients: ["ham", "onion", "onion", "jalapeno"],
-  },
+    ingredients: ["ham", "onion", "onion", "jalapeno"]
+  }
 ];
 
-const setPizzasOrder = (store) => {
+const setPizzasOrder = store => {
   store.commit(SET_ENTITY, {
     module: "Cart",
     entity: "pizzasOrder",
-    value: mockPizzasOrder,
+    value: mockPizzasOrder
   });
 };
 
 describe("CartPizzasView", () => {
   let store;
   let wrapper;
-  const createComponent = (options) => {
+
+  const createComponent = options => {
     wrapper = mount(CartPizzasView, options);
   };
 

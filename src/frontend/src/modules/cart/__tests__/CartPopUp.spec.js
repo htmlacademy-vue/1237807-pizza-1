@@ -10,7 +10,7 @@ describe("CartPopUp", () => {
   let store;
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = mount(CartPopUp, options);
   };
 

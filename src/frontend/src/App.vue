@@ -18,9 +18,11 @@ import { setAuth } from "@/common/helpers";
 
 export default {
   name: "App",
+
   components: {
-    AppLayout,
+    AppLayout
   },
+
   created() {
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
@@ -32,7 +34,7 @@ export default {
         this.$store.dispatch("fetchAuthorizedOnlyData");
       }
     });
-  },
+  }
 };
 </script>
 

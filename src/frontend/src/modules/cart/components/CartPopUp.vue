@@ -1,5 +1,8 @@
 <template>
-  <div class="wrapper" @animationend="redirect">
+  <div
+    class="wrapper"
+    @animationend="redirect"
+  >
     <div class="popup">
       <a
         href="#"
@@ -7,10 +10,12 @@
         data-test="close-button"
         @click.prevent="closePopUp"
       >
-        <span class="visually-hidden">Закрыть попап</span>
+        <span class="visually-hidden"> Закрыть попап </span>
       </a>
       <div class="popup__title">
-        <h2 class="title">Спасибо за заказ</h2>
+        <h2 class="title">
+          Спасибо за заказ
+        </h2>
       </div>
       <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
       <div class="popup__button">
@@ -19,8 +24,9 @@
           class="button"
           data-test="confirm-button"
           @click.prevent="closePopUp"
-          >Отлично, я жду!</a
         >
+          Отлично, я жду!
+        </a>
       </div>
     </div>
   </div>
@@ -33,13 +39,16 @@ import { FINAL_ANIMATION_NAME } from "@/common/constants";
 
 export default {
   name: "CartPopUp",
+
   computed: {
-    ...mapState("Auth", ["isAuthenticated"]),
+    ...mapState("Auth", ["isAuthenticated"])
   },
+
   methods: {
     ...mapMutations("Cart", {
-      setPopUp: SET_POP_UP,
+      setPopUp: SET_POP_UP
     }),
+
     redirect(e) {
       if (e.animationName === FINAL_ANIMATION_NAME) {
         if (this.isAuthenticated) {
@@ -49,10 +58,11 @@ export default {
         }
       }
     },
+
     closePopUp() {
       this.setPopUp(false);
-    },
-  },
+    }
+  }
 };
 </script>
 

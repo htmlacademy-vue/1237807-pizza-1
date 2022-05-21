@@ -1,6 +1,6 @@
 <template>
   <label class="input">
-    <span class="visually-hidden">Название пиццы</span>
+    <span class="visually-hidden"> Название пиццы </span>
     <input
       type="text"
       name="pizza_name"
@@ -18,16 +18,19 @@ import { UPDATE_CURRENT_PIZZA } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaTitle",
+
   computed: {
     ...mapGetters("Builder", ["getPizzaItem"]),
+
     title() {
       return this.getPizzaItem("title");
-    },
+    }
   },
+
   methods: {
     ...mapMutations("Builder", {
-      updatePizza: UPDATE_CURRENT_PIZZA,
-    }),
-  },
+      updatePizza: UPDATE_CURRENT_PIZZA
+    })
+  }
 };
 </script>

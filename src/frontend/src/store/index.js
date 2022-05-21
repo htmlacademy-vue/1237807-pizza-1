@@ -8,7 +8,7 @@ import {
   UPDATE_ENTITY,
   DELETE_ENTITY,
   CREATE_ERROR,
-  DELETE_ERROR,
+  DELETE_ERROR
 } from "@/store/mutations-types";
 import { ERROR_LIVE_TIME } from "@/common/constants";
 import { getPrice, countItemsInArray } from "@/common/helpers";
@@ -20,10 +20,10 @@ export const state = () => ({
     dough: [],
     sizes: [],
     sauces: [],
-    ingredients: [],
+    ingredients: []
   },
   miscData: [],
-  error: "",
+  error: ""
 });
 
 export const actions = {
@@ -53,42 +53,42 @@ export const actions = {
   async createError(store, text) {
     store.commit(CREATE_ERROR, text);
     setTimeout(() => store.commit(DELETE_ERROR), ERROR_LIVE_TIME);
-  },
+  }
 };
 
 export const getters = {
-  getPizzaDataItem: (state) => (item) => state.pizzaData[item],
+  getPizzaDataItem: state => item => state.pizzaData[item],
   getPizzaCost:
     ({ pizzaData }) =>
-    (pizza) => {
-      const doughCost = getPrice(pizzaData.dough, pizza.dough);
-      const sizeCost = getPrice(pizzaData.sizes, pizza.diameter);
-      const sauceCost = getPrice(pizzaData.sauces, pizza.sauce);
+      pizza => {
+        const doughCost = getPrice(pizzaData.dough, pizza.dough);
+        const sizeCost = getPrice(pizzaData.sizes, pizza.diameter);
+        const sauceCost = getPrice(pizzaData.sauces, pizza.sauce);
 
-      const ingredientsCount = countItemsInArray(pizza.ingredients);
-      let ingredientsTotalCost = 0;
-      pizzaData.ingredients.map((item) => {
-        if (ingredientsCount[item.value]) {
-          ingredientsTotalCost += item.price * ingredientsCount[item.value];
-        }
-      });
+        const ingredientsCount = countItemsInArray(pizza.ingredients);
+        let ingredientsTotalCost = 0;
+        pizzaData.ingredients.map(item => {
+          if (ingredientsCount[item.value]) {
+            ingredientsTotalCost += item.price * ingredientsCount[item.value];
+          }
+        });
 
-      return (doughCost + sauceCost + ingredientsTotalCost) * sizeCost || 0;
-    },
+        return (doughCost + sauceCost + ingredientsTotalCost) * sizeCost || 0;
+      },
   getOrderCost:
     ({ miscData }, getters) =>
-    ({ miscOrder, pizzasOrder }) => {
-      let total = 0;
+      ({ miscOrder, pizzasOrder }) => {
+        let total = 0;
 
-      pizzasOrder.forEach((pizza) => {
-        total += getters.getPizzaCost(pizza) * pizza.count;
-      });
-      miscData.forEach((item) => {
-        total += item.price * miscOrder[item.value];
-      });
+        pizzasOrder.forEach(pizza => {
+          total += getters.getPizzaCost(pizza) * pizza.count;
+        });
+        miscData.forEach(item => {
+          total += item.price * miscOrder[item.value];
+        });
 
-      return total;
-    },
+        return total;
+      }
 };
 
 export const mutations = {
@@ -126,12 +126,12 @@ export const mutations = {
   [DELETE_ENTITY](state, { module, entity, id }) {
     if (module) {
       state[module][entity] = state[module][entity].filter(
-        (e) => +e.id !== +id
+        e => +e.id !== +id
       );
     } else {
-      state[entity] = state[entity].filter((e) => +e.id !== +id);
+      state[entity] = state[entity].filter(e => +e.id !== +id);
     }
-  },
+  }
 };
 
 export default new Vuex.Store({
@@ -140,5 +140,5 @@ export default new Vuex.Store({
   mutations,
   actions,
   modules,
-  plugins: [VuexPlugins],
+  plugins: [VuexPlugins]
 });

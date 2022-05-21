@@ -1,7 +1,9 @@
 <template>
   <div class="layout__content">
     <div class="layout__title">
-      <h1 class="title title--big">История заказов</h1>
+      <h1 class="title title--big">
+        История заказов
+      </h1>
     </div>
     <div
       v-if="orders.length === 0"
@@ -11,8 +13,8 @@
       <p>У вас пока нет заказов</p>
     </div>
     <OrdersItem
-      v-else
       v-for="order in orders"
+      v-else
       :key="order.id"
       :order="order"
       data-test="orders"
@@ -26,12 +28,13 @@ import OrdersItem from "@/modules/orders/components/OrdersItem";
 import { auth } from "@/middlewares";
 
 export default {
-  name: "Orders",
+  name: "OrdersPage",
   layout: "AppLayoutAuthorizedUser",
   middlewares: [auth],
   components: { OrdersItem },
+
   computed: {
-    ...mapState("Orders", ["orders"]),
-  },
+    ...mapState("Orders", ["orders"])
+  }
 };
 </script>

@@ -2,8 +2,12 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 import OrdersItem from "@/modules/orders/components/OrdersItem";
+import AppButton from "@/common/components/AppButton";
 
 const localVue = createLocalVue();
+
+localVue.component("AppButton", AppButton);
+
 localVue.use(Vuex);
 
 const propsData = {
@@ -17,7 +21,7 @@ const propsData = {
         dough: "large",
         diameter: "small",
         count: 2,
-        ingredients: ["bacon", "mushrooms", "cheddar"],
+        ingredients: ["bacon", "mushrooms", "cheddar"]
       },
       {
         id: 2,
@@ -26,31 +30,31 @@ const propsData = {
         dough: "light",
         diameter: "big",
         count: 1,
-        ingredients: ["ham", "onion", "onion", "jalapeno"],
-      },
+        ingredients: ["ham", "onion", "onion", "jalapeno"]
+      }
     ],
     miscOrder: {
       cola: 1,
       sauce: 2,
-      potato: 4,
+      potato: 4
     },
     address: {
-      name: "Тестовый адрес",
+      name: "Тестовый адрес"
     },
-    phone: "1234567",
-  },
+    phone: "1234567"
+  }
 };
 
 describe("OrdersItem", () => {
   const mocks = {
     $router: {
-      push: jest.fn(),
-    },
+      push: jest.fn()
+    }
   };
   let store;
   let wrapper;
 
-  const createComponent = (options) => {
+  const createComponent = options => {
     wrapper = mount(OrdersItem, options);
   };
 

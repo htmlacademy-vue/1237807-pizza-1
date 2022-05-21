@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "/api/",
+  baseURL: "/api/"
 });
 
 axiosInstance.interceptors.response.use(
-  (res) => res,
-  (e) => {
+  res => res,
+  e => {
     const defaultMessage = "Возникла ошибка при выполнении запроса к серверу";
     axiosInstance.$error.create(
       e?.response?.data?.error?.message || defaultMessage

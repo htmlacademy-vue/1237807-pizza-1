@@ -24,17 +24,19 @@ import {
   doughTypes,
   pizzaSizes,
   sauceTypes,
-  ingredientsTypes,
+  ingredientsTypes
 } from "@/common/constants";
 
 export default {
   name: "PizzaItem",
+
   props: {
     pizza: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
+
   computed: {
     description() {
       const diameter = getRequiredValue(pizzaSizes, this.pizza.diameter);
@@ -42,20 +44,22 @@ export default {
 
       return `${diameter.name}, на ${dough.label} тесте`;
     },
+
     dressing() {
       const sauce = getRequiredValue(sauceTypes, this.pizza.sauce);
 
       return `Соус: ${lowercase(sauce.name)}`;
     },
+
     filling() {
-      const allIngredients = this.pizza.ingredients.map((ingredient) => {
+      const allIngredients = this.pizza.ingredients.map(ingredient => {
         const ingredientData = getRequiredValue(ingredientsTypes, ingredient);
         return lowercase(ingredientData.name);
       });
       const uniqueIngredients = Array.from(new Set(allIngredients)).join(", ");
 
       return `Начинка: ${uniqueIngredients}`;
-    },
-  },
+    }
+  }
 };
 </script>
