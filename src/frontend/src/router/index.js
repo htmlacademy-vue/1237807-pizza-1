@@ -7,7 +7,6 @@ import { middlewarePipeline } from "@/middlewares";
 Vue.use(Router);
 
 export default Promise.all(routes).then(routes => {
-  console.log(routes);
   const router = new Router({
     mode: "history",
     routes
